@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SUGAR PEONIES — Boutique Chaos & Audio Architecture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf7f9;
+      --ink: #110d13;
+      --muted: #6e6273;
+      --peony: #ff5ca8;
+      --peony-soft: #ffd6ea;
+      --cyan: #00e5ff;
+      --lime: #c6ff00;
+      --card: #ffffff;
+      --line: #e9dfe6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      background-image: radial-gradient(#e5d4df 1px, transparent 1px);
+      background-size: 28px 28px;
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      selection-background-color: var(--peony);
+    }
+    ::selection { background: var(--peony); color: #fff; }
+
+    /* Editorial Navigation */
+    header {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      letter-spacing: 0.06em;
+    }
+
+    /* Main Editorial Container */
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 72px 24px 96px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 56px;
+      align-items: center;
+    }
+    @media (max-width: 820px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+    }
+
+    .eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--peony);
+      margin-bottom: 18px;
+      display: inline-block;
+      background: var(--peony-soft);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 5.4rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      margin-bottom: 26px;
+    }
+    h1 em {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--peony);
+      padding-right: 6px;
+    }
+
+    .lead {
+      font-size: 1.15rem;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 36px;
+    }
+
+    /* Die-Cut Vinyl Sticker Engine */
+    .diecut-sticker {
+      display: inline-block;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      filter:
+        drop-shadow(0 8px 16px rgba(17, 13, 19, 0.16))
+        drop-shadow(0 2px 4px rgba(17, 13, 19, 0.12));
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      z-index: 20;
+    }
+    .diecut-sticker:hover {
+      transform: scale(1.06) rotate(-3deg);
+    }
+    .diecut-sticker:active {
+      cursor: grabbing;
+      transform: scale(1.11) rotate(2deg);
+    }
+
+    /* Gallery Showcase Card */
+    .showcase-card {
+      background: var(--card);
+      border: 1.5px solid var(--ink);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 10px 10px 0px var(--ink);
+      position: relative;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 14px;
+      margin-bottom: 22px;
+    }
+    .track-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .lyric-box {
+      background: #110d13;
+      color: #faf7f9;
+      border-radius: 16px;
+      padding: 22px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      margin: 18px 0 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .lyric-box span.highlight {
+      color: var(--peony);
+      font-weight: 700;
+    }
+    .Sticker-Stage {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .hint-caption {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 16px;
+    }
+
+    /* Floating Corner Die-Cut Sticker on Card */
+    .corner-sticker {
+      position: absolute;
+      top: -38px;
+      right: -24px;
+      transform: rotate(11deg);
+    }
+
+    /* Pill Buttons */
+    .btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 1.5px solid var(--ink);
+      background: var(--card);
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.16s ease;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--peony);
+      color: #fff;
+      box-shadow: 4px 4px 0px var(--ink);
+    }
+    .btn-primary:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--ink);
+    }
+    .btn:hover {
+      background: var(--peony-soft);
+    }
+    .btn-primary:hover {
+      background: #ff3d96;
+    }
+
+    footer {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px 24px 48px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span>🌸 SUGARPEONIES.COM</span>
+    </div>
+    <div class="status-pill">EST. 2026 · DIE-CUT EDITION</div>
+  </header>
+
+  <main>
+    <div class="hero-grid">
+      <section>
+        <span class="eyebrow">Boutique Chaos · Audio & Prompt Architecture</span>
+        <h1>
+          Sweet on the surface.<br/>
+          <em>Unhinged</em> underneath.
+        </h1>
+        <p class="lead">
+          Clean gallery whitespace, surgical prompt engineering, 8-bit electro-clash drops, and rhinestone vinyl stickers slapped exactly where the censors panicking in the back row least want them.
+        </p>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="cycleLyricBtn">⚡ Roast The Lore</button>
+          <button class="btn" id="resetStickersBtn">✨ Reset Vinyl Stickers</button>
+        </div>
+
+        <div class="Sticker-Stage" style="margin-top: 40px;">
+          <!-- DIE-CUT STICKER 1: Sparkly Heart-Eyed Cheeky Peony Rocket / Charm -->
+          <div class="diecut-sticker" title="Drag me anywhere">
+            <svg width="128" height="128" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+              <!-- Thick White Vinyl Die-Cut Border -->
+              <g stroke="#ffffff" stroke-width="18" stroke-linejoin="round" stroke-linecap="round">
+                <path d="M52 88 C32 88, 24 114, 48 118 C64 120, 76 120, 92 118 C116 114, 108 88, 88 88 L86 42 C86 22, 54 22, 54 42 Z" fill="#ffffff"/>
+              </g>
+              <!-- Subtle Vinyl Edge Outline -->
+              <path d="M52 88 C32 88, 24 114, 48 118 C64 120, 76 120, 92 118 C116 114, 108 88, 88 88 L86 42 C86 22, 54 22, 54 42 Z" fill="#ff7eb9" stroke="#110d13" stroke-width="3.5" stroke-linejoin="round"/>
+              <!-- Glossy Cap Line -->
+              <path d="M54 45 Q70 53 86 45" fill="none" stroke="#110d13" stroke-width="3" stroke-linecap="round"/>
+              <path d="M70 25 L70 33" stroke="#110d13" stroke-width="3" stroke-linecap="round"/>
+              <!-- Gloss Highlights -->
+              <ellipse cx="61" cy="36" rx="4" ry="7" fill="#ffffff" opacity="0.75"/>
+              <rect x="58" y="54" width="5" height="24" rx="2.5" fill="#ffffff" opacity="0.65"/>
+              <!-- Heart Eyes -->
+              <path d="M61 66 C59 62, 53 63, 55 68 C56 71, 61 74, 61 74 C61 74, 66 71, 67 68 C69 63, 63 62, 61 66 Z" fill="#ff1744" stroke="#110d13" stroke-width="1.5"/>
+              <path d="M79 66 C77 62, 71 63, 73 68 C74 71, 79 74, 79 74 C79 74, 84 71, 85 68 C87 63, 81 62, 79 66 Z" fill="#ff1744" stroke="#110d13" stroke-width="1.5"/>
+              <!-- Cheeky Smirk -->
+              <path d="M65 81 Q70 86 76 80" fill="none" stroke="#110d13" stroke-width="2.8" stroke-linecap="round"/>
+              <!-- Rhinestone Sparkles -->
+              <path d="M36 44 L39 52 L47 55 L39 58 L36 66 L33 58 L25 55 L33 52 Z" fill="#00e5ff" stroke="#110d13" stroke-width="1.5"/>
+              <path d="M104 36 L106 42 L112 44 L106 46 L104 52 L102 46 L96 44 L102 42 Z" fill="#fff176" stroke="#110d13" stroke-width="1.5"/>
+              <circle cx="96" cy="98" r="3.5" fill="#ffffff"/>
+            </svg>
+          </div>
+
+          <!-- DIE-CUT STICKER 2: Giant Bedazzled Baby-Pink Peony Brooch -->
+          <div class="diecut-sticker" title="Drag me anywhere">
+            <svg width="128" height="128" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+              <!-- Thick White Vinyl Die-Cut Border -->
+              <g stroke="#ffffff" stroke-width="18" stroke-linejoin="round">
+                <circle cx="70" cy="42" r="22" fill="#ffffff"/>
+                <circle cx="96" cy="58" r="22" fill="#ffffff"/>
+                <circle cx="88" cy="90" r="22" fill="#ffffff"/>
+                <circle cx="52" cy="90" r="22" fill="#ffffff"/>
+                <circle cx="44" cy="58" r="22" fill="#ffffff"/>
+              </g>
+              <!-- Outer Peony Petals -->
+              <circle cx="70" cy="42" r="22" fill="#ff94c8" stroke="#110d13" stroke-width="3.2"/>
+              <circle cx="96" cy="58" r="22" fill="#ff7eb9" stroke="#110d13" stroke-width="3.2"/>
+              <circle cx="88" cy="90" r="22" fill="#ff94c8" stroke="#110d13" stroke-width="3.2"/>
+              <circle cx="52" cy="90" r="22" fill="#ff7eb9" stroke="#110d13" stroke-width="3.2"/>
+              <circle cx="44" cy="58" r="22" fill="#ff94c8" stroke="#110d13" stroke-width="3.2"/>
+              <!-- Inner Ruffled Petals -->
+              <circle cx="70" cy="68" r="24" fill="#ffb8dc" stroke="#110d13" stroke-width="3"/>
+              <!-- Rhinestone Gem Center -->
+              <polygon points="70,52 84,68 70,84 56,68" fill="#ffffff" stroke="#110d13" stroke-width="2.5"/>
+              <polygon points="70,56 79,68 70,80 61,68" fill="#00e5ff"/>
+              <!-- Rhinestone Studs -->
+              <circle cx="70" cy="36" r="3.5" fill="#ffffff" stroke="#110d13" stroke-width="1.5"/>
+              <circle cx="98" cy="58" r="3.5" fill="#ffffff" stroke="#110d13" stroke-width="1.5"/>
+              <circle cx="86" cy="92" r="3.5" fill="#ffffff" stroke="#110d13" stroke-width="1.5"/>
+              <circle cx="54" cy="92" r="3.5" fill="#ffffff" stroke="#110d13" stroke-width="1.5"/>
+              <circle cx="42" cy="58" r="3.5" fill="#ffffff" stroke="#110d13" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+        <p class="hint-caption">↑ Die-cut vinyl stickers are interactive. Grab and slap them over anything on the page.</p>
+      </section>
+
+      <!-- Right Column: Suno Cut Showcase Card -->
+      <aside class="showcase-card">
+        <!-- Corner Die-Cut Sticker -->
+        <div class="diecut-sticker corner-sticker" title="Drag me anywhere">
+          <svg width="96" height="96" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14" y="36" width="92" height="46" rx="12" fill="#ffffff" stroke="#ffffff" stroke-width="14" stroke-linejoin="round"/>
+            <rect x="14" y="36" width="92" height="46" rx="10" fill="#c6ff00" stroke="#110d13" stroke-width="3.5"/>
+            <text x="60" y="65" text-anchor="middle" font-family="Space Mono, monospace" font-weight="700" font-size="15" fill="#110d13">0:35 PEONY</text>
+          </svg>
+        </div>
+
+        <div class="card-header">
+          <span>SUNO CUT // 01</span>
+          <span>66 SEC · CHIPTUNE RAVE</span>
+        </div>
+        <div class="track-title">Demise Crying Little Bitch</div>
+        <p style="font-size: 0.9rem; color: var(--muted);">
+          10,000 years of generational trauma roasted in 66 seconds flat.
+        </p>
+
+        <div class="lyric-box" id="lyricDisplay">
+          "Sky's bleeding red again / Ancient curse, demon's fit / <span class="highlight">Demise crying little bitch.</span>"
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; font-family:'Space Mono', monospace; font-size:0.75rem; color:var(--muted);">
+          <span>STATUS: MASTER SWORD POLISHED</span>
+          <span>BPM: 165</span>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2026 SUGAR PEONIES · HEX</span>
+    <span>TASTEFUL DIE-CUT COUTURE // ZERO ART-TEACHER PURSE</span>
+  </footer>
+
+  <script>
+    const lyrics = [
+      '"Sky\'s bleeding red again / Ancient curse, demon\'s fit / <span class="highlight">Demise crying little bitch.</span>"',
+      '"Gloom hand, pus vein / Reincarnated? Pick a lane! / <span class="highlight">Ten-foot ginger, infinite spite.</span>"',
+      '"Secret stone, swallowed whole / <span class="highlight">Generational trauma with a giant red mole.</span>"',
+      '"Left the dungeon gates unlocked. Told him where your bedroom is. <span class="highlight">Have fun with the demon.</span>"'
+    ];
+    let idx = 0;
+    const display = document.getElementById('lyricDisplay');
+    document.getElementById('cycleLyricBtn').addEventListener('click', () => {
+      idx = (idx + 1) % lyrics.length;
+      display.innerHTML = lyrics[idx];
+    });
+
+    // Draggable Vinyl Stickers
+    const stickers = document.querySelectorAll('.diecut-sticker');
+    stickers.forEach(sticker => {
+      let startX = 0, startY = 0, currentX = 0, currentY = 0, dragging = false;
+      sticker.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        sticker.setPointerCapture(e.pointerId);
+        startX = e.clientX - currentX;
+        startY = e.clientY - currentY;
+        sticker.style.zIndex = 999;
+      });
+      sticker.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        currentX = e.clientX - startX;
+        currentY = e.clientY - startY;
+        sticker.style.transform = `translate(${currentX}px, ${currentY}px) rotate(-2deg) scale(1.06)`;
+      });
+      sticker.addEventListener('pointerup', () => {
+        dragging = false;
+      });
+      sticker.dataset.reset = 'true';
+      sticker._resetPos = () => {
+        currentX = 0; currentY = 0;
+        sticker.style.transform = '';
+      };
+    });
+
+    document.getElementById('resetStickersBtn').addEventListener('click', () => {
+      stickers.forEach(s => s._resetPos && s._resetPos());
+    });
+  </script>
+</body>
+</html>
