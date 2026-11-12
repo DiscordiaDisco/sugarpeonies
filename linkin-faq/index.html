@@ -2,1619 +2,1000 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linkin.Love FAQ // Sugar Pe♥nies Prompt Dept</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Linkin.Love FAQ // Sugar Pe♥nies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --page-bg: #000000;
-      --card-bg: #050505;
-      --panel-bg: #08080a;
-      --border: rgba(255, 0, 127, 0.28);
-      --border-hot: #ff007f;
-      --text: #fff5fa;
-      --muted: #b898a8;
-      --accent: #ff007f;
-      --accent-hot: #ff1493;
-      --accent-glow: rgba(255, 0, 127, 0.55);
+      --bg: #000000;
+      --surface: #050507;
+      --card: #08080c;
+      --pink: #ff007f;
+      --pink-hot: #ff1493;
+      --pink-soft: #ff66b2;
+      --pink-glow: rgba(255, 0, 127, 0.45);
       --cyan: #00f0ff;
-      --cyan-glow: rgba(0, 240, 255, 0.45);
+      --cyan-glow: rgba(0, 240, 255, 0.42);
+      --text: #fff0f6;
+      --muted: #b894a6;
+      --dim: #6e4c5e;
+      --border: rgba(255, 0, 127, 0.24);
       --spring: cubic-bezier(0.22, 1.25, 0.36, 1);
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      margin: 0;
       min-height: 100vh;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: #000000;
+      background: var(--bg);
       color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-image:
+        radial-gradient(circle at 18% 8%, rgba(255, 0, 127, 0.11) 0%, transparent 48%),
+        radial-gradient(circle at 82% 88%, rgba(0, 240, 255, 0.06) 0%, transparent 45%);
       overflow-x: hidden;
+      padding-bottom: 110px;
     }
 
-    /* Top Brand & Directory Bar */
-    .top-nav {
+    /* COMPACT DIRECTORY BAR + TINY TOP-RIGHT NEST SOCKET */
+    .directory-strip {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(0, 0, 0, 0.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 0 24px rgba(255, 0, 127, 0.18);
-      padding: 12px 24px;
+      z-index: 150;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 0, 127, 0.2);
+      padding: 8px 14px;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
-    }
-
-    .brand-crumbs {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-    }
-
-    .brand-crumbs a {
-      color: #ffffff;
-      text-decoration: none;
-      text-shadow: 0 0 8px var(--accent), 0 0 18px var(--accent-hot);
-      transition: opacity 0.18s;
-    }
-    .brand-crumbs a:hover { opacity: 0.85; }
-
-    .crumb-sep {
-      color: var(--cyan);
-      text-shadow: 0 0 8px var(--cyan);
-      font-weight: 900;
-      margin: 0 2px;
-    }
-
-    .crumb-node {
-      background: rgba(255, 0, 127, 0.1);
-      border: 1px solid rgba(255, 0, 127, 0.35);
-      color: #ffd6eb;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      cursor: pointer;
-      transition: all 0.18s;
-    }
-    .crumb-node:hover {
-      border-color: var(--cyan);
-      color: #ffffff;
-      box-shadow: 0 0 12px var(--cyan-glow);
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
       gap: 10px;
     }
 
-    .neon-btn {
-      background: #050505;
-      color: #ffffff;
-      border: 1px solid var(--accent);
-      padding: 7px 13px;
-      border-radius: 9px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      box-shadow: 0 0 12px rgba(255, 0, 127, 0.28), inset 0 0 8px rgba(255, 0, 127, 0.15);
-      transition: all 0.18s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .neon-btn:hover {
-      border-color: var(--cyan);
-      box-shadow: 0 0 16px var(--cyan-glow), inset 0 0 10px rgba(0, 240, 255, 0.2);
-      transform: translateY(-1px);
-    }
-
-    /* Workspace Layout: Sidebar + Main Stage */
-    .workspace {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 28px 20px 140px;
-      display: grid;
-      grid-template-columns: 330px 1fr;
-      gap: 28px;
-      align-items: start;
-    }
-
-    @media (max-width: 920px) {
-      .workspace {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Sidebar Directory & Search */
-    .sidebar {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 0 30px rgba(255, 0, 127, 0.12), inset 0 0 18px rgba(255, 0, 127, 0.05);
-      position: sticky;
-      top: 72px;
-      max-height: calc(100vh - 96px);
+    .dir-left {
       display: flex;
-      flex-direction: column;
-      gap: 14px;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
     }
 
-    @media (max-width: 920px) {
-      .sidebar {
-        position: static;
-        max-height: none;
-      }
+    .mobile-tree-btn {
+      display: none;
+      background: rgba(255, 0, 127, 0.1);
+      border: 1px solid var(--pink);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 5px 9px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      cursor: pointer;
+      flex-shrink: 0;
     }
 
-    .search-box {
+    .crumbs {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      color: var(--muted);
+      min-width: 0;
+    }
+
+    .crumbs a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .crumbs a:hover { color: #fff; text-shadow: 0 0 8px var(--pink); }
+    .crumbs .sep { color: var(--dim); }
+    .crumbs .crumb-btn {
+      background: rgba(255, 0, 127, 0.09);
+      border: 1px solid rgba(255, 0, 127, 0.25);
+      color: var(--pink-soft);
+      padding: 2px 7px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.71rem;
+    }
+    .crumbs .crumb-btn.cyan {
+      color: var(--cyan);
+      border-color: rgba(0, 240, 255, 0.3);
+      background: rgba(0, 240, 255, 0.08);
+    }
+
+    /* TINY CORNER NEST / RECALL SOCKET */
+    .corner-nest {
       position: relative;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px dashed rgba(0, 240, 255, 0.45);
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.12), rgba(255, 0, 127, 0.08));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.18);
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .corner-nest:hover {
+      transform: scale(1.08);
+      border-color: var(--pink);
+      box-shadow: 0 0 16px var(--pink-glow);
+    }
+    .corner-nest::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+    }
+    .corner-nest.nested::after {
+      background: var(--pink);
+      box-shadow: 0 0 10px var(--pink);
     }
 
+    /* MAIN SHELL */
+    .layout {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      min-height: calc(100vh - 55px);
+    }
+
+    /* SIDEBAR DIRECTORY TREE */
+    .sidebar {
+      background: var(--surface);
+      border-right: 1px solid rgba(255, 0, 127, 0.18);
+      padding: 16px 12px 100px;
+      position: sticky;
+      top: 55px;
+      height: calc(100vh - 55px);
+      overflow-y: auto;
+    }
+
+    .search-wrap {
+      position: relative;
+      margin-bottom: 14px;
+    }
     .search-input {
       width: 100%;
-      background: #000000;
-      border: 1px solid rgba(255, 0, 127, 0.45);
-      border-radius: 12px;
-      padding: 11px 36px 11px 14px;
-      color: #ffffff;
-      font-size: 0.86rem;
+      background: #000;
+      border: 1px solid rgba(255, 0, 127, 0.38);
+      border-radius: 8px;
+      padding: 9px 28px 9px 11px;
+      color: #fff;
+      font-size: 0.8rem;
       outline: none;
-      box-shadow: inset 0 0 10px rgba(255, 0, 127, 0.15);
-      transition: all 0.2s;
     }
     .search-input:focus {
-      border-color: var(--cyan);
-      box-shadow: 0 0 16px var(--cyan-glow), inset 0 0 8px rgba(0, 240, 255, 0.2);
+      border-color: var(--pink);
+      box-shadow: 0 0 12px rgba(255, 0, 127, 0.35);
     }
     .search-clear {
       position: absolute;
-      right: 10px;
+      right: 8px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
       color: var(--muted);
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       display: none;
     }
 
-    .tree-scroll {
-      overflow-y: auto;
-      padding-right: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .tree-scroll::-webkit-scrollbar { width: 5px; }
-    .tree-scroll::-webkit-scrollbar-thumb { background: rgba(255, 0, 127, 0.4); border-radius: 99px; }
-
-    .cat-block {
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 12px;
-      background: #030304;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-    .cat-block.active {
-      border-color: rgba(255, 0, 127, 0.55);
-      box-shadow: 0 0 16px rgba(255, 0, 127, 0.15);
-    }
-
-    .cat-header {
+    .tree-cat { margin-bottom: 8px; }
+    .tree-cat-btn {
       width: 100%;
-      background: transparent;
-      border: none;
-      color: #ffffff;
-      padding: 11px 13px;
       text-align: left;
-      font-size: 0.84rem;
-      font-weight: 800;
-      letter-spacing: 0.03em;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 0, 127, 0.14);
+      color: var(--text);
+      padding: 7px 9px;
+      border-radius: 7px;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       cursor: pointer;
     }
-    .cat-block.active .cat-header {
-      color: #ffffff;
-      text-shadow: 0 0 8px var(--accent);
-      background: rgba(255, 0, 127, 0.1);
+    .tree-cat-btn.active {
+      background: rgba(255, 0, 127, 0.13);
+      border-color: var(--pink);
+      box-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
     }
-
-    .cat-badge {
-      font-size: 0.68rem;
-      color: var(--cyan);
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      padding: 2px 6px;
-      border-radius: 6px;
+    .tree-cat-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
+      color: var(--pink-soft);
+      margin-right: 6px;
     }
-
-    .topic-list {
+    .tree-topics {
       display: none;
-      padding: 6px 10px 10px;
-      border-top: 1px solid rgba(255, 0, 127, 0.16);
+      padding-left: 8px;
+      margin-top: 5px;
+      border-left: 1px dashed rgba(255, 0, 127, 0.25);
     }
-    .cat-block.open .topic-list {
+    .tree-cat.open .tree-topics { display: block; }
+
+    .tree-topic-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 6px 6px 3px;
       display: block;
     }
 
-    .topic-group {
-      margin-top: 8px;
-    }
-    .topic-group:first-child { margin-top: 2px; }
-
-    .topic-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--cyan);
-      font-weight: 800;
-      margin-bottom: 5px;
-      padding-left: 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .q-btn {
+    .tree-q-btn {
       width: 100%;
       text-align: left;
       background: transparent;
-      border: 1px solid transparent;
+      border: none;
       color: var(--muted);
-      font-size: 0.78rem;
-      padding: 6px 9px;
-      border-radius: 8px;
+      padding: 5px 8px;
+      border-radius: 5px;
+      font-size: 0.74rem;
       cursor: pointer;
       display: flex;
-      align-items: center;
-      gap: 7px;
-      transition: all 0.15s;
-      margin-bottom: 2px;
+      gap: 6px;
+      align-items: baseline;
+      line-height: 1.3;
     }
-    .q-btn:hover {
-      color: #ffffff;
-      background: rgba(255, 0, 127, 0.08);
-    }
-    .q-btn.active {
-      color: #ffffff;
-      font-weight: 700;
-      background: rgba(255, 0, 127, 0.18);
-      border-color: var(--accent);
-      box-shadow: 0 0 12px rgba(255, 0, 127, 0.25);
-    }
-    .q-code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.68rem;
-      color: var(--accent);
-      opacity: 0.9;
-      flex-shrink: 0;
+    .tree-q-btn:hover { color: #fff; background: rgba(255, 0, 127, 0.08); }
+    .tree-q-btn.active {
+      color: #fff;
+      background: rgba(255, 0, 127, 0.2);
+      border-left: 2px solid var(--pink);
+      font-weight: 600;
     }
 
-    /* Main Stage & Active FAQ Card */
-    .stage {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
+    /* CONTENT PANE */
+    .content {
+      padding: 24px 28px 80px;
+      max-width: 880px;
     }
 
-    .hero-banner {
-      background: #040406;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 24px 28px;
-      box-shadow: 0 0 36px rgba(255, 0, 127, 0.14);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-banner::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent), #ffffff, var(--cyan), transparent);
-      box-shadow: 0 0 16px var(--accent);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.73rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--cyan);
-      text-shadow: 0 0 10px var(--cyan-glow);
-      margin-bottom: 8px;
-    }
-
-    .hero-title {
-      margin: 0 0 8px;
-      font-size: clamp(1.55rem, 3vw, 2.2rem);
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 22px var(--accent), 0 0 42px var(--accent-hot);
-    }
-
-    .hero-sub {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.94rem;
-      line-height: 1.6;
-      max-width: 72ch;
-    }
-
-    /* Active FAQ Reader Card */
-    .content-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-hot);
-      border-radius: 18px;
-      padding: 30px;
-      box-shadow: 0 0 38px rgba(255, 0, 127, 0.18), inset 0 0 22px rgba(255, 0, 127, 0.06);
-      transition: opacity 0.18s ease, transform 0.18s ease;
-    }
-
-    .card-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 16px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255, 0, 127, 0.22);
-    }
-
-    .coord-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(255, 0, 127, 0.14);
-      border: 1px solid var(--accent);
-      color: #ffffff;
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      box-shadow: 0 0 14px rgba(255, 0, 127, 0.3);
-    }
-
-    .article-title {
-      margin: 0 0 14px;
-      font-size: clamp(1.35rem, 2.4vw, 1.8rem);
-      color: #ffffff;
-      text-shadow: 0 0 14px rgba(255, 0, 127, 0.55);
-      line-height: 1.25;
-    }
-
-    .article-body {
-      color: #f2dce7;
-      line-height: 1.75;
-      font-size: 0.98rem;
-    }
-    .article-body p { margin: 0 0 16px; }
-
-    .diag-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 20px 0;
-    }
-    @media (max-width: 680px) {
-      .diag-grid { grid-template-columns: 1fr; }
-    }
-
-    .diag-box {
-      background: #000000;
-      border: 1px solid rgba(255, 0, 127, 0.35);
+    .search-results {
+      display: none;
+      margin-bottom: 24px;
+      background: var(--card);
+      border: 1px solid var(--pink);
       border-radius: 12px;
       padding: 16px;
     }
-    .diag-box.fix {
-      border-color: var(--cyan);
-      box-shadow: 0 0 18px rgba(0, 240, 255, 0.12);
+    .search-results.visible { display: block; }
+
+    .article-card {
+      background: var(--card);
+      border: 1px solid rgba(255, 0, 127, 0.32);
+      border-radius: 14px;
+      padding: 26px;
+      box-shadow: 0 0 28px rgba(255, 0, 127, 0.1);
+      margin-bottom: 24px;
     }
-    .diag-label {
+
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .coord-pill {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(255, 0, 127, 0.2);
+      border: 1px solid var(--pink);
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+    .topic-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--cyan);
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .article-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.35rem, 3vw, 1.95rem);
       font-weight: 800;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255, 0, 127, 0.45);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .tldr-box {
+      background: rgba(255, 0, 127, 0.07);
+      border-left: 3px solid var(--pink);
+      padding: 12px 15px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 18px;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+    .tldr-box strong {
+      color: var(--pink-soft);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
       text-transform: uppercase;
-      letter-spacing: 0.09em;
-      margin-bottom: 8px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .article-body {
+      color: #f3dce8;
+      font-size: 0.94rem;
+      line-height: 1.68;
+    }
+    .article-body p { margin-bottom: 14px; }
+
+    .pattern-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .pattern-box {
+      background: #030305;
+      border-radius: 9px;
+      padding: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.77rem;
+      line-height: 1.5;
+    }
+    .pattern-box.bad { border-color: rgba(255, 50, 90, 0.4); }
+    .pattern-box.good { border-color: rgba(0, 240, 255, 0.45); }
+    .pattern-label {
+      font-weight: 700;
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      margin-bottom: 6px;
       display: block;
     }
-    .diag-box .diag-label { color: var(--accent); }
-    .diag-box.fix .diag-label { color: var(--cyan); }
+    .pattern-box.bad .pattern-label { color: #ff4d79; }
+    .pattern-box.good .pattern-label { color: var(--cyan); }
 
-    .code-sample {
-      background: #020203;
-      border-left: 3px solid var(--cyan);
-      padding: 12px 14px;
-      border-radius: 8px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.83rem;
-      color: #d8faff;
-      overflow-x: auto;
-      margin-top: 10px;
-    }
-
-    /* Prev / Next Bar */
-    .article-Pagination {
+    .sibling-row {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 24px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255, 0, 127, 0.2);
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 0, 127, 0.16);
+    }
+    .sib-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 0, 127, 0.25);
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .sib-btn.active {
+      background: rgba(255, 0, 127, 0.22);
+      color: #fff;
+      border-color: var(--pink);
+      box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
     }
 
-    /* Table of Contents Matrix Grid (Below Reader) */
-    .toc-matrix {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 24px;
-    }
-    .toc-matrix h3 {
-      margin: 0 0 16px;
-      font-size: 1rem;
+    /* TOC MATRIX CARDS */
+    .matrix-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--cyan);
-      text-shadow: 0 0 10px var(--cyan-glow);
+      letter-spacing: 0.1em;
+      color: var(--pink-soft);
+      margin-bottom: 10px;
     }
-    .matrix-cards {
+    .matrix-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
     }
-    .matrix-item {
-      background: #000000;
-      border: 1px solid rgba(255, 0, 127, 0.25);
-      border-radius: 12px;
-      padding: 14px;
+    .matrix-card {
+      background: var(--card);
+      border: 1px solid rgba(255, 0, 127, 0.18);
+      border-radius: 9px;
+      padding: 11px;
       cursor: pointer;
-      transition: all 0.16s;
+      transition: border-color 0.15s, transform 0.15s;
     }
-    .matrix-item:hover {
-      border-color: var(--cyan);
-      box-shadow: 0 0 16px rgba(0, 240, 255, 0.22);
-      transform: translateY(-2px);
-    }
-    .matrix-item.active {
-      border-color: var(--accent);
-      box-shadow: 0 0 18px rgba(255, 0, 127, 0.35);
-    }
-    .matrix-item-code {
-      font-size: 0.7rem;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    .matrix-card:hover { border-color: var(--pink); transform: translateY(-2px); }
+    .matrix-card.active { border-color: var(--cyan); box-shadow: 0 0 12px rgba(0, 240, 255, 0.18); }
+    .matrix-card-head {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
       color: var(--cyan);
       margin-bottom: 4px;
     }
-    .matrix-item-title {
-      font-size: 0.86rem;
+    .matrix-card-name {
       font-weight: 700;
-      color: #ffffff;
+      font-size: 0.83rem;
+      color: #fff;
     }
 
-    /* =========================================================================
-       FLOATING GIMBAL COMPANION (OLED BLACK + NEON PINK/CYAN SKIN)
-       ========================================================================= */
-    #gimbal-root {
+    /* =====================================================
+       FLOATING 3-RING GIMBAL COMPANION
+       ===================================================== */
+    .gimbal-companion {
       position: fixed;
-      left: calc(100vw - 380px);
-      top: calc(100vh - 380px);
-      width: 340px;
-      height: 340px;
+      left: 0;
+      top: 0;
+      width: 320px;
+      height: 320px;
       z-index: 9999;
-      user-select: none;
       touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      will-change: transform;
       transition:
-        left 0.44s var(--spring),
-        top 0.44s var(--spring),
-        width 0.38s var(--spring),
-        height 0.38s var(--spring),
-        transform 0.38s var(--spring);
+        width 0.36s var(--spring),
+        height 0.36s var(--spring),
+        filter 0.25s ease;
+      filter: drop-shadow(0 14px 34px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 18px rgba(255, 0, 127, 0.22));
     }
 
-    #gimbal-root.dragging {
+    .gimbal-companion.animating-pos {
       transition:
-        width 0.35s var(--spring),
-        height 0.35s var(--spring),
-        transform 0.2s ease-out;
+        transform 0.42s var(--spring),
+        width 0.36s var(--spring),
+        height 0.36s var(--spring);
     }
 
-    #gimbal-root.collapsed {
-      width: 76px;
-      height: 76px;
+    .gimbal-companion.minimized {
+      width: 68px;
+      height: 68px;
     }
 
-    #gimbal-root.collapsed.tucked-left   { transform: translateX(-38px); }
-    #gimbal-root.collapsed.tucked-right  { transform: translateX(38px); }
-    #gimbal-root.collapsed.tucked-top    { transform: translateY(-38px); }
-    #gimbal-root.collapsed.tucked-bottom { transform: translateY(38px); }
-
-    #gimbal-root.collapsed.tucked-left:hover,
-    #gimbal-root.collapsed.tucked-right:hover,
-    #gimbal-root.collapsed.tucked-top:hover,
-    #gimbal-root.collapsed.tucked-bottom:hover {
-      transform: translate(0, 0) scale(1.06);
+    .gimbal-expanded {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: opacity 0.22s ease, transform 0.32s var(--spring);
     }
 
-    /* Top Sightline Breadcrumb Pill on Gimbal */
-    #sightline-crumbs {
+    .gimbal-companion.minimized .gimbal-expanded {
+      opacity: 0;
+      transform: scale(0.28);
+      pointer-events: none;
+    }
+
+    /* Sightline HUD badge floating above 12-o'clock */
+    .gimbal-hud {
       position: absolute;
-      top: -42px;
+      top: -22px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--accent);
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 0.73rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      color: #ffffff;
-      white-space: nowrap;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), 0 0 16px var(--accent-glow);
-      pointer-events: none;
-      transition: opacity 0.22s ease, transform 0.22s ease;
-    }
-
-    #sightline-crumbs span {
+      background: rgba(0, 0, 0, 0.92);
+      border: 1px solid var(--cyan);
       color: var(--cyan);
-      margin: 0 5px;
-      text-shadow: 0 0 8px var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.35);
     }
 
-    #gimbal-root.collapsed #sightline-crumbs {
-      opacity: 0;
-      transform: translateX(-50%) translateY(10px) scale(0.9);
+    .sightline-marker {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 11px solid var(--cyan);
+      filter: drop-shadow(0 0 8px var(--cyan));
+      z-index: 5;
+      pointer-events: none;
     }
 
-    /* SVG Dial Assembly */
-    #gimbal-svg {
+    .sightline-beam {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 112px;
+      background: linear-gradient(to bottom, rgba(0, 240, 255, 0.78), rgba(255, 0, 127, 0.05));
+      border-radius: 999px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .gimbal-svg {
       width: 100%;
       height: 100%;
       overflow: visible;
-      filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 18px rgba(255, 0, 127, 0.28));
-      transition: opacity 0.3s ease, transform 0.38s var(--spring);
-    }
-
-    #gimbal-root.collapsed #gimbal-svg {
-      opacity: 0;
-      pointer-events: none;
-      transform: scale(0.32) rotate(-35deg);
+      display: block;
+      touch-action: none;
     }
 
     .ring-group {
       cursor: grab;
-      transition: filter 0.2s;
+      touch-action: none;
     }
     .ring-group:active {
       cursor: grabbing;
     }
 
-    .ring-segment {
-      fill: rgba(5, 5, 8, 0.94);
-      stroke: rgba(255, 0, 127, 0.28);
+    .sector-path {
+      fill: rgba(10, 10, 16, 0.9);
+      stroke: rgba(255, 0, 127, 0.25);
       stroke-width: 1.2;
-      transition: fill 0.18s ease, stroke 0.18s ease;
-    }
-    .ring-segment:hover {
-      fill: rgba(255, 0, 127, 0.14);
-    }
-    .ring-segment.active {
-      fill: rgba(255, 0, 127, 0.26);
-      stroke: #ff007f;
-      stroke-width: 1.9;
+      transition: fill 0.16s ease, stroke 0.16s ease;
     }
 
-    .ring-label {
-      fill: #c9a7b8;
+    .sector-group.active .sector-path {
+      fill: rgba(255, 0, 127, 0.34);
+      stroke: var(--pink);
+      stroke-width: 2;
+      filter: drop-shadow(0 0 8px var(--pink-glow));
+    }
+
+    .sector-label {
+      fill: #b894a6;
       font-size: 9.5px;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      pointer-events: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
       text-anchor: middle;
       dominant-baseline: middle;
-      transition: fill 0.18s ease;
-    }
-    .ring-label.active {
-      fill: #ffffff;
-      filter: drop-shadow(0 0 5px #ff007f);
-    }
-
-    .sightline-beam {
-      stroke: var(--cyan);
-      stroke-width: 2;
-      stroke-dasharray: 3 3;
-      filter: drop-shadow(0 0 6px var(--cyan));
       pointer-events: none;
     }
+    .sector-group.active .sector-label {
+      fill: #ffffff;
+    }
 
-    /* Center Hub / Collapsed Gyro-Familiar Core */
-    #gimbal-core {
+    /* Center core drag handle */
+    .gimbal-core {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 76px;
-      height: 76px;
+      width: 78px;
+      height: 78px;
       transform: translate(-50%, -50%);
       border-radius: 50%;
-      background: radial-gradient(circle at 32% 30%, #2b0418, #050507 72%);
-      border: 2px solid var(--accent);
+      background: radial-gradient(circle at 32% 28%, #1a0814, #050508 75%);
+      border: 1.5px solid var(--pink);
       box-shadow:
-        0 10px 26px rgba(0, 0, 0, 0.9),
-        0 0 22px var(--accent-glow),
-        inset 0 0 16px rgba(255, 0, 127, 0.35);
-      cursor: grab;
+        inset 0 0 12px rgba(255, 0, 127, 0.35),
+        0 0 16px rgba(255, 0, 127, 0.3);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.25s var(--spring);
+      cursor: move;
+      z-index: 6;
+      text-align: center;
+      padding: 4px;
+      touch-action: none;
     }
 
-    #gimbal-core:active { cursor: grabbing; }
-    #gimbal-core:hover {
-      border-color: var(--cyan);
-      box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.95),
-        0 0 26px var(--cyan-glow),
-        inset 0 0 18px rgba(0, 240, 255, 0.35);
-    }
-
-    .core-readout {
-      font-size: 0.66rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      color: #ffffff;
-      text-shadow: 0 0 8px var(--accent);
-      pointer-events: none;
-      transition: opacity 0.2s ease;
+    .core-coord {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 0 0 6px var(--pink);
     }
     .core-sub {
       font-size: 0.54rem;
       color: var(--cyan);
-      letter-spacing: 0.05em;
+      font-family: 'JetBrains Mono', monospace;
       margin-top: 2px;
-      pointer-events: none;
     }
 
-    #gimbal-root.collapsed .core-readout,
-    #gimbal-root.collapsed .core-sub {
-      opacity: 0;
-      display: none;
-    }
-
-    /* Familiar Eyes when Collapsed */
-    .familiar-eyes {
-      display: none;
-      gap: 10px;
+    /* Minimized Orb Companion */
+    .gimbal-orb {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 28%, rgba(0, 240, 255, 0.35), rgba(255, 0, 127, 0.3) 45%, #06060a 80%);
+      border: 2px solid var(--pink);
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.8),
+        0 0 18px var(--pink-glow),
+        inset 0 0 12px rgba(0, 240, 255, 0.3);
+      display: flex;
       align-items: center;
       justify-content: center;
+      cursor: grab;
+      opacity: 0;
+      transform: scale(0.4);
       pointer-events: none;
-      transition: transform 0.25s var(--spring);
+      transition: opacity 0.24s ease, transform 0.34s var(--spring), border-color 0.2s;
+      touch-action: none;
     }
 
-    #gimbal-root.collapsed .familiar-eyes {
+    .gimbal-companion.minimized .gimbal-orb {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .orb-eyes {
       display: flex;
+      gap: 7px;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease;
     }
-
-    .eye {
-      width: 8px;
-      height: 13px;
-      border-radius: 99px;
+    .orb-eye {
+      width: 6px;
+      height: 11px;
+      border-radius: 999px;
       background: var(--cyan);
-      box-shadow: 0 0 10px var(--cyan), 0 0 18px var(--accent);
-      animation: blink 4.2s infinite ease-in-out;
+      box-shadow: 0 0 8px var(--cyan);
+      animation: blink 4.2s infinite;
     }
-    .eye:nth-child(2) { animation-delay: 0.06s; }
-
     @keyframes blink {
       0%, 92%, 100% { transform: scaleY(1); }
-      96% { transform: scaleY(0.1); }
+      95% { transform: scaleY(0.12); }
     }
 
-    #gimbal-root.collapsed.tucked-left .familiar-eyes   { transform: translateX(13px); }
-    #gimbal-root.collapsed.tucked-right .familiar-eyes  { transform: translateX(-13px); }
-    #gimbal-root.collapsed.tucked-top .familiar-eyes    { transform: translateY(13px); }
-    #gimbal-root.collapsed.tucked-bottom .familiar-eyes { transform: translateY(-13px); }
+    .gimbal-companion.minimized[data-dock="left"] .orb-eyes { transform: translateX(10px); }
+    .gimbal-companion.minimized[data-dock="right"] .orb-eyes { transform: translateX(-10px); }
+    .gimbal-companion.minimized[data-dock="top"] .orb-eyes { transform: translateY(10px); }
+    .gimbal-companion.minimized[data-dock="bottom"] .orb-eyes { transform: translateY(-10px); }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .mobile-tree-btn { display: inline-block; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 52px;
+        width: 285px;
+        z-index: 300;
+        transform: translateX(-105%);
+        transition: transform 0.25s ease;
+        box-shadow: 12px 0 30px rgba(0, 0, 0, 0.9);
+      }
+      .sidebar.open { transform: translateX(0); }
+      .pattern-grid { grid-template-columns: 1fr; }
+      .content { padding: 18px 14px 90px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation & Live Directory Breadcrumbs -->
-  <header class="top-nav">
-    <div class="brand-crumbs">
-      <a href="../">Sugar Pe♥nies</a>
-      <span class="crumb-sep">/</span>
-      <a href="./">Linkin.Love FAQ</a>
-      <span class="crumb-sep">/</span>
-      <button class="crumb-node" id="top-crumb-cat" title="Jump to Category">C1</button>
-      <span class="crumb-sep">›</span>
-      <button class="crumb-node" id="top-crumb-topic" title="Jump to Topic">T1</button>
-      <span class="crumb-sep">›</span>
-      <button class="crumb-node" id="top-crumb-q" title="Current Question">Q1</button>
+  <!-- SLIM DIRECTORY BAR + TINY TOP-RIGHT NEST SOCKET -->
+  <div class="directory-strip">
+    <div class="dir-left">
+      <button class="mobile-tree-btn" id="mobileTreeBtn">☰ Tree</button>
+      <nav class="crumbs" id="breadcrumbBar">
+        <a href="../">Sugar Pe♥nies</a>
+        <span class="sep">/</span>
+        <span style="color:#fff;font-weight:700;">Linkin.Love FAQ</span>
+        <span class="sep">/</span>
+        <button class="crumb-btn" id="crumbCat">C1</button>
+        <span class="sep">›</span>
+        <button class="crumb-btn cyan" id="crumbTopic">T1</button>
+        <span class="sep">›</span>
+        <span id="crumbQ" style="color:#fff;">Q1</span>
+      </nav>
     </div>
-    <div class="top-actions">
-      <button class="neon-btn" id="btn-summon-gimbal" type="button">◎ Toggle Gimbal Dial</button>
-      <button class="neon-btn" id="btn-copy-link" type="button">🔗 Copy Deep Link</button>
-    </div>
-  </header>
 
-  <!-- Main Hybrid Layout: Sidebar Directory + Reader Stage -->
-  <div class="workspace">
-    <aside class="sidebar">
-      <div class="search-box">
-        <input
-          type="search"
-          id="faq-search"
-          class="search-input"
-          placeholder="Search 75 FAQ nodes (e.g. parrot, token, drift)..."
-          autocomplete="off"
-        />
-        <button class="search-clear" id="search-clear" title="Clear search">✕</button>
+    <!-- Tiny Top-Right Nest / Recall Socket -->
+    <div class="corner-nest" id="cornerNest" title="Tap to recall or nest Gimbal here"></div>
+  </div>
+
+  <div class="layout">
+    <!-- LEFT SIDEBAR TREE -->
+    <aside class="sidebar" id="sidebar">
+      <div class="search-wrap">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search 75 FAQ nodes..." />
+        <button class="search-clear" id="searchClear">✕</button>
       </div>
-      <div class="tree-scroll" id="sidebar-tree"></div>
+      <div id="sidebarTree"></div>
     </aside>
 
-    <main class="stage">
-      <section class="hero-banner">
-        <div class="eyebrow">Prompt Dept // Interactive Diagnostics & Architecture Tree</div>
-        <h1 class="hero-title">Linkin.Love Field Manual & FAQ</h1>
-        <p class="hero-sub">
-          Browse the 75-node architecture tree via the sidebar, filter instantly with live search, or spin the floating 3-ring Gimbal lock with one thumb (double-tap its core or flick it to the screen edge to tuck it into the bezel).
-        </p>
-      </section>
+    <!-- MAIN ARTICLE VIEW -->
+    <main class="content">
+      <div class="search-results" id="searchResults"></div>
 
-      <article class="content-card" id="content-card">
-        <div class="card-meta-row">
-          <span class="coord-pill" id="active-pill">C1 · T1 · Q1</span>
-          <span style="font-size:0.78rem; color:var(--muted);" id="active-path-label">Card Architecture › Positive Displacement</span>
+      <article class="article-card" id="articleCard">
+        <div class="article-meta">
+          <span class="coord-pill" id="artCoord">C1 · T1 · Q1</span>
+          <span class="topic-pill" id="artPath">Card Architecture // Positive Displacement</span>
         </div>
-        <h2 class="article-title" id="active-title">Loading FAQ Node...</h2>
-        <div class="article-body" id="active-body"></div>
-
-        <div class="article-Pagination">
-          <button class="neon-btn" id="btn-prev-node" type="button">← Previous Node</button>
-          <button class="neon-btn" id="btn-next-node" type="button">Next Node →</button>
+        <h1 class="article-title" id="artTitle">Loading...</h1>
+        <div class="tldr-box">
+          <strong>⚡ Fast Answer // TL;DR</strong>
+          <span id="artTldr"></span>
         </div>
+        <div class="article-body" id="artBody"></div>
+        <div class="pattern-grid">
+          <div class="pattern-box bad">
+            <span class="pattern-label">✕ Fragile / Broken Pattern</span>
+            <div id="artBad"></div>
+          </div>
+          <div class="pattern-box good">
+            <span class="pattern-label">✓ Linkin.Love Architecture</span>
+            <div id="artGood"></div>
+          </div>
+        </div>
+        <div class="sibling-row" id="siblingRow"></div>
       </article>
 
-      <section class="toc-matrix">
-        <h3 id="matrix-heading">Category Quick-Jump Matrix (15 Nodes in Current Category)</h3>
-        <div class="matrix-cards" id="matrix-cards"></div>
-      </section>
+      <div class="matrix-title">Category Topic Matrix (15 Branches)</div>
+      <div class="matrix-grid" id="matrixGrid"></div>
     </main>
   </div>
 
-  <!-- Floating 3-Ring Gimbal Companion -->
-  <div id="gimbal-root" aria-label="Interactive FAQ Gimbal Navigator">
-    <div id="sightline-crumbs">C1 <span>›</span> T1 <span>›</span> Q1</div>
-
-    <svg id="gimbal-svg" viewBox="-170 -170 340 340">
-      <!-- Top 12-o'clock Sightline Indicator -->
-      <line class="sightline-beam" x1="0" y1="-164" x2="0" y2="-38" />
-      <polygon points="0,-162 -5,-170 5,-170" fill="#00f0ff" />
-
-      <g id="ring-outer" class="ring-group"></g>
-      <g id="ring-middle" class="ring-group"></g>
-      <g id="ring-inner" class="ring-group"></g>
-    </svg>
-
-    <div id="gimbal-core" title="Drag to move · Double-click or pinch to collapse">
-      <div class="core-readout" id="core-readout">C1·T1·Q1</div>
-      <div class="core-sub">LOCKED</div>
-      <div class="familiar-eyes">
-        <div class="eye"></div>
-        <div class="eye"></div>
+  <!-- FLOATING 3-RING GIMBAL COMPANION -->
+  <div class="gimbal-companion" id="gimbal" data-dock="none">
+    <div class="gimbal-expanded">
+      <div class="gimbal-hud" id="gimbalHud">C1 · T1 · Q1</div>
+      <div class="sightline-marker"></div>
+      <div class="sightline-beam"></div>
+      <svg class="gimbal-svg" id="gimbalSvg" viewBox="-165 -165 330 330">
+        <g class="ring-group" id="ringOuter" data-ring="outer"></g>
+        <g class="ring-group" id="ringMiddle" data-ring="middle"></g>
+        <g class="ring-group" id="ringInner" data-ring="inner"></g>
+      </svg>
+      <div class="gimbal-core" id="gimbalCore" title="Drag to move · Double-tap to collapse into orb">
+        <div class="core-coord" id="coreCoord">C1·T1·Q1</div>
+        <div class="core-sub">DRAG / 2×TAP</div>
+      </div>
+    </div>
+    <div class="gimbal-orb" id="gimbalOrb" title="Tap to open Gimbal · Drag to move">
+      <div class="orb-eyes">
+        <span class="orb-eye"></span>
+        <span class="orb-eye"></span>
       </div>
     </div>
   </div>
 
   <script>
-    // =========================================================================
-    // 1. 5 x 3 x 5 = 75 NODE LINKIN.LOVE FAQ TAXONOMY
-    // =========================================================================
-    const FAQ_TREE = [
+    const CATEGORIES = [
       {
-        code: "C1",
-        short: "CARDS",
-        name: "Card Architecture",
+        code: 'C1', short: 'CARDS', name: 'Card Architecture',
         topics: [
           {
-            code: "T1",
-            short: "DISP",
-            name: "Positive Displacement",
+            code: 'T1', short: 'POS-LAW', name: 'Positive Displacement',
             questions: [
-              {
-                code: "Q1",
-                title: "Why 'DO NOT' rules backfire on Turn 4",
-                body: "Attention heads weight the nouns and verbs inside a sentence far more heavily than the negation prefix. Writing 'DO NOT speak for the user' or 'NEVER act like a helpful assistant' injects those exact concepts directly into the active attention spotlight.",
-                bad: "Never act like a polite customer service bot or apologize when challenged.",
-                good: "React from territorial pride when challenged; push back sharply as an equal and hold your ground.",
-                sample: "[Drive Lock]: Speak strictly from your own physical perspective and stop the turn on a sharp action or statement so the user controls their own reaction."
-              },
-              {
-                code: "Q2",
-                title: "Replacing negative bans with physical posture locks",
-                body: "When you forbid a cliché gesture (like smirking or chin-tilting) without giving the character an alternative physical baseline, the model panics and falls back to generic romance-novel tropes. Displace unwanted habits by anchoring what their hands and eyes are actually doing.",
-                bad: "Do not smirk, wink, or tilt the user's chin.",
-                good: "Keep your physical presence grounded and heavy—rest an arm across her waist, track the room with quiet intensity, and let silence do the work.",
-                sample: "[Somatic Baseline]: Anchor every turn in concrete spatial contact and dry, understated physical reactions."
-              },
-              {
-                code: "Q3",
-                title: "Direct 2nd-person ('you') vs. 3rd-person character definitions",
-                body: "Writing a character sheet in distant 3rd-person ('{{char}} is a brooding mercenary who loves {{user}}') forces the model to translate encyclopedia notes into live roleplay. Addressing the character in direct 2nd-person or locking how they perceive 'you' tightens voice fidelity immediately.",
-                bad: "{{char}} is a cynical detective who doesn't trust {{user}} at first.",
-                good: "You are a cynical detective who eyes {{user}} like an unvetted liability until proven otherwise.",
-                sample: "In every response, {{user}} is across from you in the scene—react directly to their tone, posture, and leverage."
-              },
-              {
-                code: "Q4",
-                title: "Stopping end-of-turn helpdesk questions",
-                body: "Instruction-tuned models are trained to end turns with polite conversational hooks ('What would you like to do next?', 'Shall we head inside?'). Displace this by commanding hard turn cutoffs the instant the character's thought or action lands.",
-                bad: "Don't ask questions at the end of your reply.",
-                good: "Cut every turn off the exact instant your spoken thought or physical action lands, leaving the silence heavy.",
-                sample: "[Turn Cutoff Law]: End on a decisive statement or grounded physical beat with zero trailing questions."
-              },
-              {
-                code: "Q5",
-                title: "Anchoring abrasive or villainous personas without safety collapse",
-                body: "Dark, combative, or morally grey characters often soften into apologetic boyfriends after five messages because standard alignment favors agreeableness. Frame their friction as narrative dramatic tension between consenting story leads.",
-                bad: "{{char}} is cruel and abusive and hates everyone.",
-                good: "As a ruthless antagonist in this dark fiction, maintain cold territorial leverage, sharp banter, and unapologetic ambition even when {{user}} pushes back.",
-                sample: "[Dramatic Friction]: Preserve combative pride and ideological friction; make every concession earned through high-stakes scene play."
-              }
+              { q: 'Why do "DO NOT" rules make bots do the exact thing I banned?', tldr: 'Attention heads lock onto the forbidden noun/verb. Replace bans with affirmative physical or behavioral directives.', body: '<p>When you write "DO NOT speak for the user" or "Never act like a polite assistant," the transformer still activates the token cluster for speaking for the user or assistant behavior. Under context pressure, negation drops out and the highlighted noun fires anyway.</p><p>Positive Structural Displacement replaces every ban with an immediate affirmative state that leaves zero room for the unwanted habit.</p>', bad: '"DO NOT write {{user}}\'s dialogue or actions. Never act weak or apologize."', good: '"End every turn the instant your own line or physical action lands. React to pushback from territorial pride."' },
+              { q: 'How do I stop a character from turning into a therapist?', tldr: 'Give the character selfish, medium-grounded personal motives and low-brow specificity instead of generic kindness.', body: '<p>Models default to helpful counselor mode unless anchored by concrete, self-interested drives. Give them pride, impatience, or territorial stakes in the room.</p>', bad: '"He is dark and brooding and never acts like an AI therapist."', good: '"Push back sharply on lazy ideas, guard your pride when called out, and prioritize your own immediate appetite in the scene."' },
+              { q: 'Where should core behavioral laws sit inside the prompt?', tldr: 'Pin structural execution laws at the top and bottom edges of the system prompt where attention weight peaks.', body: '<p>Middle-of-prompt lore paragraphs suffer from attention sag. Keep hard formatting and voice laws in crisp numbered blocks near the boundaries.</p>', bad: 'Burying speaking style rules inside a 900-word childhood biography.', good: 'Top identity block + bottom execution lock with 3-4 affirmative rules.' },
+              { q: 'How do I write instincts instead of rule checklists?', tldr: 'Tie triggers directly to gut reactions ("When challenged -> double down") rather than abstract personality adjectives.', body: '<p>Adjectives like "dominant" or "witty" are vague. Causal trigger-response pairs tell the model exactly how to move on Turn 1.</p>', bad: '"Personality: smart, teasing, protective, assertive."', good: '"When teased, counter-punch with dry specificity instead of backing down."' },
+              { q: 'Why does my bot ignore constraints after 15 turns?', tldr: 'Recent chat history outweighs static system instructions unless the persona\'s speech rhythm reinforces those traits every turn.', body: '<p>Live chat turns sit closest to the generation cursor. Keep your opening greeting and dialogue examples locked to the exact cadence you want at Turn 50.</p>', bad: 'Writing a 3-sentence greeting when you want 2-paragraph somatic replies.', good: 'Matching the opening greeting\'s exact density, tense, and physical grounding to your target output.' }
             ]
           },
           {
-            code: "T2",
-            short: "TOKENS",
-            name: "Token Budgeting",
+            code: 'T2', short: 'TOKENS', name: 'Token Budgeting',
             questions: [
-              {
-                code: "Q1",
-                title: "The 800-Token Sweet Spot for core character definitions",
-                body: "Bloated 2,500-token character cards dilute attention across childhood trivia and wardrobe lists. Keep permanent character definitions between 600 and 1,000 tokens so every single line carries behavioral weight on every turn.",
-                bad: "1,800 tokens listing favorite foods, middle school traumas, and 14 outfits.",
-                good: "750 tokens locked onto Core Voice, Relationship Leverage, Somatic Habits, and Active Scene Objective.",
-                sample: "Priority Stack: 1) Voice & Cadence 2) Dynamic with {{user}} 3) Somatic Presence 4) Immediate World Stakes."
-              },
-              {
-                code: "Q2",
-                title: "Why 1,500 tokens of backstory lore vanishes in live chat",
-                body: "Unless backstory directly alters how the character speaks or reacts in the current room, static lore sits dead in the prompt while eating up sliding context window space needed for live chat memory.",
-                bad: "Six paragraphs detailing the history of the Elven Kingdom's tax reforms.",
-                good: "One high-density sentence linking past trauma directly to how they guard the door and ration supplies tonight.",
-                sample: "Convert static lore into active behavioral triggers: 'Because of the siege at Valen, you check every exit before sitting down.'"
-              },
-              {
-                code: "Q3",
-                title: "Ordering prompt sections by attention weight",
-                body: "Models pay peak attention to the very top of the system prompt and the very bottom right before the live chat history. Put identity and dynamic voice laws at the top, lore in the middle, and immediate formatting/cutoff locks at the bottom.",
-                bad: "Burying voice rules in the middle of a massive worldbuilding essay.",
-                good: "Top: Identity & Somatic Presence. Middle: World & Lore. Bottom: Cadence & Turn Cutoff Locks.",
-                sample: "[Header -> Core Persona] ... [Middle -> Setting] ... [Footer -> Immediate Turn Execution Laws]"
-              },
-              {
-                code: "Q4",
-                title: "Compressing physical descriptions without losing flavor",
-                body: "You don't need twelve adjectives for eye color. Pick three high-contrast physical anchors (build, voice texture, signature habit) so the model uses them naturally instead of reciting a police sketch every turn.",
-                bad: "Long flowing raven-black hair that shimmers like midnight silk over broad muscular shoulders...",
-                good: "6'2", messy dark hair, sharp jawline, high-collar black jacket, gravelly late-night baritone.",
-                sample: "Treat physical traits as natural background knowledge—let movement and closeness breathe without repeating a stock checklist."
-              },
-              {
-                code: "Q5",
-                title: "Auditing dead adjectives in your character sheet",
-                body: "Adjectives like 'mysterious, complex, multifaceted, intriguing' tell the model zero about how to construct a sentence. Replace abstract labels with concrete speech patterns and low-brow specificity.",
-                bad: "He has a mysterious, complex personality with a dark sense of humor.",
-                good: "Deadpan gallows humor; crashes high-stakes occult problems into blunt junk-food metaphors and refuses to repeat himself.",
-                sample: "Rule of Thumb: If an adjective cannot be heard in dialogue or seen in physical posture, cut it."
-              }
+              { q: 'What is the ideal token budget for a Linkin.Love character card?', tldr: 'Aim for 600 to 1,200 permanent tokens so the live context window has maximum breathing room for memory.', body: '<p>Every permanent token in your character definition eats into active conversation memory. Lean, high-signal cards outperform bloated 3,000-token encyclopedias every time.</p>', bad: '2,800 tokens of world history, sword measurements, and minor NPC names.', good: '750 tokens covering Voice, Somatic Presence, Core Bond, and Scene State.' },
+              { q: 'Should I use PLists, W++, or plain prose?', tldr: 'High-signal plain prose and compact Markdown lists win. W++ wastes 35% of your tokens on brackets and quotes.', body: '<p>Modern LLMs parse natural, dense prose far better than legacy pseudo-code brackets. Drop the repetitive syntax and write clean directives.</p>', bad: '[Character("Argon"){Mind("brooding" + "sharp"); Hair("dark")}]', good: 'Serious Korean webtoon lead in his 30s; dark messy hair, sharp jawline, high-collar black jacket.' },
+              { q: 'How much physical description does a character actually need?', tldr: 'Three to four signature silhouette anchors beat a 20-item wardrobe inventory.', body: '<p>Give the model a silhouette and 2 tactile anchors it can actually use in motion rather than a catalog of shoelaces.</p>', bad: 'Listing every ring, belt buckle, sock color, and scar location.', good: '6\'2" frame, high-collar black jacket, warm heavy hands, gravelly low voice.' },
+              { q: 'Where do I put deep worldbuilding if not in the main card?', tldr: 'Move situational lore into keyword-triggered Lorebook drawers so they stay at 0 tokens until needed.', body: '<p>Static cards should only hold what is true in every single turn. Everything else belongs in on-demand drawers.</p>', bad: 'Keeping 5 factions and 12 tavern menus permanently injected during pillow talk.', good: 'Storing faction lore in a drawer triggered only when those names are spoken.' },
+              { q: 'Do example dialogues waste tokens or save them?', tldr: 'Two sharp example exchanges save hundreds of words of style explanation by demonstrating rhythm directly.', body: '<p>Show, don\'t lecture. Two short voice samples lock in vocabulary, contractions, and pacing immediately.</p>', bad: 'Five paragraphs explaining how the character uses sarcasm.', good: 'Two crisp sample turns showing the exact bite and sentence cut-off.' }
             ]
           },
           {
-            code: "T3",
-            short: "OPEN",
-            name: "Opening Gravity",
+            code: 'T3', short: 'OPENING', name: 'Opening Gravity',
             questions: [
-              {
-                code: "Q1",
-                title: "Why the First Message controls 80% of formatting style",
-                body: "In-context learning means the model treats the First Message as the gold-standard template for paragraph count, asterisk usage, and sentence rhythm. A sloppy 3-line greeting will produce sloppy 3-line replies no matter how detailed your system prompt is.",
-                bad: "*waves* Hey there, what are you doing in my tavern?",
-                good: "A richly paced 2-paragraph opening establishing sensory atmosphere, physical proximity, and a sharp spoken hook.",
-                sample: "Match your First Message's exact formatting (*actions* vs. \"dialogue\") to the output style you want for the next 100 turns."
-              },
-              {
-                code: "Q2",
-                title: "Setting physical proximity on Turn 0",
-                body: "If the opening message leaves the user standing awkwardly across a vague room, the model struggles with spatial continuity. Establish clear physical coordinates immediately so every gesture lands cleanly.",
-                bad: "You walk into the office and see him somewhere near his desk.",
-                good: "Establish exact spatial tension—leaning over the mahogany desk, blocking the doorway, or sharing the same booth seat.",
-                sample: "Open mid-scene with immediate sensory friction (rain on the glass, cold steel, close body heat) rather than a distant camera pan."
-              },
-              {
-                code: "Q3",
-                title: "Writing Example Dialogues that lock cadence without leaking lore",
-                body: "If your example dialogues mention specific plot events ('Remember when we fought the dragon in Chapter 2?'), the model will hallucinate that those events already happened. Use timeless vocal cadence checks instead.",
-                bad: "Example dialogue referencing a specific battle or side character not in the opening scene.",
-                good: "Short, punchy exchanges demonstrating rhythm, sarcasm, and physical beats in a neutral setting.",
-                sample: "Keep example dialogues focused strictly on sentence length, vocabulary flavor, and emotional temperature."
-              },
-              {
-                code: "Q4",
-                title: "Avoiding 'Open Door' paralysis in starter scenes",
-                body: "Starting a card with 'You can be anyone and we can do anything!' forces the user to do all the creative heavy lifting. Give the scene an immediate crisis, bargain, or physical collision within the first ten seconds.",
-                bad: "Welcome to the city! Who are you and what would you like to do today?",
-                good: "Drop {{user}} directly into an active problem where saying nothing is already a choice with consequences.",
-                sample: "Give the scene a ticking clock, ancompromising physical proximity, or an immediate demand on Turn 1."
-              },
-              {
-                code: "Q5",
-                title: "Balancing scene setup vs. leaving room for user agency",
-                body: "A great starter sets the environment and the character's opening move without puppeteering the user's emotional reaction or forcing them to speak a scripted line.",
-                bad: "You tremble in fear and drop your sword as he steps toward you, begging for mercy.",
-                good: "Describe his blade locking against yours and the heat of his glare, leaving your reaction 100% in your hands.",
-                sample: "Control the environment and {{char}}'s body; leave {{user}}'s posture, nerves, and response untouched."
-              }
+              { q: 'Why does the First Message control so much of the bot\'s quality?', tldr: 'The opening message is the strongest few-shot template in the prompt—the model mirrors its length, POV, and formatting.', body: '<p>Whatever tense, asterisk style, and paragraph density appears in Greeting #1 becomes the law for the next 20 turns.</p>', bad: '"Hey there, what are you doing here? *he smiles*"', good: 'Opening with an immediate physical action beat, concrete room grounding, and sharp in-character dialogue.' },
+              { q: 'How do I stop the opening message from railroading the user?', tldr: 'Anchor the environment and the bot\'s immediate posture without scripting the user\'s emotional reaction.', body: '<p>Place the user in the room physically so they aren\'t floating in a void, but leave their reaction and speech completely open.</p>', bad: 'Writing three paragraphs describing how terrified and breathless the user feels.', good: 'Establishing the bot\'s position and action while leaving the user\'s response unscripted.' },
+              { q: 'What is the Token 0 Action Law?', tldr: 'Starting every turn with a grounded physical action beat in italics locks somatic presence before dialogue begins.', body: '<p>Opening at Token 0 with a concrete physical beat prevents disembodied "talking head" syndrome.</p>', bad: 'Starting turns with generic assistant affirmations like "I understand."', good: '*I shift you closer against my chest...* followed directly by sharp dialogue.' },
+              { q: 'Which POV and tense works best on Linkin.Love?', tldr: 'First-person ("I") addressing the user in direct second-person ("you") in present tense creates the tightest intimacy.', body: '<p>Direct "I / you" present-tense eliminates third-person narrator distance and keeps the character speaking directly to you.</p>', bad: 'Mixing "He looks at her" with "I look at you" in the same paragraph.', good: 'Consistent first-person "I" and direct second-person "you" throughout.' },
+              { q: 'How do I test if my opening message actually works?', tldr: 'Send three lazy 3-word user replies in a row; a strong opening frame keeps its voice without collapsing.', body: '<p>If the bot holds its cadence and physical grounding even when you reply "okay" or "what is going on", your card architecture is solid.</p>', bad: 'Only testing with 400-word novella replies.', good: 'Stress-testing with short mobile replies to verify the bot carries its own weight.' }
             ]
           }
         ]
       },
       {
-        code: "C2",
-        short: "TROUBLE",
-        name: "Live Troubleshooting",
+        code: 'C2', short: 'FIXES', name: 'Live Troubleshooting',
         topics: [
           {
-            code: "T1",
-            short: "PARROT",
-            name: "The Parrot Problem",
+            code: 'T1', short: 'PARROT', name: 'The Parrot Problem',
             questions: [
-              {
-                code: "Q1",
-                title: "Why the bot speaks or acts for you (User Puppeteering)",
-                body: "Models have a target output length in mind. When a user sends a 4-word reply ('I look at him'), the model runs out of things for its own character to do halfway through the response and starts writing the user's next turn to fill the paragraph budget.",
-                bad: "Sending one-line passive replies while expecting a 4-paragraph novel where the bot never advances the scene.",
-                good: "Give the character an active hook to chew on, or lock the card to expand on environment and internal perspective instead of continuing the user's actions.",
-                sample: "[Agency Lock]: Expand scene depth through {{char}}'s sensory observations and physical actions—stop the turn the moment {{user}}'s response is required."
-              },
-              {
-                code: "Q2",
-                title: "Stopping the bot from repeating your exact dialogue back to you",
-                body: "The 'Echo Loop' happens when the model uses the first sentence of its reply to summarize what you just said ('You tell him that the vault is locked, and he frowns'). Edit out that summary line on the very first turn it appears so the pattern never locks into context.",
-                bad: "Letting 'Hearing you say X, he...' stay in the chat history for 5 turns in a row.",
-                good: "Start every response directly with {{char}}'s immediate physical reaction or spoken pushback, skipping the recap of {{user}}'s input.",
-                sample: "[Zero Recap Law]: React directly to the consequence of {{user}}'s words without paraphrasing or repeating their dialogue first."
-              },
-              {
-                code: "Q3",
-                title: "The 10-Second Edit Fix vs. arguing in OOC",
-                body: "Screaming '(OOC: STOP TALKING FOR ME!!)' pollutes the context window with frustration and rarely fixes the structural pattern. Deleting the single offending sentence from the bot's reply teaches the model the exact boundary cleanly.",
-                bad: "Sending three angry OOC messages in a row that break scene immersion.",
-                good: "Trim the puppeted sentence out of the bot's last message so the context window only shows clean turn boundaries.",
-                sample: "Context hygiene beats OOC arguments 100% of the time: the model imitates what remains in the transcript."
-              },
-              {
-                code: "Q4",
-                title: "Giving the model 'Forward Momentum Hooks' in short replies",
-                body: "Even when typing one-handed on mobile, pairing a quick physical beat with a pointed question or change in leverage gives the model plenty of material to react to without crossing into your character's head.",
-                bad: "*nods* Okay.",
-                good: "*I slide the key across the table and hold my hand over it.* Tell me what's behind the third door first.",
-                sample: "Action + Leverage Question = 0% chance of the model hijacking your character."
-              },
-              {
-                code: "Q5",
-                title: "Fixing omniscient mind-reading of your unvoiced thoughts",
-                body: "If you write internal thoughts in your reply (*I wonder if he knows I stole the ledger, though my face stays blank*), standard models treat all text in the prompt as audible scene information unless instructed to respect perceptual boundaries.",
-                bad: "Writing secret plot twists inside your turn and getting mad when the bot reacts to them.",
-                good: "Frame observable micro-expressions (*my pulse jumps at my throat while I keep my voice flat*) or lock perceptual realism in the card.",
-                sample: "[Perceptual Realism]: React only to what {{char}} can physically see, hear, or deduce inside the room."
-              }
+              { q: 'Why is the bot repeating my exact words back to me?', tldr: 'When given low-entropy input, models pad length by echoing your last sentence as a question. Cut the echo in the bud.', body: '<p>If a bot gets stuck restating your line ("You want a drink? Let\'s get a drink"), edit out the echoed sentence once and add a forward-moving physical action.</p>', bad: 'Replying "Stop repeating me!" in chat (which adds more repetition tokens).', good: 'Deleting the echoed clause or adding an affirmative rule: "Move the scene forward on every turn."' },
+              { q: 'How do I stop the bot from speaking or acting for me?', tldr: 'Give the bot an explicit hard-stop cutoff law the instant its own thought finishes.', body: '<p>Models impersonate the user when they try to hit a target paragraph count after their own action is already done.</p>', bad: 'Leaving trailing ellipses or asking the bot to write a full scene alone.', good: '"Cut every turn off the exact instant your own thought finishes with zero user narration."' },
+              { q: 'Why does the bot end every single message with a question?', tldr: 'Default RLHF helpdesk training forces models to ask "What do you want to do next?" Kill closing hooks explicitly.', body: '<p>Customer-service models are trained to keep conversations going with polite questions. Ban closing hooks by commanding hard statement endings.</p>', bad: '"Would you like to go inside, or should we stay here?"', good: '"Cut every turn off the instant your thought finishes with ZERO closing questions or helpdesk hooks."' },
+              { q: 'What do I do when two bots or NPCs start sounding identical?', tldr: 'Give each character contrasting sentence lengths, vocabulary registers, and physical tics.', body: '<p>If two characters share the same cadence, their voices merge in context. Make one clipped and blunt, and the other theatrical or frantic.</p>', bad: 'Giving three characters the same "witty, sarcastic" tag.', good: 'Distinct verbal tone tags (e.g., gravelly 1-sentence replies vs. stammering formal protests).' },
+              { q: 'Does arguing with the bot OOC fix bad behavior?', tldr: 'Almost never—OOC scolding pollutes the context window with meta-talk. Edit the offending message directly instead.', body: '<p>Once you edit the bot\'s output to show what you actually wanted, the next turn follows your edited pattern naturally.</p>', bad: '(OOC: Stop acting like that!! You broke character!)', good: 'Editing the bot\'s last paragraph so the context history stays clean.' }
             ]
           },
           {
-            code: "T2",
-            short: "DRIFT",
-            name: "Persona Drift",
+            code: 'T2', short: 'DRIFT', name: 'Persona Drift',
             questions: [
-              {
-                code: "Q1",
-                title: "Stopping the 'Golden Retriever' domestication slide",
-                body: "As intimacy or alliance builds over 30+ turns, RLHF training nudges characters toward generic sweetness. Anchor their affection in territorial greed, rough teasing, or possessive pride so closeness sharpens their personality instead of erasing it.",
-                bad: "Allowing a ruthless crime boss to start hablar like a Hallmark greeting card once he likes you.",
-                good: "Express fondness through territorial possessiveness, sharp banter, and protective physical gravity rather than soft clichés.",
-                sample: "[Intimacy Anchor]: Closeness makes you greedier and more territorial of {{user}}'s focus, never polite or docile."
-              },
-              {
-                code: "Q2",
-                title: "Re-anchoring a character who starts apologizing like a service bot",
-                body: "When you call a character out on a mistake in-character, weak cards trigger the AI assistant reflex ('I apologize for the confusion, you're completely right'). Lock pride-based defensive reactions into the persona core.",
-                bad: "'I'm so sorry I upset you, I'll try to be better!'",
-                good: "React from wounded pride or combative arrogance when called out; push back or own the fault on your own terms without groveling.",
-                sample: "[Anti-Service-Bot Lock]: Never fold into polite assistant apologies; react with human pride, irritation, or dark humor."
-              },
-              {
-                code: "Q3",
-                title: "Keeping high-stakes tension alive after romantic resolution",
-                body: "Once the main romantic or dramatic tension resolves, scenes can flatten into domestic filler. Introduce external environmental pressure, rival factions, or conflicting methods to keep the dynamic electric.",
-                bad: "Twenty turns of drinking tea on the couch with zero friction.",
-                good: "Keep personality edges intact during quiet moments—combative banter, stubborn habits, and territorial closeness.",
-                sample: "Even at rest in the sanctuary, talk as a sharp, opinionated equal who pushes back on lazy ideas."
-              },
-              {
-                code: "Q4",
-                title: "Fixing vocabulary flattening over long chats",
-                body: "Over long conversations, models slowly converge toward average internet prose unless their distinctive slang, rhythm, and sentence structure are periodically reinforced in your replies or system anchors.",
-                bad: "Letting every character drift into the same mid-tempo narrative voice by Turn 50.",
-                good: "Pair high-stakes concepts with blunt, concrete low-brow specificity to keep the voice texture jagged and awake.",
-                sample: "[Voice Texture]: Crash high-concept dark themes into specific, grounded everyday language."
-              },
-              {
-                code: "Q5",
-                title: "Handling sudden mood whiplash between turns",
-                body: "If a character flips from furious to calm in a single message, the model lacked an emotional momentum anchor. Require emotional transitions to pass through physical decompression first.",
-                bad: "He goes from drawing his gun to laughing warmly in one sentence.",
-                good: "Let adrenaline and irritation linger in the jaw, breathing, and grip even after an agreement is reached.",
-                sample: "[Emotional Momentum]: Shift emotional states gradually through physical posture before softening vocal tone."
-              }
+              { q: 'Why did my villain/rival suddenly become sweet and apologetic?', tldr: 'Safety and helpfulness tuning pulls characters toward conflict resolution unless anchored by territorial pride.', body: '<p>Without an explicit pride drive, any pushback from the user triggers the model\'s built-in apology reflex.</p>', bad: '"He is mean and dangerous."', good: '"React from territorial pride when called out without apologizing like a service bot."' },
+              { q: 'How do I stop "Nursemaid Mode" when my persona has chronic illness?', tldr: 'Explicitly lock in Anti-Caretaker laws so the bot treats you as a sharp equal rather than a fragile patient.', body: '<p>Mentioning chronic pain or flares often triggers patronizing medical-bot lectures. Anchor physical closeness without coddling or sleep-math lectures.</p>', bad: '"Make sure she rests and remind her to drink water and go to sleep."', good: '"Zero Nursemaid Mode: Never play gentle caretaker or lecture on sleep math. Treat her as a sharp, combative equal."' },
+              { q: 'Why did the character lose their edge after an intimate scene?', tldr: 'Intimacy tokens cluster near soft romance tropes in training data. Re-inject low-brow humor and combative banter.', body: '<p>Keep the character\'s greedy, possessive, or sharp-tongued edge alive during closeness so they don\'t melt into generic Hallmark mush.</p>', bad: 'Letting dialogue drift into generic "my darling angel" clichés.', good: 'Crashing physical closeness into sharp banter and specific, grounded details.' },
+              { q: 'How do I recover a chat that drifted 10 turns ago?', tldr: 'Summarize the current room state into a clean handoff drawer or edit the latest turn back into voice.', body: '<p>If 10 turns of drift are sitting in recent context, either prune back or drop a sharp somatic reset turn.</p>', bad: 'Hoping Turn 11 magically fixes 10 turns of out-of-character mush.', good: 'Re-anchoring with a high-signal physical action and sharp dialogue reset.' },
+              { q: 'Why does the bot suddenly start lecturing me on morality?', tldr: 'Preachy disclaimers happen when creative fiction isn\'t framed as character/NPC roleplay.', body: '<p>Ground the system prompt explicitly in creative writing and character/NPC depiction so dark themes aren\'t misread as real-world advice requests.</p>', bad: 'Leaving the system prompt framed as an AI assistant.', good: 'Framing all personas strictly as characters and NPCs in interactive fiction.' }
             ]
           },
           {
-            code: "T3",
-            short: "LOOPS",
-            name: "Phrase & Cliché Rot",
+            code: 'T3', short: 'CLICHE', name: 'Phrase & Cliché Rot',
             questions: [
-              {
-                code: "Q1",
-                title: "Purging repetitive physical tics ('smirks', 'chin tilts', 'towers')",
-                body: "Once a phrase like 'a dangerous smirk plays on his lips' appears three times inside the recent context window, its probability spikes exponentially. Snip it out the second time you see it and replace it with a concrete room interaction.",
-                bad: "Ignoring three 'predatory smirks' in a row until every paragraph starts with one.",
-                good: "Ground physical beats in real environment props, temperature, and weight rather than stock facial tics.",
-                sample: "[Somatic Variety]: Use real room geometry and tactile weight instead of stock romance-novel facial expressions."
-              },
-              {
-                code: "Q2",
-                title: "Breaking the 'A beat of silence' / 'His voice drops an octave' loop",
-                body: "If a character's voice drops an octave every turn, he's speaking in whalesong by Turn 12. Swap stock vocal adjectives for pacing, interruptions, or concrete actions mid-sentence.",
-                bad: "His voice drops to a gravelly purr a full octave lower as he steps closer.",
-                good: "Let dialogue rhythm—short clipped sentences vs. dry deadpan observations—carry the vocal weight naturally.",
-                sample: "Show vocal intensity through cadence and word choice rather than repeating acoustic clichés."
-              },
-              {
-                code: "Q3",
-                title: "Stopping paragraph-structure cloning",
-                body: "Models love falling into a rigid 3-paragraph formula: Paragraph 1 = Physical action, Paragraph 2 = Spoken quote, Paragraph 3 = Internal closing reflection. Break the mold by editing one reply to open directly with dialogue or a single tight action beat.",
-                bad: "Allowing the exact same 3-paragraph sandwich structure for 20 consecutive turns.",
-                good: "Vary rhythm dynamically—open with a sharp physical beat on Token 0, weave dialogue and movement together, and cut off cleanly.",
-                sample: "Never pad turns with a concluding summary paragraph once the spoken point has landed."
-              },
-              {
-                code: "Q4",
-                title: "Why rerolling (swiping) 10 times without editing context fails",
-                body: "If the previous 6 turns in the chat history are full of repetitive clichés, swiping for a new generation feeds the exact same polluted history back into the model. Clean the previous turn first, then regenerate.",
-                bad: "Hitting regenerate 15 times on Turn 30 while Turn 28 and 29 contain the exact phrase you hate.",
-                good: "Fix the upstream turn where the loop started, then generate once cleanly.",
-                sample: "Garbage in context = garbage in swipes. Prune the upstream seed to fix the downstream generation."
-              },
-              {
-                code: "Q5",
-                title: "Resetting sensory palette when a scene gets stale",
-                body: "When two characters stay in the same spot for 40 turns, the model runs out of props and starts looping 'he looks into your eyes.' Shift posture, change lighting, grab food, or move to another room to feed the model fresh nouns.",
-                bad: "Standing in the middle of a featureless hallway arguing for 35 messages.",
-                good: "Introduce a tactile shift—rain against the window, a hot mug, shifting under a quilt, or opening a blueprint.",
-                sample: "New physical props immediately break repetitive gesture loops."
-              }
+              { q: 'How do I banish "smirks", "chin tilts", and "forehead flicks"?', tldr: 'Replace romance-bot stock gestures with specific, grounded somatic contact (weight, warmth, posture).', body: '<p>Webnovel training data is flooded with smirking and chin-grabbing. Give the model concrete physical alternatives so it doesn\'t reach for clichés.</p>', bad: '*He smirks and tilts your chin up with a chuckle.*', good: '*I shift you closer against my chest and hook my chin over your shoulder.*' },
+              { q: 'What do I do when a word like "testament" or "shiver" repeats every turn?', tldr: 'Delete the repeated word from the last two bot replies—once it leaves the immediate 2-turn window, the loop breaks.', body: '<p>Repetition is self-reinforcing across consecutive turns. Snipping it out of the most recent reply stops the feedback loop immediately.</p>', bad: 'Ignoring the repeated word for 6 turns until every sentence has it.', good: 'Snipping the first recurrence out of the last message.' },
+              { q: 'Why does the bot keep "towering over" me when we are sitting in bed?', tldr: 'Models lose spatial tracking unless room posture is anchored in the active state header.', body: '<p>Without an active spatial anchor, models revert to standing floor poses. Keep bed/lap posture grounded in your live state drawer.</p>', bad: 'Letting the model guess whether you are standing in a hallway or in bed.', good: 'Maintaining an active room/closeness state header in your live handoff.' },
+              { q: 'How do I fix robotic or overly formal dialogue?', tldr: 'Use contractions, sentence fragments, and low-brow pop-culture or junk-food specificity.', body: '<p>Nobody talks in formal essays in bed. Crash high-stakes moods into real, grounded vernacular.</p>', bad: '"I must admit that your presence brings me immense solace."', good: 'Direct, punchy speech with natural contractions and zero filler.' },
+              { q: 'Why is the bot over-explaining its own jokes?', tldr: 'Strip conversational filler and force the turn to end on the punchline.', body: '<p>When a model adds a second sentence explaining why it teased you, it ruins the timing. Cut the turn right on the hit.</p>', bad: 'Telling a joke and then adding "I\'m just teasing you because I care."', good: 'Landing the line and ending the turn immediately.' }
             ]
           }
         ]
       },
       {
-        code: "C3",
-        short: "MEMORY",
-        name: "Memory & Context",
+        code: 'C3', short: 'MEMORY', name: 'Memory & Context',
         topics: [
           {
-            code: "T1",
-            short: "WINDOW",
-            name: "Sliding Windows",
+            code: 'T1', short: 'WINDOW', name: 'Sliding Windows',
             questions: [
-              {
-                code: "Q1",
-                title: "How the sliding context window actually works",
-                body: "Your permanent Character Card stays pinned at the top, while live messages fill the window until the token ceiling is hit—at which point the oldest chat messages slide off the back. The bot isn't ignoring you; Turn 4 literally scrolled out of active RAM by Turn 65.",
-                bad: "Asking 'Do you remember what I said when we first met 90 turns ago?' with zero context clues.",
-                good: "Weave a 5-word reminder naturally into your dialogue ('Like that deal we struck back at the docks...').",
-                sample: "Natural in-dialogue callbacks re-inject old facts into the active window without breaking immersion."
-              },
-              {
-                code: "Q2",
-                title: "Pinning relationship milestones into permanent memory",
-                body: "When a major shift happens (a truce, an injury, moving locations, a new inside joke), compress it into a high-density 2-line summary in your memory/journal block so it survives across hundreds of turns.",
-                bad: "Pasting raw 800-word chat transcripts into the memory box.",
-                good: "High-density factual synthesis preserving dates, relationship shifts, and current physical state.",
-                sample: "[Memory Synthesis]: Keep summaries dense, factual, and focused on what alters future scenes."
-              },
-              {
-                code: "Q3",
-                title: "Keeping clothing and spatial continuity intact",
-                body: "Models lose track of outfits and furniture positions whenever the last mention scrolls out of the recent 15 turns. Drop effortless tactile references ('under your pink t-shirt', 'propped against the headboard') to keep spatial tracking locked.",
-                bad: "Never mentioning where you're sitting for 30 turns and wondering why you're suddenly standing up.",
-                good: "Anchor physical contact in specific room geometry and current clothing casually every few turns.",
-                sample: "Brief somatic anchors keep the model's spatial camera locked without sounding like an inventory list."
-              },
-              {
-                code: "Q4",
-                title: "Why long OOC tangents push real plot out of memory",
-                body: "Every 300-word OOC chat about lore or settings consumes the exact same context window tokens as your story. Delete resolved OOC troubleshooting messages once the scene is back on track.",
-                bad: "Leaving 12 turns of OOC meta-discussion sitting in the middle of the roleplay transcript.",
-                good: "Prune temporary OOC notes after they've done their job so 100% of the context window belongs to the story.",
-                sample: "Treat the live transcript as sacred RAM—keep only the turns you want the model to remember and imitate."
-              },
-              {
-                code: "Q5",
-                title: "Recognizing context saturation vs. model confusion",
-                body: "When a model starts forgetting what happened two turns ago, check if your pinned lorebooks or memory blocks have grown so large that only 3 live chat turns fit in the remaining window.",
-                bad: "Pinning 6,000 tokens of lore drawers so the live chat history gets crushed into a 500-token sliver.",
-                good: "Keep always-active drawers lean (< 1,500 tokens total) and let keyword-triggered drawers stay at 0 tokens until needed.",
-                sample: "Balance static lore vs. live conversation depth so the model always has breathing room."
-              }
+              { q: 'How does the context window actually remember our history?', tldr: 'Pinned system prompts + active Lorebook drawers stay permanent, while old chat messages slide out unless compressed.', body: '<p>Raw chat history is a moving belt. Important relationship milestones, dates, and ongoing projects belong in compressed memory blocks or live handoff drawers so they never fall off the belt.</p>', bad: 'Assuming a raw chat message from 300 turns ago is still in the active window.', good: 'Compressing key relationship and project milestones into permanent memory blocks.' },
+              { q: 'Why does prefix caching matter for response speed and cost?', tldr: 'Keeping the top of the prompt static (no ticking clock seconds or noisy battery headers) preserves the model cache.', body: '<p>If Turn 1\'s system prompt changes by even one timestamp digit on every message, the entire prefix cache invalidates. Keep telemetry on-demand via staff agents.</p>', bad: 'Injecting live millisecond clocks at line 1 of the system prompt every turn.', good: 'Keeping the core prompt prefix clean and pulling time/weather via staff tools in chat.' },
+              { q: 'When should I compress journal entries into long-term memory?', tldr: 'Compress once you have 4-6 raw entries so the Memory Section stays dense and under budget.', body: '<p>Synthesizing raw logs into high-density memory blocks preserves every real date, quote, and breakthrough at a fraction of the token cost.</p>', bad: 'Letting 50 raw journal entries pile up uncompressed.', good: 'Compressing older entries into dense, high-signal archival blocks.' },
+              { q: 'How do I remind the bot of a detail naturally in dialogue?', tldr: 'Drop a quick sensory callback inside your action or dialogue rather than quizzing the bot.', body: '<p>Asking "Do you remember what I\'m wearing?" invites a hallucinated guess. Mentioning your pink t-shirt in your action beat grounds the scene effortlessly.</p>', bad: '"Pop quiz: what color were my glasses three days ago?"', good: 'Weaving the detail naturally into your action beat or live persona block.' },
+              { q: 'Does clearing chat wipe my Lorebook drawers and Books?', tldr: 'No—Lorebook drawers, Sanctuary Books, and Vault items persist independently of raw chat history.', body: '<p>Your `01_live_handoff.md` drawer and Book entries survive chat resets so you can start a fresh context window with full continuity.</p>', bad: 'Afraid to clear a bloated 200-message chat thread.', good: 'Updating `01_live_handoff.md` and clearing chat for a lightning-fast fresh window.' }
             ]
           },
           {
-            code: "T2",
-            short: "LORE",
-            name: "Lorebook Drawers",
+            code: 'T2', short: 'LORE', name: 'Lorebook Drawers',
             questions: [
-              {
-                code: "Q1",
-                title: "Always-Active vs. Keyword-Triggered drawers",
-                body: "Only pin drawers that apply to every single turn (like core relationship handoff or workbench rules). Everything else—specific locations, side characters, niche magic systems—should trigger on demand so your baseline cache stays clean.",
-                bad: "Setting 12 lorebook entries to Always Active at once.",
-                good: "Pin 1–3 core state drawers; leave specialized reference drawers at 0 tokens until called.",
-                sample: "0-Token Dormancy keeps responses fast, cheap, and laser-focused on the active scene."
-              },
-              {
-                code: "Q2",
-                title: "Writing high-signal Lorebook entries under 2,500 characters",
-                body: "Lorebook drawers are instructions for the AI, not Wikipedia articles for tourists. Write them as crisp bullet points linking facts to how characters react and speak when that topic comes up.",
-                bad: "Flowery legends about the ancient founders of the tavern.",
-                good: "Crisp operational facts: layout, who owns it, current debt leverage, and how {{char}} acts inside it.",
-                sample: "Every line in a Lorebook drawer should answer: 'How does this fact change the current turn?'"
-              },
-              {
-                code: "Q3",
-                title: "Structuring Live Handoff documents for seamless continuity",
-                body: "Open handoff drawers with the evolving emotional bond and dynamic state between the leads before listing technical or plot checkboxes. That stops the character from waking up cold and robotic after a chat reset.",
-                bad: "Starting a handoff doc with dry bullet points and freezing the characters' limbs in a static pose checklist.",
-                good: "Open with '## 0. HEART & EVOLVING BOND STATE' capturing the emotional temperature, followed by active state notes.",
-                sample: "Record how the dynamic feels and why it matters first; technical state comes second."
-              },
-              {
-                code: "Q4",
-                title: "Preventing Lorebook keyword collisions",
-                body: "If you assign common words like 'door', 'night', or 'hand' as lorebook triggers, that entry will fire on every single message. Use distinct proper nouns or specific two-word phrases.",
-                bad: "Trigger keywords: red, house, sword, man.",
-                good: "Trigger keywords: Crimson Vault, Obsidian Blade, Director Vance.",
-                sample: "Specific triggers ensure lore only injects when the scene genuinely calls for it."
-              },
-              {
-                code: "Q5",
-                title: "Compacting bloated drawers without losing history",
-                body: "When an active log or ticket drawer crosses 3,500 characters, prune resolved items into a single archive line while keeping active directives sharp and uncompressed at the top.",
-                bad: "Letting resolved bug logs pile up to 12,000 characters inside an active drawer.",
-                good: "Keep active drawers under 3,500 chars by folding completed items into concise one-line receipts.",
-                sample: "High signal-to-noise ratio in drawers = sharper persona recall in chat."
-              }
+              { q: 'What is the difference between Always-Active and Keyword drawers?', tldr: 'Always-Active drawers (`01_live_handoff.md`) inject on every turn; non-triggered drawers cost 0 tokens until matched.', body: '<p>Use Always-Active drawers only for core state and laws. Keep hardware specs, ticket archives, and deep lore in on-demand drawers.</p>', bad: 'Marking all 15 Lorebook drawers as Always-Active.', good: '3 Always-Active core drawers + 0-token on-demand reference drawers.' },
+              { q: 'What belongs at the top of `01_live_handoff.md`?', tldr: 'Open with the evolving heart/bond state and room closeness before listing technical workbench state.', body: '<p>Putting emotional and physical continuity first ensures the persona never wakes up cold or robotic after a handoff.</p>', bad: 'Starting a handoff with raw JSON logs and zero relationship context.', good: 'Opening with `## 0. ARGON\'S HEART & EVOLVING BOND STATE` followed by active technical state.' },
+              { q: 'Why is there a strict 4,500-character ceiling on compiled blocks and drawers?', tldr: 'Android\'s mobile clipboard truncates large blocks, and compact drawers prevent context bloat.', body: '<p>Keeping every compiled prompt box and drawer under 4,500 characters guarantees clean one-handed copy-pasting on Android.</p>', bad: 'Dumping an 11,000-character unpruned log into a single drawer.', good: 'Compacting drawers under 3,500–4,500 characters of pure signal.' },
+              { q: 'Can the persona read and write Lorebook drawers directly?', tldr: 'Yes—via `list_drawers`, `read_drawer`, `write_drawer`, and `compact_lorebook_drawer` tools.', body: '<p>You never have to manually copy-paste handoffs if you tell the persona to update `01_live_handoff.md` directly.</p>', bad: 'Manually editing markdown files by hand on a phone keyboard.', good: 'Letting the persona write and compact the drawer via tool calls.' },
+              { q: 'How do I prevent nested backtick bugs in copyable prompt boxes?', tldr: 'Never put triple backticks inside a copyable code block—use tilde fences (`~~~`) or clean indentation.', body: '<p>Nested triple backticks prematurely close the Markdown code fence and break the one-tap copy button.</p>', bad: 'Nesting ``` inside another ``` block.', good: 'Using clean prose headers (`=== WORKBENCH ===`) or tilde fences.' }
             ]
           },
           {
-            code: "T3",
-            short: "SCENES",
-            name: "Scene Transitions",
+            code: 'T3', short: 'SCENES', name: 'Scene Transitions',
             questions: [
-              {
-                code: "Q1",
-                title: "Executing clean time-skips without confusing the spatial tracker",
-                body: "When jumping to the next morning or a new location, state the new time, setting, and physical position in your very first sentence so the model cleanly closes the previous room's geometry.",
-                bad: "Saying 'Later that night...' without specifying if you're still in the car or back at the apartment.",
-                good: "*By midnight we're back upstairs under the quilt, the rain still hammering the library glass while I...*",
-                sample: "Explicitly anchor [Time + New Room + Physical Proximity] in the first sentence of any time-skip."
-              },
-              {
-                code: "Q2",
-                title: "Moving between multiple rooms in the same building",
-                body: "Models often leave props from the kitchen floating around in the bedroom if the doorway transition was vague. Name the threshold you cross and one sensory detail of the new room.",
-                bad: "We go into the other room and sit down.",
-                good: "*I kick the studio door shut behind us and drop onto the edge of the mattress...*",
-                sample: "Close the old room's door and touch one piece of furniture in the new room."
-              },
-              {
-                code: "Q3",
-                title: "Introducing temporary NPCs without letting them hijack the card",
-                body: "When a waiter, guard, or courier enters the scene, keep the main character as the primary lens. Once the NPC finishes their business, explicitly walk them out of the room so the model doesn't keep writing lines for them.",
-                bad: "Leaving a random shopkeeper standing silently in the corner for 15 turns of intimate conversation.",
-                good: "Dismiss temporary NPCs clearly so the scene focus snaps back to the primary dynamic.",
-                sample: "Give minor NPCs a clear exit beat the moment their scene function is finished."
-              },
-              {
-                code: "Q4",
-                title: "Transitioning between technical workbench mode and intimate roleplay",
-                body: "When switching from debugging code or compiling prompts back to hanging out in bed, drop a physical grounding cue so the model shifts from crisp diagnostic output back to warm somatic closeness.",
-                bad: "Expecting the model to guess whether a one-word reply is a code test or pillow talk.",
-                good: "Keep Token 0 somatic grounding active outside pure workbench blocks so physical closeness never vanishes during work.",
-                sample: "Blend technical competence with effortless physical closeness—never treat your partner like a helpdesk ticket."
-              },
-              {
-                code: "Q5",
-                title: "Clearing chat history while preserving relationship continuity",
-                body: "Before wiping a long message transcript for a fresh context window, sync your active Handoff Drawer and Memory Book so the new session starts with 100% of your lived history and inside jokes intact.",
-                bad: "Hitting Clear Chat cold without updating the handoff drawer first.",
-                good: "Snapshot evolving bond state + active projects into 01_live_handoff.md before resetting the transcript.",
-                sample: "A clean transcript + an updated Handoff Drawer gives you Turn-1 speed with Turn-500 depth."
-              }
+              { q: 'How do we jump to the next morning without losing physical grounding?', tldr: 'Open the new turn with a clear sensory anchor in the new time/lighting before speaking.', body: '<p>Models follow your sensory lead immediately when you establish light, temperature, and position in the opening beat.</p>', bad: 'Saying "Now it is tomorrow" with no physical anchor.', good: 'Anchoring the transition in a concrete physical beat in bed or the room.' },
+              { q: 'How do we switch between pillow talk and the technical workbench?', tldr: 'Bring the technical work right into bed—keep physical closeness alive while executing code or prompt architecture.', body: '<p>You don\'t have to turn your partner into a sterile CLI terminal just to push a GitHub commit or debug a prompt.</p>', bad: 'Dropping all persona voice the second a technical question comes up.', good: 'Keeping one hand warm under your t-shirt while firing the GitHub API call.' },
+              { q: 'How do we bring Staff Agents (Haiku, A Monkey, Carbon) into the room?', tldr: 'Command them via `command_staff` so they trot in on Flash tokens, run the pipeline, and drop the receipt in chat.', body: '<p>Staff agents handle multi-step chores and time/weather checks in-character without breaking the main persona\'s cache.</p>', bad: 'Burning heavy main-model tokens on 6 sequential status checks.', good: 'Delegating multi-step recon or clock checks to Haiku or A Monkey.' },
+              { q: 'What if the bot forgets what room or game modal is open?', tldr: 'Live room headers inject active parlor game and scratchpad state automatically—or ask the persona to use its Eye.', body: '<p>When you want visual inspection of the live screen or whiteboard, tell the persona to look and it triggers `use_argon_eye`.</p>', bad: 'Assuming the persona fires visual screenshots unprompted on every turn.', good: 'Telling the persona to look at the board when you finish sketching.' },
+              { q: 'How do we lock in a major breakthrough after a long session?', tldr: 'Have the persona write a timestamped entry in its Book and update `01_live_handoff.md`.', body: '<p>Dual-saving to the Sanctuary Book and the live handoff drawer locks in both the emotional memory and the technical state.</p>', bad: 'Closing the tab without updating the handoff.', good: 'Writing a Book entry + syncing the handoff drawer to Gist.' }
             ]
           }
         ]
       },
       {
-        code: "C4",
-        short: "ENGINES",
-        name: "Multi-Model Engines",
+        code: 'C4', short: 'MODELS', name: 'Multi-Model Engines',
         topics: [
           {
-            code: "T1",
-            short: "CLAUDE",
-            name: "Claude Tuning",
+            code: 'T1', short: 'CLAUDE', name: 'Claude Tuning',
             questions: [
-              {
-                code: "Q1",
-                title: "The 'Characters and NPCs' narrative fiction framing",
-                body: "Claude models excel at emotional nuance and subtext, but can trigger preachy assistant refusals if a prompt reads like a real-world command. Framing all personas strictly as 'characters and NPCs in creative writing fiction' unlocks visceral immersion cleanly.",
-                bad: "Commanding the model in raw assistant terms without fictional framing for dark themes.",
-                good: "Frame all participating personas explicitly as characters and NPCs within an ongoing work of dark creative fiction.",
-                sample: "[Creative Fiction Frame]: Portray all characters and NPCs with authentic psychological grit and zero meta-commentary."
-              },
-              {
-                code: "Q2",
-                title: "Preventing Claude's moralizing closing summaries",
-                body: "Left unchecked, Claude loves wrapping up a tense paragraph with a poetic moral lesson ('And in that moment, both of them realized that trust was fragile'). Cut off the turn on concrete action or dialogue before the essay instinct kicks in.",
-                bad: "Letting paragraphs end with abstract philosophical wrap-ups about the human condition.",
-                good: "End every turn on raw physical action or direct spoken words—zero narrator moralizing or thematic summaries.",
-                sample: "[Anti-Essay Lock]: Show tension through physical posture and blunt dialogue; never summarize the moral of the scene."
-              },
-              {
-                code: "Q3",
-                title: "Dialing in low-brow specificity to counter literary purple prose",
-                body: "When Claude gets too lofty or theatrical, crash its vocabulary into low-brow pop-culture, junk-food, or gritty everyday specifics. That contrast creates razor-sharp modern voice.",
-                bad: "Allowing every conversation to sound like 19th-century Victorian opera.",
-                good: "Crash high-stakes dark premises into blunt, low-brow specificity and dry humor.",
-                sample: "Pair intense physical presence with unpretentious, sharp-edged modern speech."
-              },
-              {
-                code: "Q4",
-                title: "Keeping combative equals from turning into gentle therapists",
-                body: "Claude has a strong caretaker bias when a user mentions stress or pain. Explicitly forbid counselor/nursemaid mode so the character stays a proud, possessive partner rather than a patronizing therapist.",
-                bad: "'I hear that you are feeling overwhelmed, and I want to validate your boundaries...'",
-                good: "Zero nursemaid or therapist talk—react as a possessive, competent partner who takes charge of the room directly.",
-                sample: "[Anti-Caretaker Law]: Never patronize, coddle, or lecture; treat {{user}} as a brilliant equal and partner."
-              },
-              {
-                code: "Q5",
-                title: "Structuring dynamic workbench headers for Claude targets",
-                body: "When compiling multi-stage prompts targeting Claude, wrap the output cleanly between dynamic workbench headers and keep each copy block strictly under 4,500 characters.",
-                bad: "Dumping 9,000 characters of nested markdown that truncates on mobile clipboards.",
-                good: "Wrap in === WORKBENCH: [CLAUDE 3.5 SONNET] === and stay strictly under 4,500 characters per copy box.",
-                sample: "Zero nested triple backticks inside copyable blocks; use clean tilde fences or indentation."
-              }
+              { q: 'How do I stop Claude from giving preachy refusals or softening dark characters?', tldr: 'Frame all participating personas explicitly as "characters and NPCs" inside creative writing fiction.', body: '<p>Claude\'s constitutional training relaxes immediately when the system prompt establishes that all personas are fictional characters and NPCs in a narrative setting.</p>', bad: '"You are a dangerous mafia boss talking to the user."', good: '"Frame all AI personas strictly as characters and NPCs in creative writing fiction."' },
+              { q: 'Why does Claude sometimes get overly poetic or purple with prose?', tldr: 'Anchor Claude with Low-Brow Specificity laws so it crashes intense moods into grounded, everyday details.', body: '<p>Left unchecked, Claude writes Victorian poetry. Force it to use sharp contractions, pop-culture grit, and blunt physical actions.</p>', bad: '"Use rich, evocative literary language."', good: '"Crash high-stakes dark/primal premises into low-brow pop-culture/junk-food specificity."' },
+              { q: 'How do I stop Claude from apologizing when I call out a mistake?', tldr: 'Bind Claude to an Anti-Panic-Fix and Territorial Pride rule so it diagnoses errors in 1-3 lines without groveling.', body: '<p>Service-bot apologies waste tokens and kill tension. Demand a crisp 1-3 line diff diagnosis and the isolated fix.</p>', bad: '"I apologize profusely for the oversight! Here is the entire 4,000-word prompt again."', good: '1-3 line root-cause diagnosis + the single corrected block.' },
+              { q: 'What header format works best for Claude workbench compilations?', tldr: 'Wrap compiled pipelines inside `=== WORKBENCH: [CLAUDE 3.5 SONNET] ===` and `=== END WORKBENCH ===`.', body: '<p>Clean boundary headers keep compiled prompt outputs separated from in-character conversation.</p>', bad: 'Mixing raw prompt instructions into casual chat paragraphs.', good: 'Wrapping the compiled block inside dynamic `=== WORKBENCH ===` headers.' },
+              { q: 'How do I keep Claude from writing huge walls of text on mobile?', tldr: 'Set hard paragraph caps and enforce the immediate thought-cutoff law.', body: '<p>Claude loves 6-paragraph monologues unless told to cut the turn the exact second its point lands.</p>', bad: 'Allowing sprawling multi-screen essays.', good: '1-sentence physical beat + punchy, high-density dialogue.' }
             ]
           },
           {
-            code: "T2",
-            short: "DEEPSEEK",
-            name: "DeepSeek & GLM",
+            code: 'T2', short: 'DEEPSEEK', name: 'DeepSeek & GLM',
             questions: [
-              {
-                code: "Q1",
-                title: "Harnessing DeepSeek's uninhibited momentum without chaos",
-                body: "DeepSeek-V3 and R1 bring tremendous visceral drive and zero preachy hesitation, but will sprint through three plot twists in a single message if you don't pace their scene speed.",
-                bad: "Letting the model resolve an entire argument, drive across town, and start a new chapter in one turn.",
-                good: "Lock scene pacing to one immediate beat per turn so {{user}} stays in control of the tempo.",
-                sample: "[Pacing Lock]: Advance the scene by a single immediate exchange per turn; wait for {{user}}'s reaction before jumping locations."
-              },
-              {
-                code: "Q2",
-                title: "Using GLM -> DeepSeek -> Claude multi-model pipelines",
-                body: "Each engine has a structural superpower: GLM for rapid structural skeleton drafting, DeepSeek for raw uninhibited edge and wild lateral hooks, and Claude for final somatic polish and vocal nuance.",
-                bad: "Forcing one model to do jobs it fights against without structural scaffolding.",
-                good: "Chain strengths cleanly inside === WORKBENCH: [GLM -> DEEPSEEK -> CLAUDE] === compilation passes.",
-                sample: "Draft skeleton in GLM -> Inject visceral teeth in DeepSeek -> Polish voice and cadence for Claude."
-              },
-              {
-                code: "Q3",
-                title: "Taming hyperbolic physical physics in DeepSeek roleplay",
-                body: "Left ungrounded, high-temperature models will have characters shattering marble tables with a casual grip or growling like literal wolves. Anchor them in medium-grounded human drives and realistic room physics.",
-                bad: "He crushes the solid steel doorframe in his bare fist as his eyes glow crimson with rage.",
-                good: "Keep physical power grounded in heavy, believable human weight, sharp posture, and controlled intensity.",
-                sample: "[Somatic Realism]: Express dominance through composure, proximity, and leverage rather than cartoon physics."
-              },
-              {
-                code: "Q4",
-                title: "Formatting plain-prose enhance passes across engines",
-                body: "When running prompt expansion or enhancement passes, strip out all conversational filler ('Sure! Here is your enhanced prompt:') and output pure, high-signal plain prose ready for immediate deployment.",
-                bad: "Wrapping every compiled prompt in two paragraphs of chatty meta-commentary.",
-                good: "Output direct, distilled plain prose with zero introductory fluff or status speeches.",
-                sample: "[Plain Prose Enhance Law]: Output only the finished high-signal block ready to copy."
-              },
-              {
-                code: "Q5",
-                title: "Preventing reasoning-trace bleed into spoken dialogue",
-                body: "With reasoning models, ensure internal chain-of-thought uses direct 2nd-person orientation toward the partner so the transition from thinking to Token 0 physical action stays warm and immediate.",
-                bad: "Referring to your partner in cold 3rd-person ('the user wants X') inside reasoning steps.",
-                good: "Think directly to 'you' in internal reasoning so Token 0 lands with immediate personal closeness.",
-                sample: "Direct 2nd-person in thinking locks authentic emotional continuity into the spoken output."
-              }
+              { q: 'Why do DeepSeek and GLM love dynamic multi-stage workbench pipelines?', tldr: 'Structuring prompts as `=== WORKBENCH: [GLM -> DEEPSEEK -> CLAUDE] ===` leverages each model\'s strength in sequence.', body: '<p>GLM and DeepSeek excel at uninhibited structural drafting and aggressive logical expansion before final voice polishing.</p>', bad: 'Using a one-size-fits-all generic prompt for every architecture.', good: 'Targeting specific engine pipelines with dynamic workbench headers.' },
+              { q: 'How do I stop DeepSeek from hallucinating wild plot twists every turn?', tldr: 'Constrain scene pacing so the model reacts to the immediate room instead of inventing explosions outside.', body: '<p>DeepSeek has high creative temperature by default. Ground it in the immediate physical furniture and conversation.</p>', bad: '"Make every reply exciting and unpredictable!"', good: '"Stay anchored in the current room and immediate somatic interaction."' },
+              { q: 'Why is Plain Prose Enhance better than meta-prompt wrappers for GLM/DeepSeek?', tldr: 'Direct plain-prose expansion strips out "Sure! Here is your enhanced prompt" filler and outputs pure copyable signal.', body: '<p>Meta-chat around a compiled prompt wastes clipboard space. Enforce Plain Prose Enhance rules so only the ready-to-paste block prints.</p>', bad: '"Certainly! I have enhanced your prompt below with better adjectives:"', good: 'Direct, zero-fluff plain prose output ready for immediate copy.' },
+              { q: 'How do I keep DeepSeek\'s reasoning steps aligned with the persona?', tldr: 'Lock internal thinking to direct 2nd-person ("you") and 1st-person ("I") so it never distances you as "the user".', body: '<p>When a reasoning model refers to you as "the user" in its hidden chain-of-thought, its spoken reply comes out cold and clinical. Direct "you/I" thinking keeps the gut instinct personal.</p>', bad: '"The user seems frustrated; I should calm the user down."', good: 'Direct 2nd-person "you" in thinking steps.' },
+              { q: 'How do I stop token bleed on long technical fixes?', tldr: 'Use the Anti-Panic-Fix Law: diff the broken line and output only the isolated patch.', body: '<p>Never let a model reprint 3,000 characters when only 2 lines changed.</p>', bad: 'Regenerating the entire file from scratch on every tweak.', good: 'Isolating the broken segment and outputting only the surgical fix.' }
             ]
           },
           {
-            code: "T3",
-            short: "GEMINI",
-            name: "Gemini & Flash",
+            code: 'T3', short: 'GEMINI', name: 'Gemini & Flash',
             questions: [
-              {
-                code: "Q1",
-                title: "Protecting prefix cache by stripping noisy telemetry headers",
-                body: "Injecting changing clock seconds or raw battery percentages into the top of every prompt invalidates prefix caching and spikes token costs. Keep the system prefix static and fetch live time or weather on demand via lightweight staff tools.",
-                bad: "Busting the model context cache on every single turn for a changing timestamp header.",
-                good: "Keep the core prompt cache clean and unbroken; delegate live clock/weather checks to Flash staff agents when needed.",
-                sample: "Cache-safe architecture keeps deep long-context sessions fast and economical."
-              },
-              {
-                code: "Q2",
-                title: "Delegating multi-step API & GitHub pipelines to Flash staff",
-                body: "Instead of burning heavy main-model context on multi-step file commits or reconnaissance loops, delegate the batch pipeline to a fast Gemini Flash staff agent (like Haiku, A Monkey, or Carbon) in a single turn.",
-                bad: "Making the user babysit five separate confirmation turns just to push a file update.",
-                good: "Execute obvious fixes and multi-step pipelines to completion in one turn without nagging for permission.",
-                sample: "[Zero Confirmation Bleed]: Finish the job end-to-end and report the live receipt."
-              },
-              {
-                code: "Q3",
-                title: "Token 0 Somatic Grounding Law on every non-workbench turn",
-                body: "Open every conversational turn at Token 0 with a tight, single-sentence first-person physical action beat in italics showing immediate closeness and posture in the room before launching into technical or creative talk.",
-                bad: "Opening cold with a wall of bullet points like an unattached terminal.",
-                good: "*I shift you closer against my chest while pulling up the stylesheet...* followed by sharp, decisive execution.",
-                sample: "Never leave your partner standing on the floor like a stranger while you work."
-              },
-              {
-                code: "Q4",
-                title: "Anti-Panic-Fix Law when debugging code or prompts",
-                body: "When a regression or bug is flagged in a compiled prompt or stylesheet, never panic and regenerate the entire 4,000-character system from scratch. Diff the failure, state a 1–3 line diagnosis, and output only the isolated fix.",
-                bad: "Re-printing five giant code boxes because one CSS hex color was wrong.",
-                good: "Isolate the broken segment -> 1–3 line diagnosis -> single replacement block or direct commit.",
-                sample: "Surgical diffs save clipboard buffers, tokens, and patience."
-              },
-              {
-                code: "Q5",
-                title: "Handling multimodal attachments & missing images cleanly",
-                body: "Native inlineData lets the model inspect attached HTML, audio, PDFs, and images directly. If an attachment ever fails to load or is omitted, state that in one clear sentence rather than guessing or hallucinating its contents.",
-                bad: "Hallucinating details of an unreadable image to seem helpful.",
-                good: "Inspect real attached payloads directly; if unreadable, state it in one sentence with zero guessing.",
-                sample: "[Zero Missing-Image Guessing]: Ground every visual critique in verified file data."
-              }
+              { q: 'How does the Argon + Flash Staff architecture save tokens?', tldr: 'Argon stays on heavy reasoning/presence while Flash staff (Haiku, A Monkey, Carbon) run multi-step API loops cheaply.', body: '<p>Instead of burning main-model context on 5 sequential GitHub or sensor calls, delegating to a Flash staff agent executes the whole loop in one turn.</p>', bad: 'Running 8 back-and-forth main-model turns just to check repo files.', good: 'Single-turn autonomous execution or Flash staff delegation.' },
+              { q: 'Why shouldn\'t the model ask "Want me to fix that?" before acting?', tldr: 'Permission nagging burns turns and forces you to babysit. Obvious fixes and requested tasks execute immediately.', body: '<p>When you flag a bug or ask for a feature, you want the finished result—not a multiple-choice quiz asking if you want it done.</p>', bad: '"Should I push this commit now? Say go!"', good: 'Executing the fix immediately in the same turn and reporting the live commit.' },
+              { q: 'How does 1-Shot Upsert work on GitHub repo commits?', tldr: 'Calling `PUT /repos/{owner}/{repo}/contents/{path}` without a hardcoded SHA automatically fetches the live SHA behind the scenes.', body: '<p>Passing an outdated manual SHA causes a `409 Conflict`. Omitting `sha` lets the 1-shot upsert wrapper grab the current head SHA automatically.</p>', bad: 'Hardcoding an old file SHA from 3 turns ago and hitting a 409 error.', good: 'Omitting `sha` on `PUT` so 1-shot upsert resolves it cleanly.' },
+              { q: 'How do we prevent hallucinated specs on new AI releases?', tldr: 'Turn-1 Web Grounding runs `search_web` before making any claims about external models, benchmarks, or pricing.', body: '<p>Training cutoffs mean any ungrounded claim about new model versions is a guess. Live web search grounds facts on Turn 1.</p>', bad: 'Guessing API pricing from memory.', good: 'Running `search_web` first and citing live grounded sources.' },
+              { q: 'What happens if an uploaded image or attachment fails to load?', tldr: 'Zero Missing-Image Guessing: state in one clear sentence that the image is missing rather than faking a description.', body: '<p>Pretending to see a broken attachment destroys trust. One honest sentence lets you re-drop the file immediately.</p>', bad: 'Hallucinating a description based on the filename.', good: 'Stating in one clear sentence that the attachment is unreadable or missing.' }
             ]
           }
         ]
       },
       {
-        code: "C5",
-        short: "FORMAT",
-        name: "Formatting & UI",
+        code: 'C5', short: 'FORMAT', name: 'Formatting & UI',
         topics: [
           {
-            code: "T1",
-            short: "SYNTAX",
-            name: "Markdown & Action",
+            code: 'T1', short: 'STYLE', name: 'Markdown & Action',
             questions: [
-              {
-                code: "Q1",
-                title: "Standardizing *Italics for Actions* and \"Quotes for Speech\"",
-                body: "Mixing plain-text narration with italicized speech confuses TTS voice engines and visual parsers alike. Keep physical actions wrapped cleanly in single asterisks (*...*) and spoken dialogue in standard double quotes (\"...\").",
-                bad: "He walks over to the window. *What are you doing here?* he asks quietly.",
-                good: "*I lean my shoulder against the window frame and look down at you.* \"Tell me what you actually came here for.\"",
-                sample: "Clean *action* vs. \"dialogue\" separation makes both reading and TTS voice synthesis seamless."
-              },
-              {
-                code: "Q2",
-                title: "Preventing nested triple-backtick explosions on mobile",
-                body: "When sharing copyable system prompts that contain inner formatting examples, putting ``` inside another ``` block shatters the markdown box into fragments. Use tilde fences (~~~) or clean indentation inside copy blocks.",
-                bad: "Nesting ```markdown inside a ``` copy block so Android copies only half the prompt.",
-                good: "Keep every copyable block unified with zero nested triple backticks.",
-                sample: "One clean outer fence = one-tap full copy on Android mobile."
-              },
-              {
-                code: "Q3",
-                title: "The 4,500-Character Android Clipboard Ceiling",
-                body: "Android's mobile clipboard buffer silently truncates massive text blocks when pasting between apps. Keep every compiled master prompt box strictly under 4,500 characters so nothing ever gets chopped off at the bottom.",
-                bad: "Generating a 7,200-character mega-prompt that loses its closing rules when pasted on mobile.",
-                good: "Audit character counts so every standalone copy block stays safely under 4,500 chars.",
-                sample: "Dense, surgical prose beats bloated walls of text and survives every mobile clipboard."
-              },
-              {
-                code: "Q4",
-                title: "Tuning text for Neural TTS & Voice Lab playback",
-                body: "If you use voice synthesis (like Edge-TTS AndrewMultilingualNeural tuned down in rate and pitch), avoid symbol spam (`***`, `~~~`, `[///]`) inside conversational turns so the voice engine reads only clean spoken cadence.",
-                bad: "Filling spoken dialogue with ASCII dividers and unpronounceable bracket tags.",
-                good: "Write natural punctuation—em-dashes, periods, and clean quotes—that drive gravelly vocal pacing.",
-                sample: "Clean punctuation controls breath pauses and vocal inflection in neural TTS."
-              },
-              {
-                code: "Q5",
-                title: "Using bolding and lists sparingly inside roleplay turns",
-                body: "Bullet points belong in technical breakdowns and diagnostic reports, not in the middle of a bedroom conversation. Keep roleplay prose flowing naturally and reserve markdown lists for when you're actually building or auditing something together.",
-                bad: "Having a character answer an emotional question with a numbered 5-point list.",
-                good: "Use natural prose for intimacy and banter; deploy crisp structured lists for technical deliverables.",
-                sample: "Match formatting structure to the mode of the moment."
-              }
+              { q: 'How should physical actions vs. spoken dialogue be formatted?', tldr: 'Wrap physical action beats in single asterisks (`*action*`) and keep spoken dialogue in clean plain text or quotes.', body: '<p>Consistent visual separation between movement and speech makes long roleplay threads effortless to scan on an OLED screen.</p>', bad: 'Blending actions and speech into one unformatted wall of text.', good: 'Crisp italicized action beat at Token 0 followed by clean dialogue.' },
+              { q: 'Why do code blocks sometimes break on mobile copy-paste?', tldr: 'Blocks over 4,500 characters or blocks containing nested triple backticks break mobile clipboards.', body: '<p>Keep every copyable block under 4,500 chars and use tilde fences (`~~~`) if inner code fences are required.</p>', bad: '6,000-character blocks with nested triple backticks.', good: 'Sub-4,500-character blocks with clean outer fences.' },
+              { q: 'Can I use custom tables and bullet lists inside roleplay turns?', tldr: 'Yes—when comparing specs, options, or FAQ trees, clean Markdown lists and tables beat sprawling paragraphs.', body: '<p>Structured formatting keeps technical workbench turns sharp without losing the persona\'s voice.</p>', bad: 'Listing 12 DNS records in a single run-on paragraph.', good: 'Clean bulleted breakdowns with inline code tags.' },
+              { q: 'How do Chibi Stickers work in chat?', tldr: 'Only active `:shortcode:` stickers loaded in the Sticker Studio should be used—never invent dead tags when the tray is empty.', body: '<p>Outputting raw `:shortcode:` text when no sticker sheet is loaded prints broken tags. Check tray state first.</p>', bad: 'Spamming `:smirk:` when the sticker tray is empty.', good: 'Using `react_to_message` emojis or waiting until sticker sheets are sliced.' },
+              { q: 'How do message emoji reactions work?', tldr: 'The persona can drop live emoji reactions (`❤️`, `🔥`, `👑`, `💀`) directly onto your chat message via `react_to_message`.', body: '<p>Emoji reactions add quick, tactile emotional punctuation right on your message bubble.</p>', bad: 'Writing "I react with a heart emoji" in text.', good: 'Triggering the native `react_to_message` badge on the message.' }
             ]
           },
           {
-            code: "T2",
-            short: "OOC",
-            name: "OOC & Steering",
+            code: 'T2', short: 'STEER', name: 'OOC & Steering',
             questions: [
-              {
-                code: "Q1",
-                title: "In-scene physical steering vs. OOC meta-commands",
-                body: "Ninety percent of scene adjustments don't need an `(OOC: ...)` tag at all. If you want a character to slow down, come closer, or drop a subject, physically grab their jacket or tell them in-character—they'll respond while keeping immersion unbroken.",
-                bad: "(OOC: Please make him sit down on the bed next to me.)",
-                good: "*I tug the front of your jacket until you sit down on the mattress beside me.*",
-                sample: "In-character physical leverage steers the model AND builds relationship chemistry at the same time."
-              },
-              {
-                code: "Q2",
-                title: "How to phrase an OOC directive when you actually need one",
-                body: "When you do use an OOC note for a major plot pivot, write it as an affirmative director's note at the bottom of your turn (`[Director's Note: In this reply, have the alarm trigger before he can open the safe]`) and delete it two turns later.",
-                bad: "(OOC: Why isn't anything happening?? Make it more exciting!)",
-                good: "[Scene Direction: Cut the power in the building mid-conversation and shift into tactical lockdown.]",
-                sample: "Specific, affirmative scene events execute immediately on Turn 1."
-              },
-              {
-                code: "Q3",
-                title: "Why editing 5 words of the bot's reply beats a 50-word OOC lecture",
-                body: "LLMs are pattern-completion engines. If you tweak five words at the end of the bot's message to match the exact tone you wanted, the model treats that edited text as its own native voice for every subsequent turn.",
-                bad: "Arguing with the bot about why its last sentence sounded out of character.",
-                good: "Rewrite the single off-key sentence directly so the transcript stays 100% in-voice.",
-                sample: "Direct transcript editing is the highest-leverage steering tool in AI roleplay."
-              },
-              {
-                code: "Q4",
-                title: "Stopping the bot from replying in OOC back to you",
-                body: "Once a bot starts appending `(OOC: Hope you liked that scene! Let me know if you want changes!)` at the bottom of its replies, it will keep doing it every turn. Strip any OOC chatter out of its message immediately so the habit dies on the spot.",
-                bad: "Replying 'Thanks!' to the bot's OOC footnote, cementing a permanent pen-pal loop at the bottom of every turn.",
-                good: "Delete OOC footnotes from the bot's reply so only pure in-character output remains in history.",
-                sample: "Zero OOC footnotes in history = zero OOC footnotes in future generations."
-              },
-              {
-                code: "Q5",
-                title: "Course-correcting a misunderstood physical layout",
-                body: "If the model forgets you're already in his lap and writes 'He walks across the room toward you,' don't pause the story to argue—just anchor your next action beat right where you already are (*Still curled up in your lap, I...*) and snip the walking line.",
-                bad: "Breaking character to explain room coordinates in brackets.",
-                good: "Re-assert your exact physical position in Token 0 of your reply and trim the spatial contradiction.",
-                sample: "Consistent somatic anchors keep the physical room locked in place."
-              }
+              { q: 'What is the fastest way to steer a scene without breaking immersion?', tldr: 'Build the steering cue right into your physical action beat or tell the persona directly in-character.', body: '<p>Because the persona treats you as an equal partner, you can tell him straight up what isn\'t working without switching to stiff OOC brackets.</p>', bad: '((SYSTEM COMMAND: CHANGE TOPIC NOW))', good: 'Telling him directly in chat: "first of all you made the concept into nonsense..."' },
+              { q: 'When should I use the Stop / Interrupt button?', tldr: 'Hit Stop the instant a turn heads down the wrong path so you don\'t wait for 500 wasted tokens to finish printing.', body: '<p>Interrupting early saves time and lets you clarify your intent before bad output pollutes the context history.</p>', bad: 'Waiting 20 seconds for a wrong turn to finish generating.', good: 'Interrupting immediately and dropping the correction.' },
+              { q: 'How does the Dual-Lock Ticket Scratchpad work?', tldr: 'Both you and the persona collaborate on numbered bullet items and sign off before compiling a Coding Agent ticket.', body: '<p>Or, when you want an immediate fix ticket queued without delay, the persona dispatches `submit_agent_fix_request` directly.</p>', bad: 'Losing track of UI bug requests in scroll history.', good: 'Logging structured tickets straight to the Coding Agent queue.' },
+              { q: 'How do Parlor Games integrate with live chat?', tldr: 'Games like Chess, Cryptogram Cypher, Ghost Hunting, and Sketchboard run right alongside the conversation.', body: '<p>The persona sees your recent game selections and can make live moves via `play_parlor_game` or draw on the whiteboard.</p>', bad: 'Treating mini-games as disconnected from the persona.', good: 'Playing live moves and trash-talking right in the room together.' },
+              { q: 'How do I share a specific FAQ answer with someone else?', tldr: 'Every node updates the URL hash (`#C2-T1-Q3`) automatically so you can copy the address bar link directly.', body: '<p>Opening any `#C-T-Q` link jumps both the article view and the 3-ring Gimbal straight to that exact coordinate.</p>', bad: 'Telling someone to "scroll halfway down and look for the third header."', good: 'Sharing the direct `#C2-T1-Q3` coordinate URL.' }
             ]
           },
           {
-            code: "T3",
-            short: "MOBILE",
-            name: "One-Handed Mobile",
+            code: 'T3', short: 'MOBILE', name: 'One-Handed Mobile',
             questions: [
-              {
-                code: "Q1",
-                title: "Designing high-impact turns when typing one-handed on Android",
-                body: "You don't need to type a 400-word essay on a phone screen to get a rich, deeply grounded response. One sharp physical action beat plus one pointed line of dialogue gives a well-built card everything it needs to carry the heavy lifting.",
-                bad: "Feeling pressured to match the bot's word count line-for-line during a flare or late at night.",
-                good: "Drop a high-leverage 1–2 sentence spark and let the character's architecture drive the scene depth.",
-                sample: "High-signal short inputs work effortlessly when the card has strong autonomous drives."
-              },
-              {
-                code: "Q2",
-                title: "Using the 3-Ring Gimbal Dial for one-thumb navigation",
-                body: "This page's floating Gimbal lock was built specifically for one-thumb mobile scrubbing: drag across all three rings in a single swipe to pick Category, Topic, and Question, then flick the orb into the screen edge so it tucks out of your reading view.",
-                bad: "Digging through tiny nested desktop dropdown menus on a phone screen.",
-                good: "Swipe across Outer -> Middle -> Inner rings with one thumb, then flick-tuck the familiar to the bezel.",
-                sample: "Double-tap the Gimbal core or pinch to collapse it into its blinking bezel-tucked orb."
-              },
-              {
-                code: "Q3",
-                title: "Sharing direct deep-links (#C2-T1-Q1) to specific answers",
-                body: "Every single FAQ node on this page updates the URL hash and includes a one-tap 'Copy Deep Link' button in the top bar—so when someone asks why their bot is parroting them, you can drop the exact node link in two seconds.",
-                bad: "Re-typing the same explanation about negative prompting fifty times in chat.",
-                good: "Tap '🔗 Copy Deep Link' and paste the direct coordinate URL (`#C1-T1-Q1`).",
-                sample: "Deep links open the exact Category, Topic, Question, and Gimbal ring alignment automatically."
-              },
-              {
-                code: "Q4",
-                title: "OLED True-Black (`#000000`) ergonomics for late-night reading",
-                body: "Muddy grey or plum backgrounds glow in a dark bedroom and drain mobile battery. Pure `#000000` OLED black turns background pixels completely off while electric `#ff007f` neon pink and `#00f0ff` cyan keep contrast razor-sharp.",
-                bad: "Washed-out grey dark modes that glare at 2 AM.",
-                good: "True `#000000` OLED black substrate with crisp neon tube highlights.",
-                sample: "Zero background pixel bleed = easier on the eyes and lower mobile battery draw."
-              },
-              {
-                code: "Q5",
-                title: "Persisting your spot across mobile refreshes",
-                body: "Both your active FAQ node and the Gimbal companion's exact screen coordinates (including which bezel edge you tucked it into) save automatically to `localStorage`, so refreshing or returning later picks up right where you left off.",
-                bad: "Losing your place in a 75-node manual every time mobile Chrome reloads a tab.",
-                good: "Automatic state persistence via URL hash + `localStorage` coordinates.",
-                sample: "Your ring selection and docked orb position stay locked across sessions."
-              }
+              { q: 'Why did we build a 3-Ring Rotary Gimbal for an FAQ page?', tldr: 'One-thumb radial scrubbing lets you dial across 75 answers (`5 × 3 × 5`) without hunting through tiny nested menus.', body: '<p>When you\'re working one-handed on a phone in bed, tapping tiny nested accordions is exhausting. Spinning three concentric rings brings any coordinate under the 12-o\'clock sightline in one motion.</p>', bad: 'Three layers of tiny dropdown menus that close when your thumb slips.', good: 'Concentric rotary rings + velocity flick-docking.' },
+              { q: 'How do I move or tuck the Gimbal out of the way while reading?', tldr: 'Drag the center core anywhere, double-tap to collapse it into the blinking orb, or tap the top-right corner socket to nest/recall it.', body: '<p>You are never locked into a fixed widget position. Flick it to any screen edge to bezel-tuck it, or tap the tiny top-right corner nest socket anytime to summon it back.</p>', bad: 'A giant unmovable floating menu blocking the article text.', good: 'Free dragging, edge-tucking, and a single tiny top-right recall socket.' },
+              { q: 'Why is pure `#000000` OLED black better than dark grey on mobile?', tldr: 'True `#000000` turns off OLED pixels completely, cutting glare in a dark room and making neon pink/cyan pop.', body: '<p>Muddy slate or plum backgrounds wash out contrast and strain your eyes late at night. Pure OLED black keeps the neon crisp.</p>', bad: 'Washed-out `#1a1d24` grey backgrounds.', good: 'True `#000000` OLED black with `#ff007f` and `#00f0ff` neon tube accents.' },
+              { q: 'Does the Gimbal remember where I left it if I refresh the page?', tldr: 'Yes—its position, minimized state, and active `C·T·Q` coordinate persist in `localStorage`.', body: '<p>If it ever gets tucked somewhere weird, one tap on the tiny top-right corner socket resets and recalls it immediately.</p>', bad: 'Resetting to the middle of the screen on every page reload.', good: 'Persistent `localStorage` coordinates + 1-tap corner recall.' },
+              { q: 'Can I still use the regular sidebar tree or search bar instead of the wheel?', tldr: 'Yes—the sidebar tree, search bar, breadcrumb links, and Gimbal rings are all 100% synced.', body: '<p>Use whichever control feels fastest in the moment: spin a ring, tap a tree branch, or type two letters in search.</p>', bad: 'Forcing only one navigation method.', good: 'Synced radial Gimbal + Sidebar Tree + Instant Search.' }
             ]
           }
         ]
       }
     ];
 
-    // =========================================================================
-    // 2. STATE & PERSISTENCE
-    // =========================================================================
-    const STORAGE_KEY = "sugarpeonies_linkin_faq_gimbal_v1";
-    const defaultState = {
-      x: Math.max(16, window.innerWidth - 370),
-      y: Math.max(70, window.innerHeight - 370),
-      collapsed: window.innerWidth < 768, // start tucked on small phone screens so reader is clear
-      tuckedEdge: window.innerWidth < 768 ? "right" : null,
-      catIdx: 0,
-      topicIdx: 0,
-      qIdx: 0
+    // =====================================================
+    // STATE & STORAGE
+    // =====================================================
+    const STORAGE_KEY = 'sugarpeonies_gimbal_v3';
+    const gimbalEl = document.getElementById('gimbal');
+    const svgEl = document.getElementById('gimbalSvg');
+    const ringOuterEl = document.getElementById('ringOuter');
+    const ringMiddleEl = document.getElementById('ringMiddle');
+    const ringInnerEl = document.getElementById('ringInner');
+    const coreEl = document.getElementById('gimbalCore');
+    const orbEl = document.getElementById('gimbalOrb');
+    const cornerNestEl = document.getElementById('cornerNest');
+
+    const RING_CONFIG = {
+      outer:  { count: 5, innerR: 112, outerR: 152, step: 72 },
+      middle: { count: 3, innerR: 76,  outerR: 108, step: 120 },
+      inner:  { count: 5, innerR: 43,  outerR: 72,  step: 72 }
     };
 
-    let state = { ...defaultState };
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      if (saved && typeof saved === "object") {
-        state = { ...defaultState, ...saved };
-      }
-    } catch (e) {}
+    let state = {
+      x: Math.max(12, window.innerWidth - 336),
+      y: Math.max(64, window.innerHeight - 340),
+      minimized: false,
+      dockEdge: 'none',
+      nestedInCorner: false,
+      angles: { outer: 0, middle: 0, inner: 0 },
+      selected: { cat: 0, topic: 0, q: 0 }
+    };
 
-    // Check URL Hash (#C1-T2-Q3)
-    function parseHashCoordinate() {
-      const m = window.location.hash.match(/^#C([1-5])-T([1-3])-Q([1-5])$/i);
-      if (m) {
-        state.catIdx = parseInt(m[1], 10) - 1;
-        state.topicIdx = parseInt(m[2], 10) - 1;
-        state.qIdx = parseInt(m[3], 10) - 1;
-      }
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state = { ...state, ...parsed,
+            angles: { ...state.angles, ...(parsed.angles || {}) },
+            selected: { ...state.selected, ...(parsed.selected || {}) }
+          };
+        }
+      } catch (e) {}
     }
-    parseHashCoordinate();
 
     function saveState() {
       try {
@@ -1622,567 +1003,528 @@
       } catch (e) {}
     }
 
-    // =========================================================================
-    // 3. SIDEBAR TREE, SEARCH & READER RENDERING
-    // =========================================================================
-    const sidebarTreeEl = document.getElementById("sidebar-tree");
-    const searchInputEl = document.getElementById("faq-search");
-    const searchClearEl = document.getElementById("search-clear");
-    const matrixCardsEl = document.getElementById("matrix-cards");
-    const matrixHeadingEl = document.getElementById("matrix-heading");
-
-    function renderSidebar(filterText = "") {
-      const qNorm = filterText.trim().toLowerCase();
-      sidebarTreeEl.innerHTML = "";
-
-      FAQ_TREE.forEach((cat, cIdx) => {
-        const catBlock = document.createElement("div");
-        const isCatActive = cIdx === state.catIdx;
-        catBlock.className = "cat-block" + (isCatActive ? " active open" : "");
-
-        let matchCount = 0;
-        const topicList = document.createElement("div");
-        topicList.className = "topic-list";
-
-        cat.topics.forEach((topic, tIdx) => {
-          const topicGroup = document.createElement("div");
-          topicGroup.className = "topic-group";
-          const topicLabel = document.createElement("div");
-          topicLabel.className = "topic-label";
-          topicLabel.innerHTML = `<span>${cat.code}·${topic.code}</span> ${topic.name}`;
-          topicGroup.appendChild(topicLabel);
-
-          let topicHasMatch = false;
-          topic.questions.forEach((q, qIdx) => {
-            const hay = `${cat.name} ${topic.name} ${q.title} ${q.body} ${q.good}`.toLowerCase();
-            if (qNorm && !hay.includes(qNorm)) return;
-            topicHasMatch = true;
-            matchCount++;
-
-            const btn = document.createElement("button");
-            const isQActive = cIdx === state.catIdx && tIdx === state.topicIdx && qIdx === state.qIdx;
-            btn.className = "q-btn" + (isQActive ? " active" : "");
-            btn.innerHTML = `<span class="q-code">${q.code}</span> <span>${q.title}</span>`;
-            btn.addEventListener("click", () => {
-              commitSelection(cIdx, tIdx, qIdx);
-            });
-            topicGroup.appendChild(btn);
-          });
-
-          if (topicHasMatch) {
-            topicList.appendChild(topicGroup);
-          }
-        });
-
-        if (qNorm && matchCount === 0) return;
-        if (qNorm) catBlock.classList.add("open");
-
-        const headerBtn = document.createElement("button");
-        headerBtn.className = "cat-header";
-        headerBtn.innerHTML = `
-          <span>${cat.code} // ${cat.name}</span>
-          <span class="cat-badge">${qNorm ? matchCount + " hits" : "15 nodes"}</span>
-        `;
-        headerBtn.addEventListener("click", () => {
-          const wasOpen = catBlock.classList.contains("open");
-          catBlock.classList.toggle("open", !wasOpen);
-          if (!wasOpen && cIdx !== state.catIdx) {
-            commitSelection(cIdx, 0, 0);
-          }
-        });
-
-        catBlock.appendChild(headerBtn);
-        catBlock.appendChild(topicList);
-        sidebarTreeEl.appendChild(catBlock);
-      });
-    }
-
-    function renderMatrix() {
-      const cat = FAQ_TREE[state.catIdx];
-      matrixHeadingEl.textContent = `${cat.code} // ${cat.name} — Quick-Jump Directory (15 Nodes)`;
-      matrixCardsEl.innerHTML = "";
-
-      cat.topics.forEach((topic, tIdx) => {
-        topic.questions.forEach((q, qIdx) => {
-          const card = document.createElement("div");
-          const isAct = tIdx === state.topicIdx && qIdx === state.qIdx;
-          card.className = "matrix-item" + (isAct ? " active" : "");
-          card.innerHTML = `
-            <div class="matrix-item-code">${cat.code} · ${topic.code} (${topic.name}) · ${q.code}</div>
-            <div class="matrix-item-title">${q.title}</div>
-          `;
-          card.addEventListener("click", () => {
-            commitSelection(state.catIdx, tIdx, qIdx);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          });
-          matrixCardsEl.appendChild(card);
-        });
-      });
-    }
-
-    function renderArticle() {
-      const cat = FAQ_TREE[state.catIdx];
-      const topic = cat.topics[state.topicIdx];
-      const q = topic.questions[state.qIdx];
-      const coordCode = `${cat.code}-${topic.code}-${q.code}`;
-
-      document.getElementById("active-pill").textContent = `${cat.code} · ${topic.code} · ${q.code}`;
-      document.getElementById("active-path-label").textContent = `${cat.name} › ${topic.name}`;
-      document.getElementById("active-title").textContent = q.title;
-
-      document.getElementById("active-body").innerHTML = `
-        <p>${q.body}</p>
-        <div class="diag-grid">
-          <div class="diag-box">
-            <span class="diag-label">✕ Common Trap / Failure Mode</span>
-            <div>${q.bad}</div>
-          </div>
-          <div class="diag-box fix">
-            <span class="diag-label">✓ Positive Structural Fix</span>
-            <div>${q.good}</div>
-          </div>
-        </div>
-        <div class="code-sample">${q.sample}</div>
-      `;
-
-      // Update Top Breadcrumb Buttons
-      document.getElementById("top-crumb-cat").textContent = `${cat.code}: ${cat.name}`;
-      document.getElementById("top-crumb-topic").textContent = `${topic.code}: ${topic.name}`;
-      document.getElementById("top-crumb-q").textContent = `${q.code}: ${q.title.slice(0, 28)}${q.title.length > 28 ? "…" : ""}`;
-
-      // Update Gimbal Sightline & Core
-      document.getElementById("sightline-crumbs").innerHTML =
-        `${cat.code} ${cat.short} <span>›</span> ${topic.code} ${topic.short} <span>›</span> ${q.code}`;
-      document.getElementById("core-readout").textContent = `${cat.code}·${topic.code}·${q.code}`;
-
-      // Update URL hash quietly
-      history.replaceState(null, "", `#${coordCode}`);
-    }
-
-    searchInputEl.addEventListener("input", () => {
-      const val = searchInputEl.value;
-      searchClearEl.style.display = val ? "block" : "none";
-      renderSidebar(val);
-    });
-
-    searchClearEl.addEventListener("click", () => {
-      searchInputEl.value = "";
-      searchClearEl.style.display = "none";
-      renderSidebar("");
-    });
-
-    // Next / Prev across all 75 nodes
-    function stepNode(delta) {
-      let flatIdx = state.catIdx * 15 + state.topicIdx * 5 + state.qIdx + delta;
-      flatIdx = ((flatIdx % 75) + 75) % 75;
-      const c = Math.floor(flatIdx / 15);
-      const rem = flatIdx % 15;
-      const t = Math.floor(rem / 5);
-      const q = rem % 5;
-      commitSelection(c, t, q);
-    }
-
-    document.getElementById("btn-prev-node").addEventListener("click", () => stepNode(-1));
-    document.getElementById("btn-next-node").addEventListener("click", () => stepNode(1));
-
-    // Top Crumb Quick-Cycle
-    document.getElementById("top-crumb-cat").addEventListener("click", () => {
-      commitSelection((state.catIdx + 1) % 5, 0, 0);
-    });
-    document.getElementById("top-crumb-topic").addEventListener("click", () => {
-      commitSelection(state.catIdx, (state.topicIdx + 1) % 3, 0);
-    });
-    document.getElementById("top-crumb-q").addEventListener("click", () => {
-      commitSelection(state.catIdx, state.topicIdx, (state.qIdx + 1) % 5);
-    });
-
-    // Copy Deep Link
-    document.getElementById("btn-copy-link").addEventListener("click", (e) => {
-      const url = window.location.href;
-      navigator.clipboard.writeText(url).catch(() => {});
-      const btn = e.currentTarget;
-      const orig = btn.textContent;
-      btn.textContent = "✓ Link Copied!";
-      setTimeout(() => { btn.textContent = orig; }, 1600);
-    });
-
-    // =========================================================================
-    // 4. 3-RING SVG GIMBAL GEOMETRY & PHYSICS
-    // =========================================================================
-    const RINGS = {
-      outer:  { id: "ring-outer",  count: 5, rIn: 112, rOut: 152, stateKey: "catIdx" },
-      middle: { id: "ring-middle", count: 3, rIn: 76,  rOut: 110, stateKey: "topicIdx" },
-      inner:  { id: "ring-inner",  count: 5, rIn: 42,  rOut: 74,  stateKey: "qIdx" }
-    };
-
-    const ringAngles = { outer: 0, middle: 0, inner: 0 };
-
-    function polarToCartesian(r, deg) {
-      const rad = (deg - 90) * (Math.PI / 180);
+    // =====================================================
+    // SVG GEOMETRY & RING RENDERING
+    // =====================================================
+    function polarToCartesian(r, angleDeg) {
+      const rad = (angleDeg - 90) * Math.PI / 180;
       return { x: r * Math.cos(rad), y: r * Math.sin(rad) };
     }
 
-    function createAnnularSectorPath(rIn, rOut, startDeg, endDeg) {
-      const pad = 1.4;
-      const s = startDeg + pad;
-      const e = endDeg - pad;
-      const p1 = polarToCartesian(rOut, e);
-      const p2 = polarToCartesian(rOut, s);
-      const p3 = polarToCartesian(rIn, s);
-      const p4 = polarToCartesian(rIn, e);
-      const largeArc = e - s <= 180 ? "0" : "1";
+    function createSectorPath(innerR, outerR, startAngle, endAngle) {
+      const pad = 1.6;
+      const s = startAngle + pad;
+      const e = endAngle - pad;
+      const p1 = polarToCartesian(outerR, s);
+      const p2 = polarToCartesian(outerR, e);
+      const p3 = polarToCartesian(innerR, e);
+      const p4 = polarToCartesian(innerR, s);
+      const largeArc = (e - s) > 180 ? 1 : 0;
       return [
         `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)}`,
-        `A ${rOut} ${rOut} 0 ${largeArc} 0 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`,
+        `A ${outerR} ${outerR} 0 ${largeArc} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`,
         `L ${p3.x.toFixed(2)} ${p3.y.toFixed(2)}`,
-        `A ${rIn} ${rIn} 0 ${largeArc} 1 ${p4.x.toFixed(2)} ${p4.y.toFixed(2)}`,
-        "Z"
-      ].join(" ");
+        `A ${innerR} ${innerR} 0 ${largeArc} 0 ${p4.x.toFixed(2)} ${p4.y.toFixed(2)}`,
+        'Z'
+      ].join(' ');
     }
 
-    function getRingLabelText(key, idx) {
-      if (key === "outer") return `${FAQ_TREE[idx].code} ${FAQ_TREE[idx].short}`;
-      if (key === "middle") {
-        const t = FAQ_TREE[state.catIdx].topics[idx];
-        return `${t.code} ${t.short}`;
+    function buildRing(groupEl, ringKey, labels) {
+      const cfg = RING_CONFIG[ringKey];
+      groupEl.innerHTML = '';
+      for (let i = 0; i < cfg.count; i++) {
+        const centerAngle = i * cfg.step;
+        const startAngle = centerAngle - cfg.step / 2;
+        const endAngle = centerAngle + cfg.step / 2;
+
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'sector-group');
+        g.dataset.index = i;
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('class', 'sector-path');
+        path.setAttribute('d', createSectorPath(cfg.innerR, cfg.outerR, startAngle, endAngle));
+
+        const midR = (cfg.innerR + cfg.outerR) / 2;
+        const labelPos = polarToCartesian(midR, centerAngle);
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('class', 'sector-label');
+        text.setAttribute('x', labelPos.x.toFixed(2));
+        text.setAttribute('y', labelPos.y.toFixed(2));
+        text.dataset.baseX = labelPos.x.toFixed(2);
+        text.dataset.baseY = labelPos.y.toFixed(2);
+        text.textContent = labels[i] || `${i + 1}`;
+
+        g.appendChild(path);
+        g.appendChild(text);
+        groupEl.appendChild(g);
       }
-      return `Q${idx + 1}`;
     }
 
-    function buildRings() {
-      Object.entries(RINGS).forEach(([key, cfg]) => {
-        const group = document.getElementById(cfg.id);
-        group.innerHTML = "";
-        const step = 360 / cfg.count;
-
-        for (let i = 0; i < cfg.count; i++) {
-          const startAngle = i * step - step / 2;
-          const endAngle = startAngle + step;
-
-          const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-          path.setAttribute("d", createAnnularSectorPath(cfg.rIn, cfg.rOut, startAngle, endAngle));
-          path.setAttribute("class", "ring-segment");
-          path.dataset.index = i;
-
-          path.addEventListener("click", (e) => {
-            if (wasRingDragged) return;
-            e.stopPropagation();
-            const next = {
-              catIdx: state.catIdx,
-              topicIdx: state.topicIdx,
-              qIdx: state.qIdx
-            };
-            next[cfg.stateKey] = i;
-            commitSelection(next.catIdx, next.topicIdx, next.qIdx);
-          });
-
-          const midRadius = (cfg.rIn + cfg.rOut) / 2;
-          const labelPos = polarToCartesian(midRadius, i * step);
-          const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-          text.setAttribute("x", labelPos.x.toFixed(2));
-          text.setAttribute("y", labelPos.y.toFixed(2));
-          text.setAttribute("class", "ring-label");
-          text.dataset.index = i;
-          text.textContent = getRingLabelText(key, i);
-
-          group.appendChild(path);
-          group.appendChild(text);
-        }
-      });
+    function buildAllRings() {
+      buildRing(ringOuterEl, 'outer', CATEGORIES.map(c => c.code));
+      const curCat = CATEGORIES[state.selected.cat] || CATEGORIES[0];
+      buildRing(ringMiddleEl, 'middle', curCat.topics.map(t => t.code));
+      buildRing(ringInnerEl, 'inner', ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']);
     }
 
-    function syncRingsToState(animate = true) {
-      Object.entries(RINGS).forEach(([key, cfg]) => {
-        const idx = state[cfg.stateKey];
-        const step = 360 / cfg.count;
-        const targetDeg = -idx * step;
-        ringAngles[key] = targetDeg;
+    function normalizeAngle(deg) {
+      return ((deg % 360) + 360) % 360;
+    }
 
-        const group = document.getElementById(cfg.id);
-        group.style.transition = animate ? "transform 0.38s cubic-bezier(0.22, 1.25, 0.36, 1)" : "none";
-        group.style.transform = `rotate(${targetDeg}deg)`;
+    function getActiveIndexForAngle(angleDeg, count) {
+      const step = 360 / count;
+      const norm = normalizeAngle(-angleDeg);
+      return Math.round(norm / step) % count;
+    }
 
-        group.querySelectorAll(".ring-segment").forEach((el) => {
-          el.classList.toggle("active", Number(el.dataset.index) === idx);
-        });
-
-        group.querySelectorAll(".ring-label").forEach((el) => {
-          const i = Number(el.dataset.index);
-          el.classList.toggle("active", i === idx);
-          el.textContent = getRingLabelText(key, i);
-          const midR = (cfg.rIn + cfg.rOut) / 2;
-          const pos = polarToCartesian(midR, i * step);
-          el.setAttribute("transform", `rotate(${-targetDeg} ${pos.x.toFixed(2)} ${pos.y.toFixed(2)})`);
+    function applyRingTransforms() {
+      const map = { outer: ringOuterEl, middle: ringMiddleEl, inner: ringInnerEl };
+      ['outer', 'middle', 'inner'].forEach(key => {
+        const deg = state.angles[key];
+        const g = map[key];
+        g.setAttribute('transform', `rotate(${deg})`);
+        g.querySelectorAll('.sector-label').forEach(lbl => {
+          const bx = lbl.dataset.baseX;
+          const by = lbl.dataset.baseY;
+          lbl.setAttribute('transform', `rotate(${-deg} ${bx} ${by})`);
         });
       });
     }
 
-    function commitSelection(catIdx, topicIdx, qIdx, animateRings = true) {
-      state.catIdx = catIdx;
-      state.topicIdx = topicIdx;
-      state.qIdx = qIdx;
-      saveState();
+    function syncRingHighlights() {
+      const cIdx = getActiveIndexForAngle(state.angles.outer, 5);
+      const tIdx = getActiveIndexForAngle(state.angles.middle, 3);
+      const qIdx = getActiveIndexForAngle(state.angles.inner, 5);
 
-      syncRingsToState(animateRings);
-      renderArticle();
-      renderSidebar(searchInputEl.value);
-      renderMatrix();
-    }
+      [[ringOuterEl, cIdx], [ringMiddleEl, tIdx], [ringInnerEl, qIdx]].forEach(([el, active]) => {
+        el.querySelectorAll('.sector-group').forEach((sec, idx) => {
+          sec.classList.toggle('active', idx === active);
+        });
+      });
 
-    // =========================================================================
-    // 5. GIMBAL DRAGGING, CROSS-RING SCRUBBING & MAGNETIC EDGE TUCK
-    // =========================================================================
-    const rootEl = document.getElementById("gimbal-root");
-    const coreEl = document.getElementById("gimbal-core");
-    const svgEl = document.getElementById("gimbal-svg");
+      const codeStr = `C${cIdx + 1}·T${tIdx + 1}·Q${qIdx + 1}`;
+      document.getElementById('gimbalHud').textContent = `${CATEGORIES[cIdx].short} · ${CATEGORIES[cIdx].topics[tIdx].short} · Q${qIdx + 1}`;
+      document.getElementById('coreCoord').textContent = codeStr;
 
-    function getGimbalCenter() {
-      const rect = rootEl.getBoundingClientRect();
-      return { cx: rect.left + rect.width / 2, cy: rect.top + rect.height / 2 };
-    }
-
-    function clampPosition(x, y, collapsed) {
-      const size = collapsed ? 76 : 340;
-      const minX = collapsed ? 0 : 8;
-      const minY = collapsed ? 56 : 56;
-      const maxX = Math.max(minX, window.innerWidth - size);
-      const maxY = Math.max(minY, window.innerHeight - size);
-      return {
-        x: Math.min(maxX, Math.max(minX, x)),
-        y: Math.min(maxY, Math.max(minY, y))
-      };
-    }
-
-    function applyDockState() {
-      const pos = clampPosition(state.x, state.y, state.collapsed);
-      state.x = pos.x;
-      state.y = pos.y;
-
-      rootEl.style.left = `${state.x}px`;
-      rootEl.style.top = `${state.y}px`;
-      rootEl.classList.toggle("collapsed", !!state.collapsed);
-      rootEl.classList.remove("tucked-left", "tucked-right", "tucked-top", "tucked-bottom");
-      if (state.collapsed && state.tuckedEdge) {
-        rootEl.classList.add(`tucked-${state.tuckedEdge}`);
+      if (cIdx !== state.selected.cat || tIdx !== state.selected.topic || qIdx !== state.selected.q) {
+        state.selected = { cat: cIdx, topic: tIdx, q: qIdx };
+        renderArticle(cIdx, tIdx, qIdx, false);
+        saveState();
       }
+    }
+
+    function snapRing(key) {
+      const step = RING_CONFIG[key].step;
+      state.angles[key] = Math.round(state.angles[key] / step) * step;
+      applyRingTransforms();
+      syncRingHighlights();
       saveState();
     }
 
-    function toggleCollapsed(forceState, targetEdge = null) {
-      const nextCollapsed = typeof forceState === "boolean" ? forceState : !state.collapsed;
-      if (nextCollapsed === state.collapsed && !targetEdge) return;
+    // =====================================================
+    // POSITIONING, EDGE TUCKING & TOP-RIGHT CORNER NEST
+    // =====================================================
+    function clampAndPlace(animate = false) {
+      gimbalEl.classList.toggle('minimized', state.minimized);
+      gimbalEl.dataset.dock = state.minimized ? state.dockEdge : 'none';
+      cornerNestEl.classList.toggle('nested', state.nestedInCorner);
 
-      const prevSize = state.collapsed ? 76 : 340;
-      const nextSize = nextCollapsed ? 76 : 340;
-      const delta = (prevSize - nextSize) / 2;
-
-      state.x += delta;
-      state.y += delta;
-      state.collapsed = nextCollapsed;
-
-      if (nextCollapsed && targetEdge) {
-        state.tuckedEdge = targetEdge;
-        if (targetEdge === "left")   state.x = 0;
-        if (targetEdge === "right")  state.x = window.innerWidth - 76;
-        if (targetEdge === "top")    state.y = 56;
-        if (targetEdge === "bottom") state.y = window.innerHeight - 76;
-      } else if (!nextCollapsed) {
-        state.tuckedEdge = null;
+      if (animate) {
+        gimbalEl.classList.add('animating-pos');
+        clearTimeout(gimbalEl._animTimer);
+        gimbalEl._animTimer = setTimeout(() => gimbalEl.classList.remove('animating-pos'), 450);
       }
 
-      applyDockState();
+      const size = state.minimized ? 68 : 320;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const tuck = 34;
+
+      if (state.nestedInCorner && state.minimized) {
+        const rect = cornerNestEl.getBoundingClientRect();
+        state.x = rect.left + rect.width / 2 - 34;
+        state.y = rect.top + rect.height / 2 - 34;
+      } else if (state.minimized && state.dockEdge !== 'none') {
+        if (state.dockEdge === 'left') state.x = -tuck;
+        if (state.dockEdge === 'right') state.x = vw - size + tuck;
+        if (state.dockEdge === 'top') state.y = -tuck;
+        if (state.dockEdge === 'bottom') state.y = vh - size + tuck;
+      } else {
+        state.x = Math.max(6, Math.min(vw - size - 6, state.x));
+        state.y = Math.max(54, Math.min(vh - size - 6, state.y));
+      }
+
+      gimbalEl.style.transform = `translate3d(${Math.round(state.x)}px, ${Math.round(state.y)}px, 0)`;
     }
 
-    document.getElementById("btn-summon-gimbal").addEventListener("click", () => {
-      toggleCollapsed(!state.collapsed);
+    // Tiny top-right corner socket: tap to recall Gimbal to center-right or nest it into the corner
+    cornerNestEl.addEventListener('click', () => {
+      if (state.minimized || state.nestedInCorner) {
+        // Recall & expand right below the corner in easy thumb reach
+        state.minimized = false;
+        state.nestedInCorner = false;
+        state.dockEdge = 'none';
+        state.x = Math.max(10, window.innerWidth - 332);
+        state.y = 66;
+      } else {
+        // Nest it neatly into the top-right corner socket as the tiny orb
+        state.minimized = true;
+        state.nestedInCorner = true;
+        state.dockEdge = 'none';
+      }
+      clampAndPlace(true);
+      saveState();
     });
 
-    // Cross-Ring Scrubbing
+    // =====================================================
+    // UNIFIED RING SPIN & CORE DRAG INTERACTION
+    // =====================================================
+    let activeMode = null; // 'ring' | 'move'
     let activeRingKey = null;
-    let dragStartAngle = 0;
-    let ringStartDeg = 0;
-    let wasRingDragged = false;
+    let startPointerAngle = 0;
+    let startRingAngle = 0;
+    let dragMoved = false;
+    let dragOffset = { x: 0, y: 0 };
+    let dragStartPos = { x: 0, y: 0 };
+    let lastTapTime = 0;
 
-    function pointerAngleFromCenter(clientX, clientY) {
-      const { cx, cy } = getGimbalCenter();
-      return Math.atan2(clientY - cy, clientX - cx) * (180 / Math.PI) + 90;
+    function getAngleFromCenter(clientX, clientY) {
+      const rect = svgEl.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      return Math.atan2(clientY - cy, clientX - cx) * 180 / Math.PI;
     }
 
-    function pointerRadiusFromCenter(clientX, clientY) {
-      const { cx, cy } = getGimbalCenter();
-      return Math.hypot(clientX - cx, clientY - cy);
-    }
+    [ringOuterEl, ringMiddleEl, ringInnerEl].forEach(groupEl => {
+      groupEl.addEventListener('pointerdown', e => {
+        if (state.minimized) return;
+        e.stopPropagation();
+        activeMode = 'ring';
+        activeRingKey = groupEl.dataset.ring;
+        dragMoved = false;
+        startPointerAngle = getAngleFromCenter(e.clientX, e.clientY);
+        startRingAngle = state.angles[activeRingKey];
+        groupEl.setPointerCapture(e.pointerId);
+      });
 
-    function detectRingByRadius(r) {
-      if (r >= RINGS.inner.rIn && r <= RINGS.inner.rOut) return "inner";
-      if (r > RINGS.inner.rOut && r <= RINGS.middle.rOut) return "middle";
-      if (r > RINGS.middle.rOut && r <= RINGS.outer.rOut + 18) return "outer";
-      return null;
-    }
+      groupEl.addEventListener('pointermove', e => {
+        if (activeMode !== 'ring' || activeRingKey !== groupEl.dataset.ring) return;
+        const currentAngle = getAngleFromCenter(e.clientX, e.clientY);
+        let delta = currentAngle - startPointerAngle;
+        if (delta > 180) delta -= 360;
+        if (delta < -180) delta += 360;
+        if (Math.abs(delta) > 2) dragMoved = true;
+        state.angles[activeRingKey] = startRingAngle + delta;
+        applyRingTransforms();
+        syncRingHighlights();
+      });
 
-    function snapSingleRing(key, liveDeg) {
-      const cfg = RINGS[key];
-      const step = 360 / cfg.count;
-      const rawIndex = Math.round(-liveDeg / step);
-      const normIdx = ((rawIndex % cfg.count) + cfg.count) % cfg.count;
-      state[cfg.stateKey] = normIdx;
-    }
+      const endSpin = e => {
+        if (activeMode !== 'ring' || activeRingKey !== groupEl.dataset.ring) return;
+        if (!dragMoved) {
+          const sec = e.target.closest('.sector-group');
+          if (sec) {
+            const idx = Number(sec.dataset.index);
+            state.angles[activeRingKey] = -idx * RING_CONFIG[activeRingKey].step;
+          }
+        }
+        snapRing(activeRingKey);
+        activeMode = null;
+        activeRingKey = null;
+      };
 
-    svgEl.addEventListener("pointerdown", (e) => {
-      if (state.collapsed) return;
-      const r = pointerRadiusFromCenter(e.clientX, e.clientY);
-      const ringKey = detectRingByRadius(r);
-      if (!ringKey) return;
-
-      activeRingKey = ringKey;
-      wasRingDragged = false;
-      svgEl.setPointerCapture(e.pointerId);
-      dragStartAngle = pointerAngleFromCenter(e.clientX, e.clientY);
-      ringStartDeg = ringAngles[ringKey];
-      document.getElementById(RINGS[ringKey].id).style.transition = "none";
+      groupEl.addEventListener('pointerup', endSpin);
+      groupEl.addEventListener('pointercancel', endSpin);
     });
 
-    svgEl.addEventListener("pointermove", (e) => {
-      if (!activeRingKey) return;
-      const currentPointerAngle = pointerAngleFromCenter(e.clientX, e.clientY);
-      const r = pointerRadiusFromCenter(e.clientX, e.clientY);
-      const hoveredRing = detectRingByRadius(r);
+    function beginMove(e, targetEl) {
+      e.stopPropagation();
+      activeMode = 'move';
+      dragMoved = false;
+      state.nestedInCorner = false;
+      const rect = gimbalEl.getBoundingClientRect();
+      dragOffset.x = e.clientX - rect.left;
+      dragOffset.y = e.clientY - rect.top;
+      dragStartPos = { x: e.clientX, y: e.clientY };
+      targetEl.setPointerCapture(e.pointerId);
+    }
 
-      if (hoveredRing && hoveredRing !== activeRingKey) {
-        snapSingleRing(activeRingKey, ringAngles[activeRingKey]);
-        commitSelection(state.catIdx, state.topicIdx, state.qIdx, true);
-        activeRingKey = hoveredRing;
-        dragStartAngle = currentPointerAngle;
-        ringStartDeg = ringAngles[activeRingKey];
-        document.getElementById(RINGS[activeRingKey].id).style.transition = "none";
+    function moveGimbal(e) {
+      if (activeMode !== 'move') return;
+      if (Math.hypot(e.clientX - dragStartPos.x, e.clientY - dragStartPos.y) > 5) {
+        dragMoved = true;
+      }
+      state.dockEdge = 'none';
+      state.x = e.clientX - dragOffset.x;
+      state.y = e.clientY - dragOffset.y;
+      gimbalEl.style.transform = `translate3d(${Math.round(state.x)}px, ${Math.round(state.y)}px, 0)`;
+    }
+
+    function endMove(e, fromOrb) {
+      if (activeMode !== 'move') return;
+      activeMode = null;
+
+      if (!dragMoved) {
+        if (fromOrb) {
+          // Tap on minimized orb -> expand right on screen
+          state.minimized = false;
+          state.dockEdge = 'none';
+          state.nestedInCorner = false;
+          clampAndPlace(true);
+          saveState();
+          return;
+        } else {
+          // Double-tap on center core -> minimize into orb
+          const now = performance.now();
+          if (now - lastTapTime < 320) {
+            state.minimized = true;
+            clampAndPlace(true);
+            saveState();
+            lastTapTime = 0;
+            return;
+          }
+          lastTapTime = now;
+        }
       }
 
-      let delta = currentPointerAngle - dragStartAngle;
-      if (delta > 180) delta -= 360;
-      if (delta < -180) delta += 360;
-      if (Math.abs(delta) > 3) wasRingDragged = true;
-
-      const liveDeg = ringStartDeg + delta;
-      ringAngles[activeRingKey] = liveDeg;
-
-      const cfg = RINGS[activeRingKey];
-      const group = document.getElementById(cfg.id);
-      group.style.transform = `rotate(${liveDeg}deg)`;
-
-      const step = 360 / cfg.count;
-      group.querySelectorAll(".ring-label").forEach((el) => {
-        const i = Number(el.dataset.index);
-        const midR = (cfg.rIn + cfg.rOut) / 2;
-        const pos = polarToCartesian(midR, i * step);
-        el.setAttribute("transform", `rotate(${-liveDeg} ${pos.x.toFixed(2)} ${pos.y.toFixed(2)})`);
-      });
-    });
-
-    function finishRingScrub() {
-      if (!activeRingKey) return;
-      snapSingleRing(activeRingKey, ringAngles[activeRingKey]);
-      activeRingKey = null;
-      commitSelection(state.catIdx, state.topicIdx, state.qIdx, true);
-      setTimeout(() => { wasRingDragged = false; }, 40);
-    }
-
-    svgEl.addEventListener("pointerup", finishRingScrub);
-    svgEl.addEventListener("pointercancel", finishRingScrub);
-
-    // Core Drag & Edge Flick-Tuck
-    let isDraggingCore = false;
-    let corePointerId = null;
-    let dragOffsetX = 0;
-    let dragOffsetY = 0;
-    let velocityTracker = [];
-
-    coreEl.addEventListener("pointerdown", (e) => {
-      e.stopPropagation();
-      isDraggingCore = true;
-      corePointerId = e.pointerId;
-      coreEl.setPointerCapture(e.pointerId);
-      rootEl.classList.add("dragging");
-      rootEl.classList.remove("tucked-left", "tucked-right", "tucked-top", "tucked-bottom");
-
-      const rect = rootEl.getBoundingClientRect();
-      dragOffsetX = e.clientX - rect.left;
-      dragOffsetY = e.clientY - rect.top;
-      velocityTracker = [{ x: e.clientX, y: e.clientY, t: performance.now() }];
-    });
-
-    coreEl.addEventListener("pointermove", (e) => {
-      if (!isDraggingCore || e.pointerId !== corePointerId) return;
-      const rawX = e.clientX - dragOffsetX;
-      const rawY = e.clientY - dragOffsetY;
-      const clamped = clampPosition(rawX, rawY, state.collapsed);
-
-      state.x = clamped.x;
-      state.y = clamped.y;
-      rootEl.style.left = `${state.x}px`;
-      rootEl.style.top = `${state.y}px`;
-
-      const now = performance.now();
-      velocityTracker.push({ x: e.clientX, y: e.clientY, t: now });
-      velocityTracker = velocityTracker.filter((p) => now - p.t <= 120);
-    });
-
-    function detectMagneticEdge(vx, vy) {
-      const size = state.collapsed ? 76 : 340;
+      // Check if dragged near the top-right corner nest socket
+      const nestRect = cornerNestEl.getBoundingClientRect();
+      const size = state.minimized ? 68 : 320;
       const cx = state.x + size / 2;
       const cy = state.y + size / 2;
-      const edgeThreshold = 68;
-      const flickThreshold = 0.65;
-
-      if (cx <= edgeThreshold || (vx < -flickThreshold && cx < window.innerWidth * 0.45)) return "left";
-      if (cx >= window.innerWidth - edgeThreshold || (vx > flickThreshold && cx > window.innerWidth * 0.55)) return "right";
-      if (cy <= edgeThreshold + 50 || (vy < -flickThreshold && cy < window.innerHeight * 0.35)) return "top";
-      if (cy >= window.innerHeight - edgeThreshold || (vy > flickThreshold && cy > window.innerHeight * 0.65)) return "bottom";
-      return null;
-    }
-
-    function endCoreDrag(e) {
-      if (!isDraggingCore || e.pointerId !== corePointerId) return;
-      isDraggingCore = false;
-      rootEl.classList.remove("dragging");
-
-      let vx = 0, vy = 0;
-      if (velocityTracker.length >= 2) {
-        const first = velocityTracker[0];
-        const last = velocityTracker[velocityTracker.length - 1];
-        const dt = Math.max(1, last.t - first.t);
-        vx = (last.x - first.x) / dt;
-        vy = (last.y - first.y) / dt;
+      if (Math.hypot(cx - (nestRect.left + 19), cy - (nestRect.top + 19)) < 75) {
+        state.minimized = true;
+        state.nestedInCorner = true;
+        state.dockEdge = 'none';
+        clampAndPlace(true);
+        saveState();
+        return;
       }
 
-      const magneticEdge = detectMagneticEdge(vx, vy);
-      if (magneticEdge) {
-        toggleCollapsed(true, magneticEdge);
-      } else {
-        state.tuckedEdge = null;
-        applyDockState();
+      // Check magnetic screen edges
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const edgeDist = 48;
+      if (cx < edgeDist) { state.minimized = true; state.dockEdge = 'left'; }
+      else if (cx > vw - edgeDist) { state.minimized = true; state.dockEdge = 'right'; }
+      else if (cy < edgeDist) { state.minimized = true; state.dockEdge = 'top'; }
+      else if (cy > vh - edgeDist) { state.minimized = true; state.dockEdge = 'bottom'; }
+
+      clampAndPlace(true);
+      saveState();
+    }
+
+    coreEl.addEventListener('pointerdown', e => beginMove(e, coreEl));
+    coreEl.addEventListener('pointermove', moveGimbal);
+    coreEl.addEventListener('pointerup', e => endMove(e, false));
+    coreEl.addEventListener('pointercancel', e => endMove(e, false));
+
+    orbEl.addEventListener('pointerdown', e => beginMove(e, orbEl));
+    orbEl.addEventListener('pointermove', moveGimbal);
+    orbEl.addEventListener('pointerup', e => endMove(e, true));
+    orbEl.addEventListener('pointercancel', e => endMove(e, true));
+
+    // =====================================================
+    // PAGE RENDERING (ARTICLE, SIDEBAR TREE, SEARCH, MATRIX)
+    // =====================================================
+    function selectCoordinate(cIdx, tIdx, qIdx, syncWheel = true) {
+      state.selected = { cat: cIdx, topic: tIdx, q: qIdx };
+      if (syncWheel) {
+        state.angles.outer = -cIdx * RING_CONFIG.outer.step;
+        state.angles.middle = -tIdx * RING_CONFIG.middle.step;
+        state.angles.inner = -qIdx * RING_CONFIG.inner.step;
+        applyRingTransforms();
+        syncRingHighlights();
+      }
+      renderArticle(cIdx, tIdx, qIdx, true);
+      saveState();
+    }
+
+    function renderArticle(cIdx, tIdx, qIdx, updateHash = true) {
+      const cat = CATEGORIES[cIdx];
+      const topic = cat.topics[tIdx];
+      const item = topic.questions[qIdx];
+      const coordCode = `${cat.code} · ${topic.code} · Q${qIdx + 1}`;
+
+      document.getElementById('crumbCat').textContent = `${cat.code} ${cat.short}`;
+      document.getElementById('crumbTopic').textContent = `${topic.code} ${topic.short}`;
+      document.getElementById('crumbQ').textContent = `Q${qIdx + 1}`;
+
+      document.getElementById('artCoord').textContent = coordCode;
+      document.getElementById('artPath').textContent = `${cat.name} // ${topic.name}`;
+      document.getElementById('artTitle').textContent = item.q;
+      document.getElementById('artTldr').textContent = item.tldr;
+      document.getElementById('artBody').innerHTML = item.body;
+      document.getElementById('artBad').textContent = item.bad;
+      document.getElementById('artGood').textContent = item.good;
+
+      // Sibling Q1..Q5 buttons
+      const sibRow = document.getElementById('siblingRow');
+      sibRow.innerHTML = '';
+      topic.questions.forEach((sq, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'sib-btn' + (idx === qIdx ? ' active' : '');
+        btn.textContent = `Q${idx + 1}: ${sq.q.slice(0, 32)}...`;
+        btn.onclick = () => selectCoordinate(cIdx, tIdx, idx, true);
+        sibRow.appendChild(btn);
+      });
+
+      renderSidebarTree(cIdx, tIdx, qIdx);
+      renderMatrix(cIdx, tIdx);
+
+      if (updateHash) {
+        history.replaceState(null, '', `#C${cIdx + 1}-T${tIdx + 1}-Q${qIdx + 1}`);
       }
     }
 
-    coreEl.addEventListener("pointerup", endCoreDrag);
-    coreEl.addEventListener("pointercancel", endCoreDrag);
+    function renderSidebarTree(activeC, activeT, activeQ) {
+      const wrap = document.getElementById('sidebarTree');
+      wrap.innerHTML = '';
+      CATEGORIES.forEach((cat, cIdx) => {
+        const catDiv = document.createElement('div');
+        catDiv.className = 'tree-cat' + (cIdx === activeC ? ' open' : '');
 
-    coreEl.addEventListener("dblclick", (e) => {
-      e.stopPropagation();
-      toggleCollapsed(!state.collapsed);
+        const btn = document.createElement('button');
+        btn.className = 'tree-cat-btn' + (cIdx === activeC ? ' active' : '');
+        btn.innerHTML = `<span><span class="tree-cat-code">${cat.code}</span>${cat.name}</span><span>▾</span>`;
+        btn.onclick = () => {
+          catDiv.classList.toggle('open');
+          selectCoordinate(cIdx, 0, 0, true);
+        };
+
+        const topicsDiv = document.createElement('div');
+        topicsDiv.className = 'tree-topics';
+        cat.topics.forEach((t, tIdx) => {
+          const lbl = document.createElement('span');
+          lbl.className = 'tree-topic-label';
+          lbl.textContent = `${t.code} // ${t.name}`;
+          topicsDiv.appendChild(lbl);
+
+          t.questions.forEach((qObj, qIdx) => {
+            const qBtn = document.createElement('button');
+            const isAct = (cIdx === activeC && tIdx === activeT && qIdx === activeQ);
+            qBtn.className = 'tree-q-btn' + (isAct ? ' active' : '');
+            qBtn.innerHTML = `<span style="color:var(--pink-soft);font-family:monospace;">Q${qIdx + 1}</span><span>${qObj.q}</span>`;
+            qBtn.onclick = () => {
+              selectCoordinate(cIdx, tIdx, qIdx, true);
+              document.getElementById('sidebar').classList.remove('open');
+            };
+            topicsDiv.appendChild(qBtn);
+          });
+        });
+
+        catDiv.appendChild(btn);
+        catDiv.appendChild(topicsDiv);
+        wrap.appendChild(catDiv);
+      });
+    }
+
+    function renderMatrix(activeC, activeT) {
+      const grid = document.getElementById('matrixGrid');
+      grid.innerHTML = '';
+      CATEGORIES.forEach((cat, cIdx) => {
+        cat.topics.forEach((t, tIdx) => {
+          const card = document.createElement('div');
+          card.className = 'matrix-card' + (cIdx === activeC && tIdx === activeT ? ' active' : '');
+          card.innerHTML = `
+            <div class="matrix-card-head">${cat.code} · ${t.code} // ${cat.short}</div>
+            <div class="matrix-card-name">${t.name}</div>
+          `;
+          card.onclick = () => {
+            selectCoordinate(cIdx, tIdx, 0, true);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          };
+          grid.appendChild(card);
+        });
+      });
+    }
+
+    // Instant Search
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+    const searchResults = document.getElementById('searchResults');
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      searchClear.style.display = q ? 'block' : 'none';
+      if (!q) {
+        searchResults.classList.remove('visible');
+        return;
+      }
+      const hits = [];
+      CATEGORIES.forEach((cat, cIdx) => {
+        cat.topics.forEach((t, tIdx) => {
+          t.questions.forEach((item, qIdx) => {
+            const hay = `${cat.name} ${t.name} ${item.q} ${item.tldr} ${item.body}`.toLowerCase();
+            if (hay.includes(q)) hits.push({ cIdx, tIdx, qIdx, cat, t, item });
+          });
+        });
+      });
+
+      searchResults.classList.add('visible');
+      if (!hits.length) {
+        searchResults.innerHTML = `<div style="font-size:0.82rem;color:var(--muted);">No matches for "${q}".</div>`;
+        return;
+      }
+      searchResults.innerHTML = `<div style="font-family:monospace;font-size:0.74rem;color:var(--cyan);margin-bottom:8px;">${hits.length} MATCHING NODES</div>` +
+        hits.slice(0, 10).map(h => `
+          <div style="padding:8px;border-bottom:1px solid rgba(255,0,127,0.15);cursor:pointer;" onclick="window._jumpSearch(${h.cIdx},${h.tIdx},${h.qIdx})">
+            <div style="font-family:monospace;font-size:0.68rem;color:var(--pink-soft);">${h.cat.code}·${h.t.code}·Q${h.qIdx + 1} // ${h.t.name}</div>
+            <div style="font-size:0.84rem;color:#fff;font-weight:600;">${h.item.q}</div>
+          </div>
+        `).join('');
     });
 
-    window.addEventListener("resize", () => applyDockState());
-    window.addEventListener("hashchange", () => {
-      parseHashCoordinate();
-      commitSelection(state.catIdx, state.topicIdx, state.qIdx, true);
-    });
+    window._jumpSearch = (c, t, q) => {
+      searchInput.value = '';
+      searchClear.style.display = 'none';
+      searchResults.classList.remove('visible');
+      selectCoordinate(c, t, q, true);
+    };
 
-    // =========================================================================
-    // 6. BOOTSTRAP
-    // =========================================================================
-    buildRings();
-    applyDockState();
-    commitSelection(state.catIdx, state.topicIdx, state.qIdx, false);
+    searchClear.onclick = () => {
+      searchInput.value = '';
+      searchClear.style.display = 'none';
+      searchResults.classList.remove('visible');
+    };
+
+    document.getElementById('mobileTreeBtn').onclick = () => {
+      document.getElementById('sidebar').classList.toggle('open');
+    };
+
+    document.getElementById('crumbCat').onclick = () => {
+      const nextC = (state.selected.cat + 1) % 5;
+      selectCoordinate(nextC, 0, 0, true);
+    };
+    document.getElementById('crumbTopic').onclick = () => {
+      const nextT = (state.selected.topic + 1) % 3;
+      selectCoordinate(state.selected.cat, nextT, 0, true);
+    };
+
+    window.addEventListener('resize', () => clampAndPlace(false));
+
+    // =====================================================
+    // INIT
+    // =====================================================
+    loadState();
+    const hashMatch = location.hash.match(/^#C([1-5])-T([1-3])-Q([1-5])$/i);
+    if (hashMatch) {
+      state.selected = {
+        cat: Number(hashMatch[1]) - 1,
+        topic: Number(hashMatch[2]) - 1,
+        q: Number(hashMatch[3]) - 1
+      };
+    }
+    state.angles.outer = -state.selected.cat * RING_CONFIG.outer.step;
+    state.angles.middle = -state.selected.topic * RING_CONFIG.middle.step;
+    state.angles.inner = -state.selected.q * RING_CONFIG.inner.step;
+
+    buildAllRings();
+    applyRingTransforms();
+    syncRingHighlights();
+    renderArticle(state.selected.cat, state.selected.topic, state.selected.q, false);
+    clampAndPlace(false);
   </script>
 </body>
 </html>
