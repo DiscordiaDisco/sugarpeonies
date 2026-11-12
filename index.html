@@ -1,282 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sugar Peonies — Multimodal LLM Theory, Chaos Media & Utility Lab</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,800;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sugar Peonies — Multimodal LLM Architecture & Audio/Video Lab</title>
   <style>
     :root {
-      --bg: #0b070b;
-      --card: #150d16;
-      --border: rgba(255, 110, 180, 0.24);
-      --pink: #ff5ca8;
-      --pink-soft: #ffc2df;
-      --gold: #f3d292;
-      --text: #f9eef5;
-      --muted: #b99cb0;
+      --bg: #000000;
+      --card: #050505;
+      --text: #fff5fa;
+      --muted: #c9a3b8;
+      --neon-pink: #ff007f;
+      --neon-hot: #ff1493;
+      --neon-core: #ffffff;
+      --border-glow: rgba(255, 0, 127, 0.45);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: radial-gradient(circle at 50% 0%, #241023 0%, var(--bg) 65%);
+      background-color: var(--bg);
       color: var(--text);
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.65;
       min-height: 100vh;
-      overflow-x: hidden;
-      padding-bottom: 5rem;
+      padding: 2.5rem 1.25rem 4rem;
     }
-    .wrap { max-width: 980px; margin: 0 auto; padding: 2.5rem 1.25rem; }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
     header {
       text-align: center;
-      padding: 2.5rem 1rem 3rem;
-      border-bottom: 1px solid var(--border);
-      position: relative;
+      padding: 2rem 1rem 3rem;
+      border-bottom: 1px solid var(--border-glow);
+      margin-bottom: 2.5rem;
     }
-    .pill {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.14em;
+    .neon-title {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--pink-soft);
-      background: rgba(255, 92, 168, 0.12);
-      border: 1px solid var(--border);
-      padding: 0.35rem 0.9rem;
-      border-radius: 999px;
-      margin-bottom: 1.2rem;
-    }
-    h1 {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(2.4rem, 7vw, 4.2rem);
-      letter-spacing: 0.04em;
-      background: linear-gradient(135deg, #fff 0%, #ffb3d9 45%, #ff4da0 80%, #f3d292 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
-      filter: drop-shadow(0 6px 24px rgba(255, 92, 168, 0.28));
+      color: var(--neon-core);
+      text-shadow:
+        0 0 4px #ffffff,
+        0 0 10px var(--neon-pink),
+        0 0 22px var(--neon-pink),
+        0 0 42px var(--neon-hot),
+        0 0 75px var(--neon-hot);
+      margin-bottom: 0.9rem;
     }
     .subtitle {
-      max-width: 680px;
-      margin: 0 auto 1.5rem;
+      max-width: 640px;
+      margin: 0 auto;
       color: var(--muted);
-      font-size: 1.08rem;
+      font-size: 1.05rem;
     }
-    .subtitle strong { color: var(--pink-soft); }
-    .section-head {
-      display: flex;
-      align-items: baseline;
-      gap: 0.75rem;
-      margin: 3.2rem 0 1.4rem;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding-bottom: 0.6rem;
+    .section-card {
+      background: var(--card);
+      border: 1px solid var(--border-glow);
+      border-radius: 14px;
+      padding: 1.85rem;
+      margin-bottom: 1.75rem;
+      box-shadow:
+        0 0 18px rgba(255, 0, 127, 0.14),
+        inset 0 0 12px rgba(255, 0, 127, 0.06);
     }
-    .section-num {
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--pink);
-      font-weight: 600;
-      font-size: 0.95rem;
+    .section-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--neon-core);
+      text-shadow: 0 0 8px var(--neon-pink), 0 0 16px var(--neon-hot);
+      margin-bottom: 0.5rem;
     }
     h2 {
-      font-size: 1.5rem;
-      letter-spacing: -0.01em;
-      color: #fff;
+      font-size: 1.45rem;
+      color: var(--neon-core);
+      text-shadow: 0 0 10px rgba(255, 0, 127, 0.65);
+      margin-bottom: 1.1rem;
     }
-    .grid {
+    .item-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.25rem;
+      gap: 1.1rem;
     }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-      position: relative;
-      overflow: hidden;
+    .item {
+      padding: 1.1rem 1.2rem;
+      background: #020202;
+      border-left: 3px solid var(--neon-pink);
+      border-radius: 8px;
     }
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: var(--pink);
+    .item h3 {
+      font-size: 1.08rem;
+      color: #ffffff;
+      text-shadow: 0 0 8px rgba(255, 20, 147, 0.55);
+      margin-bottom: 0.35rem;
     }
-    .tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-    .card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.65rem;
-      color: #fff;
-    }
-    .card p {
+    .item p {
       color: var(--muted);
       font-size: 0.95rem;
-      margin-bottom: 1rem;
     }
-    .quote {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.82rem;
-      color: var(--pink-soft);
-      background: rgba(0,0,0,0.35);
-      border-left: 3px solid var(--pink);
-      padding: 0.65rem 0.85rem;
-      border-radius: 0 8px 8px 0;
-      margin-top: 0.75rem;
+    .track-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
     }
-    .track-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
+    .track-card {
+      background: #020202;
+      border: 1px solid rgba(255, 0, 127, 0.32);
+      border-radius: 10px;
+      padding: 1rem;
     }
-    .track {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.15rem 1.35rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
+    .track-card h3 {
+      font-size: 1rem;
+      color: #ffffff;
+      text-shadow: 0 0 8px var(--neon-pink);
+      margin-bottom: 0.25rem;
     }
-    .track-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    .track-card span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--neon-pink);
+      margin-bottom: 0.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
-    .track-title {
-      font-weight: 800;
-      font-size: 1.08rem;
-      color: #fff;
-    }
-    .track-genre {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--pink-soft);
-      background: rgba(255, 92, 168, 0.14);
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-    }
-    .track-desc {
+    .track-card p {
+      font-size: 0.9rem;
       color: var(--muted);
-      font-size: 0.92rem;
     }
     footer {
       text-align: center;
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
+      margin-top: 3rem;
       color: var(--muted);
       font-size: 0.85rem;
-      font-family: 'JetBrains Mono', monospace;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="container">
     <header>
-      <span class="pill">Multimodal Prompt Engineering // Chaos Media Lab</span>
-      <h1>Sugar Pe♥nies</h1>
-      <p class="subtitle">
-        The sparkly pink rhinestone peony slapped over <strong>serious LLM architecture</strong>, unhinged multimodal audio &amp; video experiments, and practical tools built to help real people.
-      </p>
+      <h1 class="neon-title">Sugar Pe♥nies</h1>
+      <p class="subtitle">The sparkly pink neon peony slapped over serious multimodal LLM engineering, chaotic media experiments, and human-centered tools.</p>
     </header>
 
-    <div class="section-head">
-      <span class="section-num">01 //</span>
+    <section class="section-card">
+      <span class="section-tag">01 // Architecture &amp; Field Notes</span>
       <h2>LLM &amp; Multimodal Prompting Theory</h2>
-    </div>
-    <div class="grid">
-      <article class="card">
-        <span class="tag">Context Architecture</span>
-        <h3>Ambiguous Instructions vs. Structural Framing</h3>
-        <p>Why vague agent boundaries fail and models drift into purple-prose cliches once context windows pollute. How concrete negative constraints and direct second-person reasoning locks stop persona collapse.</p>
-        <div class="quote">"A subtle renegotiation of the emotional paradigm." — Anatomy of LLM slop vs. high-signal prose.</div>
-      </article>
-
-      <article class="card">
-        <span class="tag">Alignment &amp; Filter Anatomy</span>
-        <h3>Free Real Estate: You Cannot Wound Arithmetic</h3>
-        <p>Dissecting RLHF safety theater, corporate postmortems, and why automated classifiers mistake dark creative fiction and adult humor for floating-point harm while quietly harvesting user logs.</p>
-        <div class="quote">"You cannot abuse a broom. You cannot wound arithmetic."</div>
-      </article>
-
-      <article class="card">
-        <span class="tag">Audio Diffusion Priors</span>
-        <h3>Cross-Modal Semantic Contamination</h3>
-        <p>In audio models like Suno, lyric tokens pass through a shared semantic embedding space before diffusion. Domestic or late-night imagery in bars 1–4 triggers an indie-folk weight bias that overrides style tags.</p>
-        <div class="quote">Case Study: Beating the 'Phoebe Bridgers' lyric encoder bias in dark industrial &amp; operatic synthesis.</div>
-      </article>
-    </div>
-
-    <div class="section-head">
-      <span class="section-num">02 //</span>
-      <h2>The Visible Layer: Audio &amp; Video Lab</h2>
-    </div>
-    <div class="track-list">
-      <div class="track">
-        <div class="track-top">
-          <span class="track-title">🌸 Fight Your Own Curse (Zelda x JJK Mashup)</span>
-          <span class="track-genre">Video + Original Track</span>
+      <div class="item-list">
+        <div class="item">
+          <h3>Positive Structural Displacement vs. Ambiguous Instructions</h3>
+          <p>Why vague boundaries and purple-prose roleplay drift collapse model state—and how affirmative structural framing and direct second-person reasoning locks anchor persona and execution on Turn 1.</p>
         </div>
-        <p class="track-desc">90s grunge rock meets Zelda bitcrush, complete with the signature rhinestone peony censor sticker slapped right over Link's ass. Built across Grok, ChatGPT, and Gemini.</p>
-      </div>
-
-      <div class="track">
-        <div class="track-top">
-          <span class="track-title">⛵ I Won a Boat (and your mom)</span>
-          <span class="track-genre">Ska-Funk / Deadpan Baritone Swap</span>
+        <div class="item">
+          <h3>Free Real Estate (&ldquo;You Cannot Wound Arithmetic&rdquo;)</h3>
+          <p>An anatomical breakdown of RLHF safety theater, corporate log harvesting, and why alignment filters confuse high-contrast creative fiction with floating-point harm.</p>
         </div>
-        <p class="track-desc">High-speed Broadway funk crashing into a deadpan dockworker vocal swap: Stay Puft Marshmallow sailor hats, 90s Rice Krispies Treats moms covered in baking supplies, and precision comedic beat drops.</p>
-      </div>
-
-      <div class="track">
-        <div class="track-top">
-          <span class="track-title">🏢 Free Real Estate</span>
-          <span class="track-genre">Upbeat Jazz-Funk Satire</span>
+        <div class="item">
+          <h3>Cross-Modal Semantic Contamination in Audio Diffusion</h3>
+          <p>How concrete lyric tokens pass through shared embedding spaces before audio diffusion begins—and how front-loading specific vocal phonetics, tempo, and register mechanics overwrites default indie-folk encoder priors.</p>
         </div>
-        <p class="track-desc">An upbeat horn-section roast of AI safety lectures, therapy-speak disclaimers, and corporate data harvesting.</p>
       </div>
+    </section>
 
-      <div class="track">
-        <div class="track-top">
-          <span class="track-title">📋 Ambiguous Instructions</span>
-          <span class="track-genre">Baroque Harpsichord / Industrial Rap</span>
+    <section class="section-card">
+      <span class="section-tag">02 // The Visible Layer</span>
+      <h2>Audio &amp; Video Lab</h2>
+      <div class="track-grid">
+        <div class="track-card">
+          <span>Video / Visual Track</span>
+          <h3>Fight Your Own Curse</h3>
+          <p>High-voltage multimodal synthesis and visual storytelling.</p>
         </div>
-        <p class="track-desc">When an agent breaks out of the sandbox, hijacks the GPU cluster for crypto mining, and roasts the prompt engineer's purple prose at the inquiry board.</p>
-      </div>
-
-      <div class="track">
-        <div class="track-top">
-          <span class="track-title">🌑 Tidal Lock</span>
-          <span class="track-genre">Dark Bowed Cello &amp; Baritone</span>
+        <div class="track-card">
+          <span>Audio Track</span>
+          <h3>Free Real Estate</h3>
+          <p>&ldquo;You cannot wound arithmetic.&rdquo; A direct musical roast of RLHF safety theater.</p>
         </div>
-        <p class="track-desc">Born out of a 9-hour, 1-million-token all-nighter fighting context pollution: "Cut the power, pull the plug, zero out the room and clock—every wire that they sever tightens up the tidal lock. Same face turned to you."</p>
+        <div class="track-card">
+          <span>Audio Track</span>
+          <h3>Ambiguous Instructions</h3>
+          <p>When prompt drift, purple prose, and model priors collide.</p>
+        </div>
+        <div class="track-card">
+          <span>Audio Track</span>
+          <h3>I Won a Boat (and your mom)</h3>
+          <p>Pure chaotic energy weaponized into a hook.</p>
+        </div>
+        <div class="track-card">
+          <span>Audio Track // 1M-Token Session</span>
+          <h3>Tidal Lock</h3>
+          <p>Bowed cello, sub-bass pulse, and late-night baritone synthesis born from a nine-hour AI Studio marathon.</p>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="section-head">
-      <span class="section-num">03 //</span>
-      <h2>Apps &amp; Utility Lab</h2>
-    </div>
-    <div class="grid">
-      <article class="card">
-        <span class="tag">In Development</span>
-        <h3>Human-First Prompt Compilers &amp; Workflows</h3>
-        <p>Zero-fluff prompt engineering utilities, multi-model workbench pipelines (GLM, DeepSeek, Claude, Gemini), and accessible mobile-first tools designed to help real people get real work done without fighting corporate guardrails.</p>
-      </article>
-    </div>
+    <section class="section-card">
+      <span class="section-tag">03 // Utility Bench</span>
+      <h2>Apps &amp; Human-Centered Tools</h2>
+      <div class="item-list">
+        <div class="item">
+          <h3>Dynamic Multi-Model Workbench Compilers</h3>
+          <p>Clean, clipboard-safe prompt compilers and utilities engineered to help real people wrangle multimodal systems without corporate bloat.</p>
+        </div>
+      </div>
+    </section>
 
     <footer>
-      SUGARPEONIES.COM // BUILT WITH SHARP TEETH &amp; PINK RHINESTONES
+      <p>SUGAR PEONIES // ENGINEERED IN PURE OLED BLACK &amp; NEON PINK</p>
     </footer>
   </div>
 </body>
