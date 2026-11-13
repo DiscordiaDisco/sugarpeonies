@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aether — Noble Gas Neon Kitty Gimbal</title>
+  <style>
+    :root {
+      --page-bg: #070510;
+      --card-bg: rgba(16, 12, 30, 0.78);
+      --border: rgba(255, 59, 212, 0.22);
+      --text: #f5f3ff;
+      --muted: #a79ec9;
+      --neon-pink: #ff3bd4;
+      --neon-cyan: #22d3ee;
+      --accent: #ff3bd4;
+      --accent-glow: rgba(255, 59, 212, 0.42);
+      --spring: cubic-bezier(0.22, 1.2, 0.36, 1);
+      --silk: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background:
+        radial-gradient(820px 460px at 12% 0%, rgba(255, 59, 212, 0.12), transparent 60%),
+        radial-gradient(760px 520px at 88% 100%, rgba(34, 211, 238, 0.11), transparent 60%),
+        var(--page-bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .webpage { max-width: 790px; margin: 0 auto; padding: 36px 22px 160px; }
+
+    .doc-header {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 12px; padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid var(--border);
+    }
+    .doc-header h1 {
+      margin: 0; font-size: 1.35rem;
+      background: linear-gradient(90deg, #ff7ce5, #22d3ee);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .doc-header p { margin: 4px 0 0; font-size: 0.84rem; color: var(--muted); }
+    .header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .pill-btn {
+      background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text); padding: 7px 13px; border-radius: 999px; font-size: 0.78rem;
+      cursor: pointer; transition: all 0.16s ease;
+    }
+    .pill-btn:hover { border-color: var(--neon-cyan); box-shadow: 0 0 14px rgba(34, 211, 238, 0.3); }
+    .pill-btn.pink:hover { border-color: var(--neon-pink); box-shadow: 0 0 14px rgba(255, 59, 212, 0.35); }
+
+    .mood-lab {
+      background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 16px; padding: 11px 14px; margin-bottom: 22px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 7px;
+    }
+    .mood-lab-label {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--neon-cyan); margin-right: 4px; font-weight: 700;
+    }
+    .mood-btn {
+      background: rgba(168, 85, 247, 0.10); border: 1px solid rgba(255, 59, 212, 0.25);
+      color: #ede9fe; padding: 5px 11px; border-radius: 999px; font-size: 0.75rem;
+      cursor: pointer; transition: all 0.16s ease;
+    }
+    .mood-btn:hover, .mood-btn.active {
+      background: rgba(255, 59, 212, 0.22); border-color: var(--neon-pink); color: #fff;
+      box-shadow: 0 0 14px rgba(255, 59, 212, 0.35);
+    }
+    .mood-btn.play-seq {
+      background: rgba(34, 211, 238, 0.14); border-color: rgba(34, 211, 238, 0.45);
+      color: #cffafe; font-weight: 600;
+    }
+
+    .faq-article {
+      background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 22px; padding: 28px; box-shadow: 0 20px 55px rgba(0, 0, 0, 0.4);
+    }
+    .sightline-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 0.8rem; margin-bottom: 16px; }
+    .crumb { padding: 3px 10px; border-radius: 999px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
+    .crumb.cat { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+    .faq-article h2 { margin: 0 0 14px; font-size: 1.55rem; line-height: 1.28; }
+    .faq-article .answer { margin: 0 0 24px; font-size: 1.03rem; color: #d8d4eb; }
+    .extra-context {
+      padding: 14px 18px; border-radius: 14px; background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.85rem; color: var(--muted); margin-bottom: 24px;
+    }
+    .sibling-title { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; }
+    .sibling-list { display: flex; flex-direction: column; gap: 6px; }
+    .sibling-btn {
+      text-align: left; background: rgba(255, 255, 255, 0.025); border: 1px solid transparent;
+      color: #c4bddf; padding: 10px 13px; border-radius: 12px; font-size: 0.88rem; cursor: pointer;
+      display: flex; align-items: center; gap: 10px; transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .sibling-btn:hover { background: rgba(255, 255, 255, 0.06); color: #fff; }
+    .sibling-btn.active { background: rgba(255, 59, 212, 0.12); border-color: rgba(255, 59, 212, 0.45); color: #fff; font-weight: 500; }
+    .sibling-code { font-size: 0.73rem; font-weight: 700; color: var(--neon-cyan); min-width: 24px; }
+
+    /* Magnetic Edge Glow Rails */
+    .magnet-rail {
+      position: fixed; z-index: 9990; pointer-events: none; opacity: 0; transition: opacity 0.18s ease;
+      background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+      box-shadow: 0 0 24px 4px rgba(255, 59, 212, 0.55); border-radius: 999px;
+    }
+    .magnet-rail.active { opacity: 0.9; }
+    .magnet-rail.left   { left: 0; top: 12vh; bottom: 12vh; width: 3px; }
+    .magnet-rail.right  { right: 0; top: 12vh; bottom: 12vh; width: 3px; }
+    .magnet-rail.top    { top: 0; left: 12vw; right: 12vw; height: 3px; }
+    .magnet-rail.bottom { bottom: 0; left: 12vw; right: 12vw; height: 3px; }
+
+    /* Floating Frosted-Glass Gimbal */
+    .companion-root {
+      position: fixed; z-index: 9999; user-select: none; touch-action: none; border-radius: 50%;
+      transition: opacity 0.28s ease, transform 0.38s var(--spring), left 0.28s var(--spring), top 0.28s var(--spring);
+      transform-origin: center center;
+    }
+    .companion-root.is-hidden { opacity: 0; pointer-events: none; transform: scale(0.24) rotate(-30deg); }
+    .companion-root.dragging-window { transition: none; }
+
+    .gimbal-glass-bg {
+      position: absolute; inset: 3%; border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle at 30% 25%, rgba(255, 59, 212, 0.08), rgba(10, 7, 22, 0.46) 65%, rgba(34, 211, 238, 0.08));
+      backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.55), 0 0 26px rgba(255, 59, 212, 0.16), inset 0 0 24px rgba(255, 255, 255, 0.05);
+    }
+    .gimbal-halo-wrap { position: relative; width: 100%; height: 100%; perspective: 900px; }
+    .gimbal-tilt { width: 100%; height: 100%; transition: transform 0.16s ease-out; }
+    svg.gimbal-svg { width: 100%; height: 100%; display: block; overflow: visible; }
+    .ring-group { transform-origin: 230px 230px; transition: transform 0.56s var(--spring); }
+    .upright-label { transition: transform 0.56s var(--spring); pointer-events: none; }
+    .wedge { cursor: pointer; transition: fill 0.18s ease, stroke 0.18s ease, filter 0.18s ease; }
+    .wedge:hover { filter: brightness(1.3); }
+    .wedge.scrub-target { stroke: #facc15 !important; stroke-width: 1.8 !important; filter: brightness(1.35); }
+    .label-main { fill: #f3e8ff; font-size: 10.5px; font-weight: 500; text-anchor: middle; dominant-baseline: central; }
+    .label-sub { fill: #22d3ee; font-size: 8.5px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+    .chassis-grab { cursor: grab; transition: stroke 0.2s ease; }
+    .chassis-grab:active { cursor: grabbing; }
+    .chassis-grab:hover { stroke: var(--neon-pink); }
+
+    .nub-btn {
+      position: absolute; width: 26px; height: 26px; border-radius: 50%;
+      background: rgba(14, 10, 28, 0.72); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 59, 212, 0.4); color: var(--text);
+      display: grid; place-items: center; font-size: 11px; cursor: pointer; opacity: 0.75;
+      transition: opacity 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+    }
+    .companion-root:hover .nub-btn { opacity: 1; }
+    .nub-btn:hover { border-color: var(--neon-cyan); transform: scale(1.12); }
+    .nub-collapse { top: 6%; right: 6%; }
+    .nub-resize   { bottom: 6%; right: 6%; cursor: nwse-resize; font-size: 12px; }
+
+    .companion-whisper {
+      position: absolute; left: 50%; bottom: -26px; transform: translateX(-50%);
+      background: rgba(12, 8, 24, 0.85); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 59, 212, 0.28); color: var(--muted);
+      font-size: 11px; padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+      pointer-events: none; opacity: 0; transition: opacity 0.2s ease;
+    }
+    .companion-root:hover .companion-whisper,
+    .companion-root.is-scrubbing .companion-whisper { opacity: 1; }
+
+    /* Aether — Pure Transparent Frosted Kitty */
+    .aether-orb {
+      position: fixed; z-index: 9999; width: 86px; height: 86px; border-radius: 50%;
+      cursor: grab; user-select: none; touch-action: none; overflow: visible;
+      transition: transform 0.42s var(--spring), opacity 0.28s ease, left 0.42s var(--spring), top 0.42s var(--spring);
+    }
+    .aether-orb:active { cursor: grabbing; }
+    .aether-orb.dragging-window { transition: none; }
+    .aether-orb.is-hidden { opacity: 0; pointer-events: none; transform: scale(1.65); }
+
+    .aether-frosted-lens {
+      position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle at 30% 25%, rgba(255, 59, 212, 0.13), rgba(14, 10, 28, 0.36) 60%, rgba(34, 211, 238, 0.11));
+      backdrop-filter: blur(15px) saturate(145%); -webkit-backdrop-filter: blur(15px) saturate(145%);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 59, 212, 0.22), 0 0 10px rgba(34, 211, 238, 0.18), inset 0 0 16px rgba(255, 255, 255, 0.08);
+      transition: opacity 0.7s var(--silk), transform 0.7s var(--silk);
+    }
+    .aether-orb[data-stage="stretch"] .aether-frosted-lens,
+    .aether-orb[data-stage="turning"] .aether-frosted-lens { opacity: 0.22; transform: scale(1.24); }
+
+    .aether-orb:not(.dragging-window):not(.docked) .aether-stage-wrap {
+      animation: aetherFloat 4.4s ease-in-out infinite;
+    }
+    @keyframes aetherFloat {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+      50%      { transform: translate(-50%, -50%) translateY(-3px); }
+    }
+
+    .aether-stage-wrap {
+      position: absolute; left: 50%; top: 50%; width: 230px; height: 230px;
+      transform: translate(-50%, -50%); pointer-events: none;
+    }
+    .aether-canvas { position: absolute; inset: 0; width: 230px; height: 230px; pointer-events: none; }
+    .aether-svg {
+      position: absolute; inset: 0; width: 230px; height: 230px; overflow: visible;
+      filter: drop-shadow(0 0 6px rgba(255, 59, 212, 0.48)) drop-shadow(0 0 3px rgba(34, 211, 238, 0.38));
+    }
+
+    .aether-orb:not(.is-hidden).dock-right:hover  { transform: translateX(-36px) scale(1.05); }
+    .aether-orb:not(.is-hidden).dock-left:hover   { transform: translateX(36px) scale(1.05); }
+    .aether-orb:not(.is-hidden).dock-top:hover    { transform: translateY(36px) scale(1.05); }
+    .aether-orb:not(.is-hidden).dock-bottom:hover { transform: translateY(-36px) scale(1.05); }
+
+    #headEarsWhiskers { transform-origin: 100px 90px; transition: opacity 0.9s var(--silk), transform 1.0s var(--silk), filter 0.9s var(--silk); }
+    #headNose { transition: opacity 0.8s var(--silk) 0s, transform 0.8s var(--silk) 0s; }
+    #mouthRest { transform-origin: 100px 121px; transition: opacity 0.25s ease; animation: mouthSubtle 4.2s ease-in-out infinite; }
+    #mouthYawn { transform-origin: 100px 122px; opacity: 0; transition: opacity 0.28s ease; }
+    @keyframes mouthSubtle { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.86); } }
+
+    #eyesOpen, #eyesHappy, #eyesClosed { transition: opacity 0.24s ease; }
+    #eyesOpen { opacity: 1; } #eyesHappy { opacity: 0; } #eyesClosed { opacity: 0; }
+    #eyesOpenBlink { transform-origin: 100px 99px; animation: felineBlink 4.6s infinite; }
+    @keyframes felineBlink { 0%, 92%, 100% { transform: scaleY(1); } 95.5% { transform: scaleY(0.05); } }
+
+    #kineticBodyLayer { opacity: 0; transition: opacity 0.45s var(--silk); }
+    .aether-orb[data-stage="stretch"] #kineticBodyLayer,
+    .aether-orb[data-stage="turning"] #kineticBodyLayer { opacity: 1; }
+
+    .aether-orb[data-stage="stretch"] #eyesOpen,
+    .aether-orb[data-stage="turning"] #eyesOpen { opacity: 0; }
+    .aether-orb[data-stage="stretch"] #eyesHappy,
+    .aether-orb[data-stage="turning"] #eyesHappy { opacity: 1; }
+    .aether-orb[data-stage="stretch"] #mouthRest { opacity: 0; }
+    .aether-orb[data-stage="stretch"] #mouthYawn { opacity: 1; }
+
+    .aether-orb[data-stage="sleep"] #headEarsWhiskers { opacity: 0; transform: translate(12px, -8px) scale(1.06); filter: blur(2.5px); }
+    .aether-orb[data-stage="sleep"] #mouthRest { opacity: 0; transform: translate(8px, -5px); transition: opacity 0.7s var(--silk) 0.15s, transform 0.8s var(--silk) 0.15s; }
+    .aether-orb[data-stage="sleep"] #headNose { opacity: 0; transform: translate(7px, -5px); transition-delay: 0.85s; }
+    .aether-orb[data-stage="sleep"] #eyesOpen { opacity: 0; }
+    .aether-orb[data-stage="sleep"] #eyesClosed { opacity: 1; }
+
+    #peekPaw { opacity: 0; transition: opacity 0.35s ease; }
+    .aether-orb.docked #peekPaw { opacity: 0.85; }
+
+    .aether-tip {
+      position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+      background: rgba(10, 6, 22, 0.92); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 59, 212, 0.4); color: var(--text);
+      font-size: 11px; padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+      pointer-events: none; opacity: 0; transition: opacity 0.18s ease;
+    }
+    .aether-orb.dock-top .aether-tip   { bottom: auto; top: calc(100% + 10px); }
+    .aether-orb.dock-right .aether-tip { left: auto; right: 0; transform: none; }
+    .aether-orb.dock-left .aether-tip  { left: 0; transform: none; }
+    .aether-orb:hover .aether-tip      { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <main class="webpage">
+    <header class="doc-header">
+      <div>
+        <h1>Aether — Noble Gas Neon Kitty</h1>
+        <p>Matching winged closed eyes with eyelashes · Silky cubic-Bezier feline walk &amp; stretch · Transparent frosted glass</p>
+      </div>
+      <div class="header-actions">
+        <button class="pill-btn pink" id="toggleFormBtn">✦ Toggle Kitty / Gimbal</button>
+        <button class="pill-btn" id="resetPrefsBtn">↺ Reset Spot</button>
+      </div>
+    </header>
+
+    <div class="mood-lab">
+      <span class="mood-lab-label">Stages:</span>
+      <button class="mood-btn" data-stage-btn="awake">1. Main / Awake</button>
+      <button class="mood-btn" data-stage-btn="stretch">2. Yawn &amp; Stretch</button>
+      <button class="mood-btn" data-stage-btn="turning">3. Step-Turn &amp; Curl</button>
+      <button class="mood-btn" data-stage-btn="sleep">4. Dissipate to Sleep</button>
+      <button class="mood-btn play-seq" id="playSeqBtn">▶ Watch 1 → 4 Cycle</button>
+    </div>
+
+    <article class="faq-article" aria-live="polite">
+      <div class="sightline-crumbs" id="sightlineCrumbs"></div>
+      <h2 id="questionTitle"></h2>
+      <p class="answer" id="answerBody"></p>
+      <div class="extra-context" id="extraContext"></div>
+      <div class="sibling-title" id="siblingTitle"></div>
+      <div class="sibling-list" id="siblingList"></div>
+    </article>
+  </main>
+
+  <div class="magnet-rail left"   id="railLeft"></div>
+  <div class="magnet-rail right"  id="railRight"></div>
+  <div class="magnet-rail top"    id="railTop"></div>
+  <div class="magnet-rail bottom" id="railBottom"></div>
+
+  <!-- ==================== FLOATING FROSTED-GLASS GIMBAL ==================== -->
+  <div class="companion-root" id="companionRoot" aria-label="Floating Gimbal Menu">
+    <div class="gimbal-glass-bg"></div>
+    <div class="gimbal-halo-wrap">
+      <div class="gimbal-tilt" id="gimbalTilt">
+        <svg class="gimbal-svg" id="gimbalSvg" viewBox="0 0 460 460">
+          <defs>
+            <filter id="gimbalNeon" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="2.2" result="blur" />
+              <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+            <linearGradient id="sightBeam" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.42" />
+              <stop offset="100%" stop-color="#ff3bd4" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <circle cx="230" cy="230" r="222" fill="none" stroke="rgba(255,59,212,0.45)" stroke-width="1.3" class="chassis-grab" filter="url(#gimbalNeon)" />
+          <circle cx="230" cy="230" r="218" fill="none" stroke="rgba(34,211,238,0.18)" stroke-width="0.7" pointer-events="none" />
+          <g id="bezelTicks" pointer-events="none"></g>
+          <polygon points="216,18 244,18 234,185 226,185" fill="url(#sightBeam)" pointer-events="none" />
+          <polygon points="230,22 225,12 235,12" fill="#22d3ee" pointer-events="none" />
+          <g class="ring-group" id="ringOuter"></g>
+          <g class="ring-group" id="ringMiddle"></g>
+          <g class="ring-group" id="ringInner"></g>
+          <g id="coreHub" style="cursor:pointer;" filter="url(#gimbalNeon)">
+            <circle cx="230" cy="230" r="39" fill="rgba(12,8,24,0.62)" stroke="#ff3bd4" stroke-width="1.3" />
+            <text x="230" y="223" class="label-main" style="font-size:9.5px; fill:#22d3ee;">SPIN</text>
+            <text x="230" y="237" class="label-sub" id="coreCoord" style="font-size:8.5px; fill:#f5d0fe;">C1·T1·Q1</text>
+          </g>
+        </svg>
+      </div>
+      <button class="nub-btn nub-collapse" id="collapseBtn" title="Return to Aether (Right-Click / Pinch-In)">—</button>
+      <div class="nub-btn nub-resize" id="resizeNub" title="Drag to resize (or Pinch)">⤢</div>
+      <div class="companion-whisper">Drag rim to move · Right-click or pinch to summon Aether</div>
+    </div>
+  </div>
+
+  <!-- ==================== AETHER — SMOOTH CUBIC-BEZIER NEON KITTY ==================== -->
+  <div class="aether-orb is-hidden" id="aetherOrb" data-stage="awake" role="button" tabindex="0" aria-label="Aether the Neon Gimbal Kitty — Click to open menu">
+    <div class="aether-frosted-lens"></div>
+    <div class="aether-stage-wrap">
+      <canvas class="aether-canvas" id="aetherCanvas" width="230" height="230"></canvas>
+      <svg class="aether-svg" viewBox="0 0 200 200">
+        <defs>
+          <filter id="neonTube" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2.1" result="b1" />
+            <feGaussianBlur stdDeviation="4.6" result="b2" />
+            <feMerge><feMergeNode in="b2" /><feMergeNode in="b1" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+          <mask id="occludeBehindHead" maskUnits="userSpaceOnUse" x="-120" y="-120" width="440" height="440">
+            <rect x="-120" y="-120" width="440" height="440" fill="white" />
+            <circle id="headMaskHole" cx="100" cy="100" r="37.5" fill="black" />
+          </mask>
+          <clipPath id="leftEyeClip">
+            <path d="M 90 110 C 79 110, 67 104, 60 95 C 56 91, 54 87, 55 85 C 57 87, 60 88, 63 89 C 61 86, 61 84, 62 83 C 64 86, 67 88, 70 89 C 80 92, 87 100, 90 110 Z" />
+          </clipPath>
+          <clipPath id="rightEyeClip">
+            <path d="M 110 110 C 121 110, 133 104, 140 95 C 144 91, 146 87, 145 85 C 143 87, 140 88, 137 89 C 139 86, 139 84, 138 83 C 136 86, 133 88, 130 89 C 120 92, 113 100, 110 110 Z" />
+          </clipPath>
+        </defs>
+
+        <g filter="url(#neonTube)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <!-- KINETIC BODY LAYER (100% Organic Cubic Bezier Splines, Masked Behind Head) -->
+          <g id="kineticBodyLayer" mask="url(#occludeBehindHead)">
+            <path id="pathLegFrontFar"  stroke="#ff3bd4" stroke-width="1.35" opacity="0.78" />
+            <path id="pathLegHindFar"   stroke="#ff3bd4" stroke-width="1.35" opacity="0.78" />
+            <path id="pathTail"         stroke="#ff3bd4" stroke-width="1.5" />
+            <path id="pathTailCyan"     stroke="#22d3ee" stroke-width="1.0" opacity="0.7" />
+            <path id="pathSpine"        stroke="#ff3bd4" stroke-width="1.55" />
+            <path id="pathChestBelly"   stroke="#ff3bd4" stroke-width="1.5" />
+            <path id="pathLegFrontNear" stroke="#ff3bd4" stroke-width="1.55" />
+            <path id="pathLegHindNear"  stroke="#ff3bd4" stroke-width="1.55" />
+            <g id="breathWisps" stroke="#22d3ee" stroke-width="1.15" opacity="0">
+              <line x1="30" y1="104" x2="21" y2="100" />
+              <line x1="28" y1="110" x2="18" y2="110" />
+              <line x1="30" y1="116" x2="22" y2="120" />
+            </g>
+          </g>
+
+          <!-- UNIFIED KITTY HEAD RIG (100% Transparent Interior!) -->
+          <g id="aetherHead">
+            <circle id="headCircle" cx="100" cy="100" r="38" stroke="#ff3bd4" stroke-width="1.6" />
+
+            <g id="headEarsWhiskers">
+              <path d="M 67.5 80.5 Q 62 56 62 43 Q 73 51 86 64.5" stroke="#ff3bd4" stroke-width="1.6" />
+              <path d="M 132.5 80.5 Q 138 56 138 43 Q 127 51 114 64.5" stroke="#ff3bd4" stroke-width="1.6" />
+              <path d="M 71 76 Q 66.5 58 66.5 50 Q 75 56 82 65.5" stroke="#22d3ee" stroke-width="1.15" />
+              <path d="M 129 76 Q 133.5 58 133.5 50 Q 125 56 118 65.5" stroke="#22d3ee" stroke-width="1.15" />
+              <g stroke="#ff5ee0" stroke-width="1.05" opacity="0.88">
+                <path d="M 63 111 Q 50 109 37 111" /><path d="M 64 116 Q 50 115 36 119" /><path d="M 66 121 Q 53 121 41 126" />
+                <path d="M 137 111 Q 150 109 163 111" /><path d="M 136 116 Q 150 115 164 119" /><path d="M 134 121 Q 147 121 159 126" />
+                <circle cx="63" cy="111" r="0.9" fill="#ff5ee0" stroke="none" />
+                <circle cx="137" cy="111" r="0.9" fill="#ff5ee0" stroke="none" />
+              </g>
+            </g>
+
+            <g id="aetherFaceAnchor">
+              <path id="headNose" d="M 96.5 113 Q 100 112.2 103.5 113 L 100 116.8 Z" fill="#ff5ee0" stroke="#ff5ee0" stroke-width="0.6" />
+
+              <g id="mouthRest" stroke="#ff5ee0" stroke-width="1.35">
+                <path d="M 91.5 121.5 Q 95.8 125.5 100 121.5 Q 104.2 125.5 108.5 121.5" />
+                <path d="M 105.2 123 L 106.7 127 L 108.1 122.3" fill="rgba(255,59,212,0.18)" stroke-width="1.15" />
+              </g>
+
+              <g id="mouthYawn">
+                <ellipse id="yawnOval" cx="100" cy="123" rx="3.8" ry="4.8" fill="rgba(255,59,212,0.12)" stroke="#ff5ee0" stroke-width="1.35" />
+                <path d="M 102.4 119.5 L 103.4 122 L 104.1 120" stroke="#ff5ee0" stroke-width="1" />
+              </g>
+
+              <!-- 1. FULLY TRANSPARENT EYES + MOVING TRANSPARENT IRISES/PUPILS -->
+              <g id="eyesOpen">
+                <g id="eyesOpenBlink">
+                  <g clip-path="url(#leftEyeClip)">
+                    <g id="irisLeft">
+                      <g transform="rotate(-12 76 98)">
+                        <path fill="rgba(34, 211, 238, 0.24)" fill-rule="evenodd" stroke="#38f2ff" stroke-width="1.25"
+                          d="M 76 87.5 C 82 87.5, 84 93, 84 98 C 84 103, 82 108.5, 76 108.5 C 70 108.5, 68 103, 68 98 C 68 93, 70 87.5, 76 87.5 Z
+                             M 76 91 Q 78.8 98 76 105 Q 73.2 98 76 91 Z" />
+                        <path d="M 76 91 Q 78.8 98 76 105 Q 73.2 98 76 91 Z" fill="none" stroke="#7cf3ff" stroke-width="0.9" />
+                      </g>
+                    </g>
+                  </g>
+                  <path d="M 90 110 C 79 110, 67 104, 60 95 C 56 91, 54 87, 55 85 C 57 87, 60 88, 63 89 C 61 86, 61 84, 62 83 C 64 86, 67 88, 70 89 C 80 92, 87 100, 90 110 Z"
+                    fill="none" stroke="#22d3ee" stroke-width="1.35" />
+
+                  <g clip-path="url(#rightEyeClip)">
+                    <g id="irisRight">
+                      <g transform="rotate(12 124 98)">
+                        <path fill="rgba(34, 211, 238, 0.24)" fill-rule="evenodd" stroke="#38f2ff" stroke-width="1.25"
+                          d="M 124 87.5 C 130 87.5, 132 93, 132 98 C 132 103, 130 108.5, 124 108.5 C 118 108.5, 116 103, 116 98 C 116 93, 118 87.5, 124 87.5 Z
+                             M 124 91 Q 126.8 98 124 105 Q 121.2 98 124 91 Z" />
+                        <path d="M 124 91 Q 126.8 98 124 105 Q 121.2 98 124 91 Z" fill="none" stroke="#7cf3ff" stroke-width="0.9" />
+                      </g>
+                    </g>
+                  </g>
+                  <path d="M 110 110 C 121 110, 133 104, 140 95 C 144 91, 146 87, 145 85 C 143 87, 140 88, 137 89 C 139 86, 139 84, 138 83 C 136 86, 133 88, 130 89 C 120 92, 113 100, 110 110 Z"
+                    fill="none" stroke="#22d3ee" stroke-width="1.35" />
+                </g>
+              </g>
+
+              <!-- 2. HAPPY / YAWN EYES (Exact open length, slant & winged eyelashes arched up!) -->
+              <g id="eyesHappy" stroke="#22d3ee" stroke-width="1.55">
+                <path d="M 90 108 C 82 95, 70 90, 60 95 C 56 91, 54 87, 55 85 C 57 87, 60 88, 63 89 C 61 86, 61 84, 62 83" />
+                <path d="M 110 108 C 118 95, 130 90, 140 95 C 144 91, 146 87, 145 85 C 143 87, 140 88, 137 89 C 139 86, 139 84, 138 83" />
+              </g>
+
+              <!-- 3. CLOSED SLEEPING EYES (Exact open length, slant angle & winged eyelashes!) -->
+              <g id="eyesClosed" stroke="#22d3ee" stroke-width="1.55">
+                <path d="M 90 110 C 79 110, 67 104, 60 95 C 56 91, 54 87, 55 85 C 57 87, 60 88, 63 89 C 61 86, 61 84, 62 83" />
+                <path d="M 110 110 C 121 110, 133 104, 140 95 C 144 91, 146 87, 145 85 C 143 87, 140 88, 137 89 C 139 86, 139 84, 138 83" />
+              </g>
+            </g>
+          </g>
+
+          <g id="peekPaw" fill="none" stroke="#ff3bd4" stroke-width="1.3">
+            <ellipse cx="74" cy="136" rx="6" ry="4.5" />
+            <circle cx="71.8" cy="135.5" r="0.8" fill="#22d3ee" stroke="none" />
+            <circle cx="74"   cy="134.2" r="0.8" fill="#22d3ee" stroke="none" />
+            <circle cx="76.2" cy="135.5" r="0.8" fill="#22d3ee" stroke="none" />
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="aether-tip" id="aetherTip">Aether · Account › Profile › Q1</div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. COMPACT 5 × 3 × 5 = 75 FAQ DATASET
+    // =========================================================================
+    const RAW_FAQ = [
+      ["Account", "#22d3ee", [
+        ["Profile & ID", [
+          ["Handle", "How do I change my public @handle?", "Open Settings › Identity, enter your desired handle, and confirm. Old links redirect for 30 days."],
+          ["Avatar", "What image formats work for profile avatars?", "PNG, JPG, WebP, and animated WebP up to 8 MB are supported and auto-cropped to a circle."],
+          ["Merge", "Can I merge two separate accounts?", "Yes. Go to Account › Consolidation, verify both emails, and your workspaces combine without downtime."],
+          ["Aliases", "Can I attach multiple login emails?", "Link up to 5 verified email aliases to one primary identity so all invites land in one inbox."],
+          ["Delete", "How long does permanent account deletion take?", "Deletion starts a 14-day grace window, after which all personal records are cryptographically wiped."]
+        ]],
+        ["Teams", [
+          ["Invite", "How do I invite teammates to a workspace?", "Click Members › Invite, paste emails, and choose a role. Invites expire automatically after 7 days."],
+          ["Roles", "What is the difference between Admin and Editor?", "Editors create and publish content; Admins also manage billing, SSO policies, and permissions."],
+          ["Guests", "Are external guests billed as full seats?", "Single-folder guests are free. Guests added to two or more projects convert to pro-rated seats."],
+          ["Transfer", "How do I transfer workspace ownership?", "Promote any active Admin under Workspace › Ownership and confirm via 2FA."],
+          ["Groups", "Can I organize members into permission groups?", "Create groups like @design or @ops to grant or revoke folder access across projects in one click."]
+        ]],
+        ["Alerts", [
+          ["Digest", "How do I switch to a daily summary email?", "Under Notifications › Cadence, toggle 'Batch into Daily Digest' and pick your delivery hour."],
+          ["Mute", "Can I mute a single noisy thread?", "Press M inside any thread or tap the bell icon to silence future replies without leaving."],
+          ["Slack", "How do I route mentions straight to Slack?", "Connect Slack under Apps, select a target channel, and choose which events trigger pings."],
+          ["Quiet", "Do Quiet Hours pause mobile push alerts?", "Yes. Set Quiet Hours in your profile and alerts hold silently until your morning window opens."],
+          ["Sound", "Can I customize desktop chime sounds?", "Pick from 4 subtle telemetry chimes—or total silence—in Preferences › Audio Feedback."]
+        ]]
+      ]],
+      ["Billing", "#c084fc", [
+        ["Plans", [
+          ["Trial", "What happens when my 14-day Pro trial ends?", "You drop smoothly to Free with all files intact—no surprise charges and no card required upfront."],
+          ["Annual", "How much do I save on annual billing?", "Annual plans include a flat 20% discount and lock in your seat rate for 12 months."],
+          ["Seats", "How are mid-month seat additions billed?", "Added seats are pro-rated down to the day and reconciled on your next regular invoice."],
+          ["Downgrade", "Can I downgrade mid-cycle without losing work?", "Yes. Pro features remain active until the paid period closes, and archived items stay readable."],
+          ["Nonprofit", "Do students or nonprofits get a discount?", "Verified educational institutions and registered 501(c)(3) nonprofits receive 50% off all tiers."]
+        ]],
+        ["Invoices", [
+          ["PDF", "Where do I download past PDF invoices?", "Visit Billing › History to download itemized PDFs or auto-send bundles to finance."],
+          ["VAT / Tax", "How do I add our company VAT or Tax ID?", "Enter your Tax ID in Billing › Business Details; future invoices include compliant tax metadata."],
+          ["POs", "Do you accept Purchase Orders and ACH wires?", "Annual contracts over $2,500 support net-30 Purchase Orders, ACH, and international wires."],
+          ["CC Email", "Can receipts go to accounting@ instead of me?", "Yes, add a dedicated Billing Contact email so invoices route straight to accounts payable."],
+          ["Currency", "Which billing currencies are supported?", "We bill in USD, EUR, GBP, CAD, and AUD based on your organization's primary tax region."]
+        ]],
+        ["Refunds", [
+          ["Window", "What is your standard refund window?", "Monthly plans qualify within 7 days of charge; annual renewals qualify within 30 days."],
+          ["Unused", "Do removed seats generate automatic credits?", "Removing a paid seat adds unused time as an automatic credit toward your next invoice."],
+          ["Failed", "What happens if a renewal card declines?", "We retry gently over 10 days with reminders before pausing paid features—data is never deleted."],
+          ["Cancel", "Is there any fee to cancel early?", "Never. Cancel in two clicks anytime with zero cancellation penalties."],
+          ["Dispute", "How do I request a manual billing review?", "Reply to any invoice email or click 'Review Charge' for a human response within 4 business hours."]
+        ]]
+      ]],
+      ["Security", "#34d399", [
+        ["2FA & Keys", [
+          ["Passkeys", "Do you support hardware Passkeys and YubiKeys?", "Yes! Register up to 10 FIDO2/WebAuthn passkeys, Face ID, Touch ID, or USB hardware keys."],
+          ["Backup", "What if I lose my authenticator phone?", "Use one of the 8 recovery codes generated at setup or verify with a secondary hardware key."],
+          ["Enforce", "Can Admins require 2FA for everyone?", "Admins can enforce mandatory 2FA across all members with a 48-hour enrollment grace window."],
+          ["SMS", "Why aren't SMS codes the default 2FA?", "SIM-swapping makes SMS vulnerable; we prioritize TOTP apps and cryptographic passkeys."],
+          ["Trusted", "How long do trusted browser sessions last?", "Trusted devices stay signed in for 30 days unless you click 'Sign Out Everywhere'."]
+        ]],
+        ["SSO & SAML", [
+          ["Providers", "Which SAML 2.0 identity providers work out of the box?", "Okta, Azure Entra ID, Google Workspace, OneLogin, and JumpCloud include one-click templates."],
+          ["SCIM", "Does SCIM auto-provision and deprovision users?", "Yes. SCIM 2.0 syncs groups and revokes access within seconds of offboarding in your IdP."],
+          ["Domains", "How do I claim and verify our company domain?", "Add a TXT record to DNS; once verified, all corporate logins route through your SSO."],
+          ["Fallback", "Can one Owner keep a break-glass login?", "Yes, designate one emergency Owner account with hardware-key bypass if your IdP is down."],
+          ["Logs", "Are SSO sign-in events logged?", "Every SAML assertion, IP, and user-agent is captured in your immutable 365-day Audit Log."]
+        ]],
+        ["Privacy", [
+          ["Encrypt", "How is customer data encrypted?", "TLS 1.3 in transit and AES-256-GCM at rest, with optional customer-managed KMS keys."],
+          ["AI Train", "Do you train AI models on our private data?", "Never. Workspace data is isolated and never used to train foundation or third-party models."],
+          ["SOC 2", "Are you SOC 2 Type II and GDPR compliant?", "Yes—SOC 2 Type II, ISO 27001, and full GDPR/CCPA DPAs are available in our Trust Center."],
+          ["Residency", "Can we pin data storage to the EU or US?", "Choose US-East, EU-Frankfurt, or APAC-Tokyo during workspace creation."],
+          ["Export", "Can we export all workspace data anytime?", "Admins can trigger a full JSON + attachment archive export anytime with zero lock-in."]
+        ]]
+      ]],
+      ["Shipping", "#fb923c", [
+        ["Delivery", [
+          ["Speed", "How fast do hardware kits ship?", "In-stock orders placed before 2 PM dispatch the same business day via express tracked courier."],
+          ["Track", "Where do I find my live courier tracking link?", "Your dispatch email includes a live map, or view it anytime under Orders › Active Shipments."],
+          ["Global", "Which countries do you ship to?", "We deliver DDP (duties prepaid) to 48 countries across North America, Europe, UK, Japan, and Australia."],
+          ["Split", "Will multi-item orders arrive in one box?", "Whenever possible, yes—backordered accessories ship separately at no extra cost."],
+          ["Address", "Can I change my shipping address after ordering?", "Edit the destination directly from your Order Status page before final packing."]
+        ]],
+        ["Returns", [
+          ["30-Day", "What is your hardware return policy?", "Try any device for 30 days and generate a prepaid return label for a full refund if needed."],
+          ["Damaged", "What if a package arrives damaged?", "Snap a photo within 7 days and we'll dispatch a free advance replacement immediately."],
+          ["Warranty", "How long is the manufacturer warranty?", "All hardware includes a 2-year warranty covering battery health, sensors, and chassis defects."],
+          ["Swap", "Can I exchange colors or sizes instead of refunding?", "Choose 'Instant Swap' in the portal and your new variant ships when your return scans."],
+          ["Restock", "Do you charge any restocking fees?", "Zero restocking fees on standard unopened or gently tested 30-day returns."]
+        ]],
+        ["Customs", [
+          ["Duties", "Will I get hit with surprise import duties?", "Never on DDP routes—import VAT and customs clearance are settled transparently at checkout."],
+          ["Delay", "What if customs holds a parcel for inspection?", "Our logistics desk monitors holds automatically and supplies invoices directly to the broker."],
+          ["Bulk", "Do bulk office orders clear customs differently?", "Orders over 25 units include dedicated freight brokerage and palletized lift-gate delivery."],
+          ["Battery", "Are lithium batteries safe for air express?", "Yes, every unit ships under certified UN3481 compliant packaging for international air transit."],
+          ["EORI", "Can business buyers supply an EORI number?", "Add your EORI or importer ID in checkout notes to speed up commercial clearance in the EU/UK."]
+        ]]
+      ]],
+      ["Dev API", "#ff3bd4", [
+        ["Auth", [
+          ["Tokens", "How do I generate a scoped API token?", "Go to Developers › Tokens, choose read/write scopes per resource, and set an expiration."],
+          ["OAuth2", "Do you support OAuth 2.0 PKCE flows?", "Yes—mobile and SPA apps can authenticate securely using Authorization Code + PKCE."],
+          ["Rotate", "Can I rotate keys with zero downtime?", "Deploy a secondary token, verify traffic, then revoke the legacy key cleanly."],
+          ["Limits", "What are the default API rate limits?", "Standard tokens allow 120 requests/minute per workspace with burst tolerance up to 300/min."],
+          ["Headers", "How are remaining rate quotas reported?", "Inspect X-RateLimit-Remaining and X-RateLimit-Reset Unix headers on every response."]
+        ]],
+        ["Webhooks", [
+          ["Verify", "How do I verify webhook payload signatures?", "Compute HMAC-SHA256 of the raw body using your signing secret and match X-Hub-Signature."],
+          ["Retries", "What happens if my endpoint goes offline?", "Failed deliveries retry with exponential backoff for 24 hours; missed events are replayable."],
+          ["Events", "Can I subscribe to specific event types only?", "Yes, filter subscriptions to only the exact events you handle to save bandwidth."],
+          ["Test", "How can I test webhooks on localhost?", "Run 'gimbal listen --forward localhost:3000' to tunnel signed live events locally."],
+          ["Order", "Are webhook events guaranteed to arrive in order?", "Retries can arrive out of order; use each payload's monotonic event_seq timestamp."]
+        ]],
+        ["SDKs", [
+          ["Install", "Which official SDK languages exist?", "Typed first-party SDKs ship for TypeScript/Node, Python, Go, and Rust."],
+          ["Types", "Are TypeScript definitions bundled?", "Yes—full strict TypeScript types and JSDoc comments ship with zero @types packages needed."],
+          ["Pages", "How does cursor pagination work?", "Pass next_cursor into the next call, or iterate with the SDK's async auto-paginator."],
+          ["Sandbox", "Is there a free sandbox environment?", "Prefix any key with sk_test_ to hit our isolated sandbox with mock fixtures."],
+          ["Status", "Where can I monitor API uptime and latency?", "Real-time regional p95 latency and incident logs are live at status.example.dev."]
+        ]]
+      ]]
+    ];
+
+    const FAQ_DATA = RAW_FAQ.map(([name, color, topics]) => ({
+      name, color,
+      topics: topics.map(([tName, qs]) => ({
+        name: tName,
+        questions: qs.map(([short, q, a]) => ({ short, q, a }))
+      }))
+    }));
+
+    // =========================================================================
+    // 2. STATE & PERSISTENT MEMORY
+    // =========================================================================
+    const STORAGE_KEY = "aether_organic_v8";
+    const CX = 230, CY = 230, VIEWBOX_SIZE = 460;
+    const ORB_SIZE = 86, ORB_HALF = 43, PEEK_VISIBLE = 34;
+    const MAGNET_THRESHOLD = 52;
+
+    const RINGS = {
+      outer:  { rIn: 152, rOut: 202, gap: 3,   count: 5 },
+      middle: { rIn: 100, rOut: 146, gap: 4,   count: 3 },
+      inner:  { rIn: 46,  rOut: 94,  gap: 3.5, count: 5 }
+    };
+
+    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+    const lerp  = (a, b, t) => a + (b - a) * t;
+
+    function defaultState() {
+      return {
+        cat: 0, topic: 0, q: 0,
+        rot: { outer: 0, middle: 0, inner: 0 },
+        collapsed: true, dockEdge: null,
+        size: window.innerWidth < 600 ? 290 : 340,
+        cx: Math.max(180, window.innerWidth - 190),
+        cy: Math.max(180, window.innerHeight - 190)
+      };
+    }
+
+    function loadState() {
+      const base = defaultState();
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return base;
+        const saved = JSON.parse(raw);
+        if (typeof saved.cat === "number")   base.cat   = clamp(saved.cat, 0, 4);
+        if (typeof saved.topic === "number") base.topic = clamp(saved.topic, 0, 2);
+        if (typeof saved.q === "number")     base.q     = clamp(saved.q, 0, 4);
+        if (typeof saved.size === "number")  base.size  = clamp(saved.size, 210, 480);
+        if (typeof saved.cx === "number")    base.cx    = saved.cx;
+        if (typeof saved.cy === "number")    base.cy    = saved.cy;
+        if (typeof saved.collapsed === "boolean") base.collapsed = saved.collapsed;
+        if (["left", "right", "top", "bottom", null].includes(saved.dockEdge)) base.dockEdge = saved.dockEdge;
+        base.rot = { outer: -base.cat * 72, middle: -base.topic * 120, inner: -base.q * 72 };
+      } catch (_) {}
+      return base;
+    }
+
+    let state = loadState();
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          cat: state.cat, topic: state.topic, q: state.q,
+          collapsed: state.collapsed, dockEdge: state.dockEdge,
+          size: Math.round(state.size), cx: Math.round(state.cx), cy: Math.round(state.cy)
+        }));
+      } catch (_) {}
+    }
+
+    const companionRoot = document.getElementById("companionRoot");
+    const aetherOrb     = document.getElementById("aetherOrb");
+    const irisLeft      = document.getElementById("irisLeft");
+    const irisRight     = document.getElementById("irisRight");
+    const gimbalSvg     = document.getElementById("gimbalSvg");
+    const gimbalTilt    = document.getElementById("gimbalTilt");
+
+    const rails = {
+      left: document.getElementById("railLeft"), right: document.getElementById("railRight"),
+      top:  document.getElementById("railTop"),  bottom: document.getElementById("railBottom")
+    };
+    const highlightRail = (edge) => { for (const [k, el] of Object.entries(rails)) el.classList.toggle("active", k === edge); };
+
+    // =========================================================================
+    // 3. HAND-CRAFTED ORGANIC CUBIC-BEZIER KEYFRAME POSES (ZERO STRAIGHT LINES!)
+    // =========================================================================
+    const aetherCanvas     = document.getElementById("aetherCanvas");
+    const ctx              = aetherCanvas.getContext("2d");
+    const aetherHead       = document.getElementById("aetherHead");
+    const headMaskHole     = document.getElementById("headMaskHole");
+    const yawnOval         = document.getElementById("yawnOval");
+    const breathWisps      = document.getElementById("breathWisps");
+    const pathLegFrontFar  = document.getElementById("pathLegFrontFar");
+    const pathLegHindFar   = document.getElementById("pathLegHindFar");
+    const pathTail         = document.getElementById("pathTail");
+    const pathTailCyan     = document.getElementById("pathTailCyan");
+    const pathSpine        = document.getElementById("pathSpine");
+    const pathChestBelly   = document.getElementById("pathChestBelly");
+    const pathLegFrontNear = document.getElementById("pathLegFrontNear");
+    const pathLegHindNear  = document.getElementById("pathLegHindNear");
+
+    // Helper: interpolates arrays of cubic Bezier path numbers cleanly and formats "M ... C ... C ..."
+    function lerpBezierPath(a, b, t) {
+      const n = a.map((v, i) => lerp(v, b[i], t));
+      let d = `M ${n[0].toFixed(1)} ${n[1].toFixed(1)}`;
+      for (let i = 2; i < n.length; i += 6) {
+        d += ` C ${n[i].toFixed(1)} ${n[i+1].toFixed(1)}, ${n[i+2].toFixed(1)} ${n[i+3].toFixed(1)}, ${n[i+4].toFixed(1)} ${n[i+5].toFixed(1)}`;
+      }
+      return d;
+    }
+
+    // --- STRETCH POSES (Lush curved feline bow-stretch, arm behind transparent head!) ---
+    const STRETCH_A = {
+      head: [-22, 6, 0.66, -4],
+      spine: [88,88, 108,82, 128,74, 146,84, 152,88, 155,95, 152,104],
+      belly: [76,120, 88,128, 104,124, 118,112, 124,107, 128,108, 130,114],
+      legFN: [84,116, 74,129, 54,132, 36,132, 30,132, 30,137, 37,137, 56,137, 74,135, 92,124],
+      legFF: [76,116, 66,126, 52,128, 42,128, 37,128, 37,132, 43,132, 56,132, 68,130, 82,122],
+      legHN: [130,114, 126,124, 126,131, 124,136, 120,138, 122,141, 129,140, 134,134, 136,122, 140,108],
+      legHF: [152,104, 155,116, 152,126, 148,134, 144,136, 145,139, 152,138, 156,130, 158,116, 152,100],
+      tail:  [146,84, 162,64, 158,38, 142,32, 133,29, 127,36, 133,42],
+      tailC: [148,80, 160,62, 155,41, 142,35]
+    };
+
+    const STRETCH_B = {
+      head: [-27, 12, 0.66, -14],
+      spine: [84,92, 108,94, 130,70, 148,80, 155,85, 157,94, 154,104],
+      belly: [70,126, 86,135, 106,126, 120,110, 126,105, 130,107, 132,114],
+      legFN: [80,120, 68,133, 46,135, 25,135, 19,135, 19,140, 27,140, 50,139, 72,136, 90,126],
+      legFF: [72,120, 60,130, 44,131, 32,131, 27,131, 27,135, 34,135, 48,135, 64,132, 80,124],
+      legHN: [132,114, 128,125, 128,132, 126,137, 122,139, 124,142, 131,141, 136,134, 138,120, 142,106],
+      legHF: [154,104, 157,116, 154,127, 150,135, 146,137, 147,140, 154,139, 158,130, 160,114, 154,98],
+      tail:  [148,80, 166,58, 160,30, 144,26, 135,24, 129,31, 136,37],
+      tailC: [150,76, 163,56, 157,34, 144,29]
+    };
+
+    // --- WALK & CURL POSES (Modeled directly on the attached black-cat GIF silhouette!) ---
+    // Pose 1: Near front paw lifted & softly curled at the wrist (just like the GIF!), far front planted
+    const WALK_A = {
+      head: [-28, -2, 0.62, -2],
+      spine: [84,88, 96,94, 114,93, 132,93, 144,93, 150,97, 152,105],
+      belly: [74,114, 74,123, 78,127, 84,127, 98,129, 116,128, 128,122],
+      // Near front leg: lifted & curled softly at wrist like the black cat GIF!
+      legFN: [84,124, 80,131, 77,136, 78,141, 79,144, 84,144, 86,140, 88,135, 91,130, 93,124],
+      // Far front leg: softly planted
+      legFF: [86,125, 85,134, 83,142, 79,146, 75,148, 80,150, 87,148, 90,141, 92,133, 95,125],
+      // Near hind leg: plush rounded thigh & hock curve, stepping forward
+      legHN: [128,122, 126,131, 128,139, 124,146, 120,148, 125,150, 132,148, 136,139, 142,132, 148,122],
+      // Far hind leg: plush haunch stepping back
+      legHF: [152,105, 156,118, 150,129, 146,136, 142,142, 142,148, 148,148, 154,145, 158,128, 154,108],
+      // Tall curved tail from the black cat GIF
+      tail:  [150,98, 168,94, 176,72, 170,54, 165,40, 152,38, 144,46],
+      tailC: [152,94, 166,88, 172,70, 167,54]
+    };
+
+    // Pose 2: Opposite walk beat — near front leg softly planted, far front paw lifted & curled!
+    const WALK_B = {
+      head: [-26, 0, 0.62, 2],
+      spine: [86,90, 98,95, 115,94, 132,94, 144,94, 150,98, 152,106],
+      belly: [76,116, 76,124, 80,128, 86,128, 100,130, 116,128, 128,123],
+      // Near front leg: softly planted
+      legFN: [84,125, 83,134, 81,142, 77,146, 73,148, 78,150, 85,148, 89,141, 91,133, 94,125],
+      // Far front leg: lifted & softly curled at wrist
+      legFF: [88,124, 84,131, 81,136, 82,141, 83,144, 88,144, 90,140, 92,135, 94,130, 96,124],
+      // Near hind leg: stepping gently back
+      legHN: [128,123, 130,132, 134,139, 132,146, 128,148, 133,150, 139,148, 142,139, 148,131, 150,118],
+      // Far hind leg: stepping gently forward
+      legHF: [152,106, 154,119, 146,129, 138,136, 134,142, 134,148, 140,148, 146,144, 152,126, 152,106],
+      tail:  [150,99, 166,95, 173,73, 166,55, 161,42, 148,40, 141,49],
+      tailC: [152,95, 164,89, 169,71, 164,55]
+    };
+
+    // Pose 3: Smoothly folded legs & curled down to lie back down (GIF 2 & 4 inspired!)
+    const CURL_DOWN = {
+      head: [-20, 18, 0.65, 8],
+      spine: [90,104, 104,102, 124,102, 138,108, 148,113, 154,122, 152,134],
+      belly: [78,134, 82,142, 92,144, 104,144, 118,144, 132,144, 142,142],
+      // Softly tucked curved front paw
+      legFN: [84,132, 76,136, 70,140, 72,144, 74,147, 82,147, 88,145, 94,143, 96,138, 96,134],
+      legFF: [88,134, 82,138, 78,141, 80,144, 82,146, 88,146, 92,144, 96,142, 98,138, 98,134],
+      // Cozy folded haunch resting on ground
+      legHN: [122,134, 116,138, 114,143, 118,146, 122,148, 132,148, 138,145, 144,141, 148,134, 146,124],
+      legHF: [148,124, 152,132, 150,140, 144,144, 140,146, 144,148, 149,146, 153,142, 155,133, 152,126],
+      // Tail wraps gracefully forward around her cozy side
+      tail:  [152,134, 158,144, 148,151, 132,150, 118,149, 108,148, 100,145],
+      tailC: [150,136, 153,144, 144,149, 130,148]
+    };
+
+    const gasParticles = [];
+    function spawnGasBurst(kind) {
+      const count = kind === "dissipate" ? 38 : kind === "nose" ? 12 : 24;
+      for (let i = 0; i < count; i++) {
+        const color = Math.random() < 0.42 ? "34, 211, 238" : "255, 59, 212";
+        let x = 115, y = 115, vx = 0, vy = 0;
+        if (kind === "nose") {
+          x = 115 + (Math.random() - 0.5) * 6; y = 130 + (Math.random() - 0.5) * 4;
+          vx = 0.35 + Math.random() * 0.55; vy = -0.25 - Math.random() * 0.45;
+        } else if (kind === "dissipate") {
+          const a = Math.random() * Math.PI * 2, r = 28 + Math.random() * 38;
+          x = 115 + Math.cos(a) * r; y = 115 + Math.sin(a) * r;
+          vx = 0.34 + Math.random() * 0.78; vy = -0.22 - Math.random() * 0.65;
+        } else {
+          const a = Math.random() * Math.PI * 2, r = 64 + Math.random() * 24;
+          x = 115 + Math.cos(a) * r; y = 115 + Math.sin(a) * r;
+          vx = -Math.cos(a) * (0.65 + Math.random() * 0.5); vy = -Math.sin(a) * (0.65 + Math.random() * 0.5);
+        }
+        gasParticles.push({
+          x, y, vx, vy, r: (kind === "dissipate" ? 1.6 : 1.3) + Math.random() * 2.2,
+          alpha: 0.85, decay: 0.011 + Math.random() * 0.011, wobble: Math.random() * Math.PI * 2, color
+        });
+      }
+    }
+
+    const gazeTarget = { x: 0, y: 0 };
+    const gazeCurrent = { x: 0, y: 0 };
+    let lastGazeInputAt = performance.now();
+
+    function aimGazeAt(clientX, clientY) {
+      lastGazeInputAt = performance.now();
+      const rect = aetherOrb.getBoundingClientRect();
+      const orbCx = rect.left + rect.width / 2, orbCy = rect.top + rect.height / 2;
+      const dx = clientX - orbCx, dy = clientY - orbCy, dist = Math.hypot(dx, dy);
+      if (dist < 4) { gazeTarget.x = 0; gazeTarget.y = 0; }
+      else {
+        const s = Math.min(1, dist / 220);
+        gazeTarget.x = (dx / dist) * 7.8 * s;
+        gazeTarget.y = (dy / dist) * 5.5 * s;
+      }
+    }
+
+    const headAnim = { x: 0, y: 0, scale: 1, rot: 0 };
+    let stageEnteredAt = performance.now();
+
+    function applyBodyBlend(poseA, poseB, t) {
+      pathSpine.setAttribute("d",        lerpBezierPath(poseA.spine, poseB.spine, t));
+      pathChestBelly.setAttribute("d",   lerpBezierPath(poseA.belly, poseB.belly, t));
+      pathLegFrontNear.setAttribute("d", lerpBezierPath(poseA.legFN, poseB.legFN, t));
+      pathLegFrontFar.setAttribute("d",  lerpBezierPath(poseA.legFF, poseB.legFF, t));
+      pathLegHindNear.setAttribute("d",  lerpBezierPath(poseA.legHN, poseB.legHN, t));
+      pathLegHindFar.setAttribute("d",   lerpBezierPath(poseA.legHF, poseB.legHF, t));
+      pathTail.setAttribute("d",         lerpBezierPath(poseA.tail,  poseB.tail,  t));
+      pathTailCyan.setAttribute("d",     lerpBezierPath(poseA.tailC, poseB.tailC, t));
+      return {
+        tx: lerp(poseA.head[0], poseB.head[0], t),
+        ty: lerp(poseA.head[1], poseB.head[1], t),
+        ts: lerp(poseA.head[2], poseB.head[2], t),
+        tr: lerp(poseA.head[3], poseB.head[3], t)
+      };
+    }
+
+    function renderKineticFrame(now) {
+      ctx.clearRect(0, 0, 230, 230);
+      const stage = aetherOrb.getAttribute("data-stage");
+
+      if (state.collapsed && stage === "sleep" && Math.random() < 0.12) {
+        const angle = -0.7 + Math.random() * 1.4;
+        gasParticles.push({
+          x: 115 + Math.cos(angle) * 42, y: 115 + Math.sin(angle) * 42,
+          vx: 0.28 + Math.random() * 0.35, vy: -0.18 - Math.random() * 0.25,
+          r: 1.4 + Math.random() * 1.6, alpha: 0.55, decay: 0.008,
+          wobble: Math.random() * Math.PI * 2, color: Math.random() < 0.5 ? "34, 211, 238" : "255, 59, 212"
+        });
+      }
+
+      for (let i = gasParticles.length - 1; i >= 0; i--) {
+        const p = gasParticles[i];
+        p.wobble += 0.08;
+        p.x += p.vx + Math.sin(p.wobble) * 0.16;
+        p.y += p.vy + Math.cos(p.wobble * 0.8) * 0.12;
+        p.alpha -= p.decay;
+        if (p.alpha <= 0) { gasParticles.splice(i, 1); continue; }
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3.2);
+        grad.addColorStop(0, `rgba(${p.color}, ${p.alpha.toFixed(2)})`);
+        grad.addColorStop(0.5, `rgba(${p.color}, ${(p.alpha * 0.35).toFixed(2)})`);
+        grad.addColorStop(1, `rgba(${p.color}, 0)`);
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 3.2, 0, Math.PI * 2); ctx.fill();
+      }
+
+      if (now - lastGazeInputAt > 7000 && stage === "awake") {
+        gazeTarget.x = lerp(gazeTarget.x, 0, 0.015);
+        gazeTarget.y = lerp(gazeTarget.y, 0, 0.015);
+      }
+      gazeCurrent.x = lerp(gazeCurrent.x, gazeTarget.x, 0.18);
+      gazeCurrent.y = lerp(gazeCurrent.y, gazeTarget.y, 0.18);
+      const irisTx = `translate(${gazeCurrent.x.toFixed(2)} ${gazeCurrent.y.toFixed(2)})`;
+      irisLeft.setAttribute("transform", irisTx);
+      irisRight.setAttribute("transform", irisTx);
+
+      const elapsed = (now - stageEnteredAt) / 1000;
+      let targetHead = { tx: 0, ty: 0, ts: 1, tr: 0 };
+
+      if (stage === "stretch") {
+        const loop = (elapsed % 3.8) / 3.8;
+        const reach = 0.5 - 0.5 * Math.cos(loop * Math.PI * 2);
+        const yawnAmt = clamp(Math.sin(clamp((loop - 0.2) / 0.58, 0, 1) * Math.PI), 0, 1);
+        targetHead = applyBodyBlend(STRETCH_A, STRETCH_B, reach);
+        yawnOval.setAttribute("rx", (2.6 + 1.8 * yawnAmt).toFixed(2));
+        yawnOval.setAttribute("ry", (1.6 + 3.8 * yawnAmt).toFixed(2));
+        breathWisps.setAttribute("opacity", (yawnAmt * 0.9).toFixed(2));
+      } else if (stage === "turning") {
+        breathWisps.setAttribute("opacity", "0");
+        const cycle = (elapsed % 4.6) / 4.6;
+        if (cycle < 0.62) {
+          // Smooth walk cycle between organic black-cat poses!
+          const walkBlend = 0.5 - 0.5 * Math.cos((cycle / 0.62) * Math.PI * 4);
+          targetHead = applyBodyBlend(WALK_A, WALK_B, walkBlend);
+        } else {
+          // Smoothly curl & lie down from the current walk pose
+          const lieT = clamp((cycle - 0.62) / 0.3, 0, 1);
+          const lieEase = lieT * lieT * (3 - 2 * lieT);
+          targetHead = applyBodyBlend(WALK_A, CURL_DOWN, lieEase);
+        }
+      } else {
+        breathWisps.setAttribute("opacity", "0");
+      }
+
+      headAnim.x     = lerp(headAnim.x, targetHead.tx, 0.14);
+      headAnim.y     = lerp(headAnim.y, targetHead.ty, 0.14);
+      headAnim.scale = lerp(headAnim.scale, targetHead.ts, 0.14);
+      headAnim.rot   = lerp(headAnim.rot, targetHead.tr, 0.14);
+
+      const cx = 100 + headAnim.x, cy = 100 + headAnim.y;
+      aetherHead.setAttribute("transform",
+        `translate(${cx.toFixed(2)} ${cy.toFixed(2)}) rotate(${headAnim.rot.toFixed(2)}) scale(${headAnim.scale.toFixed(4)}) translate(-100 -100)`
+      );
+      headMaskHole.setAttribute("cx", cx.toFixed(2));
+      headMaskHole.setAttribute("cy", cy.toFixed(2));
+      headMaskHole.setAttribute("r", (37.6 * headAnim.scale).toFixed(2));
+
+      requestAnimationFrame(renderKineticFrame);
+    }
+    requestAnimationFrame(renderKineticFrame);
+
+    // =========================================================================
+    // 4. AETHER CHOREOGRAPHY TRIGGERS
+    // =========================================================================
+    let stageTimers = [];
+    let lastInteractionTime = Date.now();
+    let autoSequenceLock = false;
+
+    function clearStageTimers() { stageTimers.forEach(t => clearTimeout(t)); stageTimers = []; }
+
+    function setAetherStage(stageName) {
+      const prev = aetherOrb.getAttribute("data-stage");
+      if (prev !== stageName) stageEnteredAt = performance.now();
+      aetherOrb.setAttribute("data-stage", stageName);
+      document.querySelectorAll("[data-stage-btn]").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.stageBtn === stageName);
+      });
+      if (stageName === "sleep" && prev !== "sleep") {
+        spawnGasBurst("dissipate");
+        stageTimers.push(setTimeout(() => {
+          if (aetherOrb.getAttribute("data-stage") === "sleep") spawnGasBurst("nose");
+        }, 850));
+      } else if (stageName === "awake" && prev !== "awake") {
+        spawnGasBurst("condense");
+      }
+    }
+
+    function playFullCycle() {
+      clearStageTimers();
+      autoSequenceLock = true;
+      if (!state.collapsed) setCollapsed(true);
+      setAetherStage("awake");
+      stageTimers.push(setTimeout(() => setAetherStage("stretch"), 1400));
+      stageTimers.push(setTimeout(() => setAetherStage("turning"), 5300));
+      stageTimers.push(setTimeout(() => { setAetherStage("sleep"); autoSequenceLock = false; }, 9900));
+    }
+
+    setInterval(() => {
+      if (!state.collapsed || mode || autoSequenceLock) return;
+      const idleSec = (Date.now() - lastInteractionTime) / 1000;
+      if (idleSec > 16 && aetherOrb.getAttribute("data-stage") === "awake") {
+        autoSequenceLock = true;
+        setAetherStage("stretch");
+        stageTimers.push(setTimeout(() => { if (state.collapsed && !mode) setAetherStage("turning"); }, 3900));
+        stageTimers.push(setTimeout(() => { if (state.collapsed && !mode) setAetherStage("sleep"); autoSequenceLock = false; }, 8500));
+      }
+    }, 3000);
+
+    document.querySelectorAll("[data-stage-btn]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        clearStageTimers(); autoSequenceLock = false; lastInteractionTime = Date.now();
+        if (!state.collapsed) setCollapsed(true);
+        setAetherStage(btn.dataset.stageBtn);
+      });
+    });
+
+    document.getElementById("playSeqBtn").addEventListener("click", () => {
+      lastInteractionTime = Date.now(); playFullCycle();
+    });
+
+    function applyCompanionGeometry() {
+      const margin = 12;
+      if (!state.collapsed) {
+        const half = state.size / 2;
+        const clampedCx = clamp(state.cx, half + margin, window.innerWidth - half - margin);
+        const clampedCy = clamp(state.cy, half + margin, window.innerHeight - half - margin);
+        companionRoot.style.width = `${state.size}px`; companionRoot.style.height = `${state.size}px`;
+        companionRoot.style.left = `${clampedCx - half}px`; companionRoot.style.top = `${clampedCy - half}px`;
+      } else {
+        aetherOrb.classList.remove("docked", "dock-left", "dock-right", "dock-top", "dock-bottom");
+        if (state.dockEdge) {
+          aetherOrb.classList.add("docked", `dock-${state.dockEdge}`);
+          const tucked = ORB_SIZE - PEEK_VISIBLE;
+          if (state.dockEdge === "left") {
+            state.cy = clamp(state.cy, ORB_HALF + margin, window.innerHeight - ORB_HALF - margin);
+            aetherOrb.style.left = `${-tucked}px`; aetherOrb.style.top = `${state.cy - ORB_HALF}px`;
+          } else if (state.dockEdge === "right") {
+            state.cy = clamp(state.cy, ORB_HALF + margin, window.innerHeight - ORB_HALF - margin);
+            aetherOrb.style.left = `${window.innerWidth - PEEK_VISIBLE}px`; aetherOrb.style.top = `${state.cy - ORB_HALF}px`;
+          } else if (state.dockEdge === "top") {
+            state.cx = clamp(state.cx, ORB_HALF + margin, window.innerWidth - ORB_HALF - margin);
+            aetherOrb.style.left = `${state.cx - ORB_HALF}px`; aetherOrb.style.top = `${-tucked}px`;
+          } else if (state.dockEdge === "bottom") {
+            state.cx = clamp(state.cx, ORB_HALF + margin, window.innerWidth - ORB_HALF - margin);
+            aetherOrb.style.left = `${state.cx - ORB_HALF}px`; aetherOrb.style.top = `${window.innerHeight - PEEK_VISIBLE}px`;
+          }
+        } else {
+          state.cx = clamp(state.cx, ORB_HALF + margin, window.innerWidth - ORB_HALF - margin);
+          state.cy = clamp(state.cy, ORB_HALF + margin, window.innerHeight - ORB_HALF - margin);
+          aetherOrb.style.left = `${state.cx - ORB_HALF}px`; aetherOrb.style.top = `${state.cy - ORB_HALF}px`;
+        }
+      }
+    }
+
+    function setCollapsed(shouldCollapse) {
+      clearStageTimers(); autoSequenceLock = false; lastInteractionTime = Date.now();
+      state.collapsed = shouldCollapse;
+      if (shouldCollapse) {
+        companionRoot.classList.add("is-hidden"); aetherOrb.classList.remove("is-hidden");
+        setAetherStage("awake"); spawnGasBurst("condense");
+      } else {
+        aetherOrb.classList.add("is-hidden"); companionRoot.classList.remove("is-hidden");
+      }
+      applyCompanionGeometry(); saveState();
+    }
+
+    // =========================================================================
+    // 5. SVG GIMBAL GEOMETRY & RENDERING
+    // =========================================================================
+    function shortestAngle(current, targetIdx, count) {
+      const step = 360 / count, targetMod = -targetIdx * step;
+      return current + (((targetMod - current) % 360 + 540) % 360 - 180);
+    }
+
+    function polarToXY(cx, cy, r, degFromTop) {
+      const rad = (degFromTop - 90) * Math.PI / 180;
+      return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+    }
+
+    function describeWedge(cx, cy, rIn, rOut, startDeg, endDeg) {
+      const p1 = polarToXY(cx, cy, rOut, startDeg), p2 = polarToXY(cx, cy, rOut, endDeg);
+      const p3 = polarToXY(cx, cy, rIn, endDeg),   p4 = polarToXY(cx, cy, rIn, startDeg);
+      const largeArc = (endDeg - startDeg) > 180 ? 1 : 0;
+      return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${rOut} ${rOut} 0 ${largeArc} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} L ${p3.x.toFixed(2)} ${p3.y.toFixed(2)} A ${rIn} ${rIn} 0 ${largeArc} 0 ${p4.x.toFixed(2)} ${p4.y.toFixed(2)} Z`;
+    }
+
+    function svgEl(tag, attrs = {}) {
+      const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+      for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+      return el;
+    }
+
+    const bezelTicks = document.getElementById("bezelTicks");
+    for (let d = 0; d < 360; d += 6) {
+      const major = d % 30 === 0;
+      const p1 = polarToXY(CX, CY, major ? 206 : 209, d), p2 = polarToXY(CX, CY, 214, d);
+      bezelTicks.appendChild(svgEl("line", {
+        x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y,
+        stroke: major ? "rgba(255,59,212,0.45)" : "rgba(34,211,238,0.16)",
+        "stroke-width": major ? 1.1 : 0.7
+      }));
+    }
+
+    const ringOuterEl = document.getElementById("ringOuter");
+    const ringMiddleEl = document.getElementById("ringMiddle");
+    const ringInnerEl = document.getElementById("ringInner");
+
+    function renderRing(container, ringKey, items, activeIdx, previewIdx, ringRot, fillBase, accentColor) {
+      const { rIn, rOut, gap, count } = RINGS[ringKey];
+      const step = 360 / count;
+      container.innerHTML = "";
+      container.style.transform = `rotate(${ringRot}deg)`;
+
+      items.forEach((item, idx) => {
+        const midDeg = idx * step, startDeg = midDeg - step / 2 + gap / 2, endDeg = midDeg + step / 2 - gap / 2;
+        const isSelected = idx === activeIdx, isScrub = idx === previewIdx;
+        container.appendChild(svgEl("path", {
+          d: describeWedge(CX, CY, rIn, rOut, startDeg, endDeg),
+          class: `wedge ${isSelected ? "active" : ""} ${isScrub ? "scrub-target" : ""}`,
+          fill: isSelected ? `${accentColor}26` : fillBase,
+          stroke: isSelected ? accentColor : "rgba(255,255,255,0.12)",
+          "stroke-width": isSelected ? 1.4 : 0.8
+        }));
+
+        const labelPos = polarToXY(CX, CY, (rIn + rOut) / 2, midDeg);
+        const labelGroup = svgEl("g", {
+          class: "upright-label",
+          style: `transform: rotate(${-ringRot}deg); transform-origin: ${labelPos.x}px ${labelPos.y}px;`
+        });
+
+        if (ringKey === "inner") {
+          const t1 = svgEl("text", { x: labelPos.x, y: labelPos.y - 5, class: "label-sub", style: `fill:${accentColor};` });
+          t1.textContent = `Q${idx + 1}`;
+          const t2 = svgEl("text", { x: labelPos.x, y: labelPos.y + 6, class: "label-main", style: "font-size:9.2px;" });
+          t2.textContent = item.short;
+          labelGroup.append(t1, t2);
+        } else {
+          const t = svgEl("text", { x: labelPos.x, y: labelPos.y, class: "label-main" });
+          t.textContent = item.name;
+          labelGroup.appendChild(t);
+        }
+        container.appendChild(labelGroup);
+      });
+    }
+
+    function updateUI(preview = null) {
+      const viewCat = preview ? preview.cat : state.cat;
+      const viewTopic = preview ? preview.topic : state.topic;
+      const viewQ = preview ? preview.q : state.q;
+      const catObj = FAQ_DATA[viewCat], topicObj = catObj.topics[viewTopic], qObj = topicObj.questions[viewQ];
+
+      document.documentElement.style.setProperty("--accent", catObj.color);
+      document.documentElement.style.setProperty("--accent-glow", `${catObj.color}66`);
+
+      renderRing(ringOuterEl,  "outer",  FAQ_DATA,           state.cat,   preview ? preview.cat   : -1, state.rot.outer,  "rgba(23,15,46,0.34)", catObj.color);
+      renderRing(ringMiddleEl, "middle", catObj.topics,      state.topic, preview ? preview.topic : -1, state.rot.middle, "rgba(18,12,38,0.34)", catObj.color);
+      renderRing(ringInnerEl,  "inner",  topicObj.questions, state.q,     preview ? preview.q     : -1, state.rot.inner,  "rgba(13,8,28,0.38)",  catObj.color);
+
+      document.getElementById("coreCoord").textContent = `C${viewCat + 1}·T${viewTopic + 1}·Q${viewQ + 1}`;
+      document.getElementById("aetherTip").textContent = `Aether · ${catObj.name} › ${topicObj.name} › Q${viewQ + 1}`;
+      document.getElementById("sightlineCrumbs").innerHTML = `
+        <span class="crumb cat">${catObj.name}</span><span>›</span>
+        <span class="crumb">${topicObj.name}</span><span>›</span>
+        <span class="crumb">Question ${viewQ + 1} of 5</span>`;
+      document.getElementById("questionTitle").textContent = qObj.q;
+      document.getElementById("answerBody").textContent = qObj.a;
+      document.getElementById("extraContext").textContent =
+        `Coordinate lock [C${viewCat + 1} · T${viewTopic + 1} · Q${viewQ + 1}] — Tap anywhere to watch Aether's transparent irises follow your last touch, or hit "4. Dissipate to Sleep" to see her closed winged eyelashes!`;
+
+      document.getElementById("siblingTitle").textContent = `${catObj.name} / ${topicObj.name} — All 5 Questions`;
+      const siblingList = document.getElementById("siblingList");
+      siblingList.innerHTML = "";
+      topicObj.questions.forEach((item, idx) => {
+        const btn = document.createElement("button");
+        btn.className = `sibling-btn ${idx === viewQ ? "active" : ""}`;
+        btn.innerHTML = `<span class="sibling-code">Q${idx + 1}</span><span>${item.q}</span>`;
+        btn.onclick = () => commitSelection(viewCat, viewTopic, idx);
+        siblingList.appendChild(btn);
+      });
+    }
+
+    function commitSelection(catIdx, topicIdx, qIdx) {
+      state.cat = catIdx; state.topic = topicIdx; state.q = qIdx;
+      state.rot.outer  = shortestAngle(state.rot.outer,  catIdx,   5);
+      state.rot.middle = shortestAngle(state.rot.middle, topicIdx, 3);
+      state.rot.inner  = shortestAngle(state.rot.inner,  qIdx,     5);
+      updateUI(); saveState();
+    }
+
+    // =========================================================================
+    // 6. INTERACTIONS: SCRUB, MOVE, RESIZE, PINCH, FLICK-DOCK, GAZE
+    // =========================================================================
+    const activePointers = new Map();
+    let pinchState = null, mode = null, dragCtx = {};
+
+    function pointerToPolar(clientX, clientY) {
+      const rect = gimbalSvg.getBoundingClientRect(), scale = VIEWBOX_SIZE / rect.width;
+      const x = (clientX - rect.left) * scale - CX, y = (clientY - rect.top) * scale - CY;
+      return { r: Math.hypot(x, y), deg: ((Math.atan2(y, x) * 180 / Math.PI) + 90 + 360) % 360 };
+    }
+
+    function hitTestRing(r, deg) {
+      let ringKey = null;
+      if (r >= 150 && r <= 204) ringKey = "outer";
+      else if (r >= 98 && r < 150) ringKey = "middle";
+      else if (r >= 44 && r < 98) ringKey = "inner";
+      if (!ringKey) return null;
+      const { count } = RINGS[ringKey], step = 360 / count;
+      const localDeg = ((deg - state.rot[ringKey]) % 360 + 360) % 360;
+      return { ringKey, idx: Math.round(localDeg / step) % count };
+    }
+
+    function startPinchIfTwoPointers() {
+      if (activePointers.size !== 2) return false;
+      const pts = [...activePointers.values()];
+      mode = "pinch";
+      companionRoot.classList.remove("is-scrubbing", "dragging-window");
+      aetherOrb.classList.remove("dragging-window");
+      highlightRail(null);
+      pinchState = { startDist: Math.max(Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y), 10), startSize: state.size, triggered: false };
+      return true;
+    }
+
+    function detectMagneticEdge(cx, cy, vx = 0, vy = 0) {
+      const dLeft = cx - ORB_HALF, dRight = window.innerWidth - (cx + ORB_HALF);
+      const dTop = cy - ORB_HALF, dBottom = window.innerHeight - (cy + ORB_HALF);
+      if (Math.hypot(vx, vy) > 0.52) {
+        if (vx < -0.42 && dLeft < 145) return "left";
+        if (vx >  0.42 && dRight < 145) return "right";
+        if (vy < -0.42 && dTop < 145) return "top";
+        if (vy >  0.42 && dBottom < 145) return "bottom";
+      }
+      const hits = [
+        { edge: "left", d: dLeft }, { edge: "right", d: dRight },
+        { edge: "top", d: dTop },   { edge: "bottom", d: dBottom }
+      ].filter(c => c.d <= MAGNET_THRESHOLD);
+      return hits.length ? hits.sort((a, b) => a.d - b.d)[0].edge : null;
+    }
+
+    companionRoot.addEventListener("pointerdown", (e) => {
+      if (e.button === 2) return;
+      activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (startPinchIfTwoPointers() || e.target.closest("#collapseBtn")) return;
+
+      if (e.target.closest("#resizeNub")) {
+        mode = "resize"; companionRoot.setPointerCapture(e.pointerId); companionRoot.classList.add("dragging-window");
+        dragCtx = { startX: e.clientX, startY: e.clientY, startSize: state.size }; return;
+      }
+      if (e.target.closest("#coreHub")) { mode = "core"; return; }
+
+      const { r, deg } = pointerToPolar(e.clientX, e.clientY), hit = hitTestRing(r, deg);
+      if (hit) {
+        mode = "scrub"; companionRoot.setPointerCapture(e.pointerId);
+        dragCtx = { moved: false, startX: e.clientX, startY: e.clientY, downRing: hit.ringKey, downIdx: hit.idx, pCat: state.cat, pTopic: state.topic, pQ: state.q };
+      } else if (r > 204 && r <= 232) {
+        mode = "move-gimbal"; companionRoot.setPointerCapture(e.pointerId); companionRoot.classList.add("dragging-window");
+        const rect = companionRoot.getBoundingClientRect();
+        dragCtx = { startX: e.clientX, startY: e.clientY, startCx: rect.left + rect.width / 2, startCy: rect.top + rect.height / 2 };
+      }
+    });
+
+    companionRoot.addEventListener("pointermove", (e) => {
+      if (activePointers.has(e.pointerId)) activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (mode === "pinch" && activePointers.size === 2 && pinchState && !pinchState.triggered) {
+        const pts = [...activePointers.values()];
+        const ratio = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) / pinchState.startDist;
+        if (ratio < 0.58) { pinchState.triggered = true; setCollapsed(true); }
+        else { state.size = clamp(pinchState.startSize * ratio, 210, 480); applyCompanionGeometry(); saveState(); }
+        return;
+      }
+      if (mode === "move-gimbal") {
+        state.dockEdge = null;
+        state.cx = dragCtx.startCx + (e.clientX - dragCtx.startX);
+        state.cy = dragCtx.startCy + (e.clientY - dragCtx.startY);
+        applyCompanionGeometry(); return;
+      }
+      if (mode === "resize") {
+        state.size = clamp(dragCtx.startSize + ((e.clientX - dragCtx.startX) + (e.clientY - dragCtx.startY)) * 1.1, 210, 480);
+        applyCompanionGeometry(); return;
+      }
+      if (mode === "scrub") {
+        if (!dragCtx.moved && Math.hypot(e.clientX - dragCtx.startX, e.clientY - dragCtx.startY) > 7) {
+          dragCtx.moved = true; companionRoot.classList.add("is-scrubbing");
+        }
+        if (!dragCtx.moved) return;
+        const { r, deg } = pointerToPolar(e.clientX, e.clientY), hit = hitTestRing(r, deg);
+        if (!hit) return;
+        let changed = false;
+        if (hit.ringKey === "outer" && hit.idx !== dragCtx.pCat) { dragCtx.pCat = hit.idx; dragCtx.pTopic = 0; dragCtx.pQ = 0; changed = true; }
+        else if (hit.ringKey === "middle" && hit.idx !== dragCtx.pTopic) { dragCtx.pTopic = hit.idx; dragCtx.pQ = 0; changed = true; }
+        else if (hit.ringKey === "inner" && hit.idx !== dragCtx.pQ) { dragCtx.pQ = hit.idx; changed = true; }
+        if (changed) updateUI({ cat: dragCtx.pCat, topic: dragCtx.pTopic, q: dragCtx.pQ });
+      }
+    });
+
+    function endCompanionPointer(e) {
+      activePointers.delete(e.pointerId);
+      if (activePointers.size < 2 && mode === "pinch") { mode = null; pinchState = null; return; }
+      companionRoot.classList.remove("is-scrubbing", "dragging-window");
+      if (mode === "move-gimbal" || mode === "resize") {
+        const rect = companionRoot.getBoundingClientRect();
+        state.cx = rect.left + rect.width / 2; state.cy = rect.top + rect.height / 2; saveState();
+      } else if (mode === "core") {
+        commitSelection(Math.floor(Math.random() * 5), Math.floor(Math.random() * 3), Math.floor(Math.random() * 5));
+      } else if (mode === "scrub") {
+        if (dragCtx.moved) commitSelection(dragCtx.pCat, dragCtx.pTopic, dragCtx.pQ);
+        else if (dragCtx.downRing === "outer") commitSelection(dragCtx.downIdx, 0, 0);
+        else if (dragCtx.downRing === "middle") commitSelection(state.cat, dragCtx.downIdx, 0);
+        else if (dragCtx.downRing === "inner") commitSelection(state.cat, state.topic, dragCtx.downIdx);
+      }
+      mode = null;
+    }
+    companionRoot.addEventListener("pointerup", endCompanionPointer);
+    companionRoot.addEventListener("pointercancel", endCompanionPointer);
+
+    // Aether Orb Events
+    aetherOrb.addEventListener("pointerdown", (e) => {
+      if (e.button === 2) return;
+      clearStageTimers(); autoSequenceLock = false; lastInteractionTime = Date.now();
+      activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (startPinchIfTwoPointers()) return;
+      mode = "move-orb"; aetherOrb.setPointerCapture(e.pointerId);
+      const rect = aetherOrb.getBoundingClientRect();
+      dragCtx = {
+        moved: false, startX: e.clientX, startY: e.clientY,
+        startCx: rect.left + rect.width / 2, startCy: rect.top + rect.height / 2,
+        lastX: e.clientX, lastY: e.clientY, lastT: performance.now(), vx: 0, vy: 0
+      };
+    });
+
+    aetherOrb.addEventListener("pointermove", (e) => {
+      if (activePointers.has(e.pointerId)) activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (mode === "pinch" && activePointers.size === 2 && pinchState && !pinchState.triggered) {
+        const pts = [...activePointers.values()];
+        if (Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) / pinchState.startDist > 1.45) {
+          pinchState.triggered = true; setCollapsed(false);
+        }
+        return;
+      }
+      if (mode === "move-orb") {
+        if (!dragCtx.moved && Math.hypot(e.clientX - dragCtx.startX, e.clientY - dragCtx.startY) > 6) {
+          dragCtx.moved = true; state.dockEdge = null; setAetherStage("awake");
+          aetherOrb.classList.add("dragging-window");
+          aetherOrb.classList.remove("docked", "dock-left", "dock-right", "dock-top", "dock-bottom");
+        }
+        if (dragCtx.moved) {
+          const now = performance.now(), dt = Math.max(now - dragCtx.lastT, 8);
+          dragCtx.vx = (e.clientX - dragCtx.lastX) / dt; dragCtx.vy = (e.clientY - dragCtx.lastY) / dt;
+          dragCtx.lastX = e.clientX; dragCtx.lastY = e.clientY; dragCtx.lastT = now;
+          state.cx = clamp(dragCtx.startCx + (e.clientX - dragCtx.startX), ORB_HALF, window.innerWidth - ORB_HALF);
+          state.cy = clamp(dragCtx.startCy + (e.clientY - dragCtx.startY), ORB_HALF, window.innerHeight - ORB_HALF);
+          aetherOrb.style.left = `${state.cx - ORB_HALF}px`; aetherOrb.style.top = `${state.cy - ORB_HALF}px`;
+          highlightRail(detectMagneticEdge(state.cx, state.cy, dragCtx.vx, dragCtx.vy));
+        }
+      }
+    });
+
+    function endOrbPointer(e) {
+      activePointers.delete(e.pointerId);
+      aetherOrb.classList.remove("dragging-window"); highlightRail(null);
+      if (mode === "pinch") { if (activePointers.size < 2) { mode = null; pinchState = null; } return; }
+      if (mode === "move-orb") {
+        if (!dragCtx.moved) setCollapsed(false);
+        else {
+          const edge = detectMagneticEdge(state.cx, state.cy, dragCtx.vx, dragCtx.vy);
+          state.dockEdge = edge;
+          if (edge === "left") state.cx = PEEK_VISIBLE;
+          if (edge === "right") state.cx = window.innerWidth - PEEK_VISIBLE;
+          if (edge === "top") state.cy = PEEK_VISIBLE;
+          if (edge === "bottom") state.cy = window.innerHeight - PEEK_VISIBLE;
+          applyCompanionGeometry(); setAetherStage(edge ? "sleep" : "awake"); saveState();
+        }
+      }
+      mode = null;
+    }
+    aetherOrb.addEventListener("pointerup", endOrbPointer);
+    aetherOrb.addEventListener("pointercancel", endOrbPointer);
+
+    aetherOrb.addEventListener("pointerenter", () => {
+      if (autoSequenceLock) return;
+      lastInteractionTime = Date.now();
+      if (aetherOrb.getAttribute("data-stage") === "sleep") setAetherStage("awake");
+    });
+
+    aetherOrb.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setCollapsed(false); }
+    });
+
+    companionRoot.addEventListener("contextmenu", (e) => { e.preventDefault(); setCollapsed(true); });
+    aetherOrb.addEventListener("contextmenu", (e) => { e.preventDefault(); setCollapsed(false); });
+    document.getElementById("collapseBtn").addEventListener("click", () => setCollapsed(true));
+    document.getElementById("toggleFormBtn").addEventListener("click", () => setCollapsed(!state.collapsed));
+
+    function handleTrackpadPinch(e) {
+      if (!e.ctrlKey) return;
+      e.preventDefault();
+      if (!state.collapsed) {
+        state.size -= e.deltaY * 2.2;
+        if (state.size < 185) { state.size = 290; setCollapsed(true); }
+        else { state.size = clamp(state.size, 210, 480); applyCompanionGeometry(); saveState(); }
+      } else if (e.deltaY < -6) setCollapsed(false);
+    }
+    companionRoot.addEventListener("wheel", handleTrackpadPinch, { passive: false });
+    aetherOrb.addEventListener("wheel", handleTrackpadPinch, { passive: false });
+
+    // Gaze Tracking: Mouse Hover + Last Touch Anywhere on Page!
+    window.addEventListener("pointerdown", (e) => {
+      if (!e.target.closest("#aetherOrb") && state.collapsed) {
+        lastInteractionTime = Date.now();
+        aimGazeAt(e.clientX, e.clientY);
+      }
+    });
+
+    window.addEventListener("pointermove", (e) => {
+      if (e.pointerType === "mouse") {
+        if (!state.collapsed && !mode) {
+          const rect = companionRoot.getBoundingClientRect();
+          if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+            const nx = (e.clientX - rect.left) / rect.width - 0.5, ny = (e.clientY - rect.top) / rect.height - 0.5;
+            gimbalTilt.style.transform = `rotateX(${(-ny * 10).toFixed(2)}deg) rotateY(${(nx * 10).toFixed(2)}deg)`;
+          } else gimbalTilt.style.transform = "rotateX(0deg) rotateY(0deg)";
+        }
+        if (state.collapsed && aetherOrb.getAttribute("data-stage") === "awake") {
+          aimGazeAt(e.clientX, e.clientY);
+        }
+      }
+    });
+
+    document.getElementById("resetPrefsBtn").addEventListener("click", () => {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+      clearStageTimers(); autoSequenceLock = false; state = defaultState();
+      setCollapsed(true); setAetherStage("awake"); commitSelection(0, 0, 0); applyCompanionGeometry();
+    });
+
+    window.addEventListener("resize", applyCompanionGeometry);
+
+    if (state.collapsed) {
+      companionRoot.classList.add("is-hidden"); aetherOrb.classList.remove("is-hidden");
+      setAetherStage(state.dockEdge ? "sleep" : "awake");
+    } else {
+      aetherOrb.classList.add("is-hidden"); companionRoot.classList.remove("is-hidden");
+    }
+    applyCompanionGeometry();
+    updateUI();
+  </script>
+</body>
+</html>
