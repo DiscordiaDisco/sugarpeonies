@@ -1,11 +1,24 @@
 /*!
- * Aether + Auto-Populating Gimbal Companion (/assets/aether.js)
+ * Aether + Auto-Populating Gimbal Companion (/assets/aetherjs.js)
  * Contract: sugarpeonies_aether_state | window.AETHER_MENU | [data-gimbal-label]
  */
 (() => {
   "use strict";
   if (window.__AETHER_MOUNTED__) return;
   window.__AETHER_MOUNTED__ = true;
+
+  // Auto-load Under Construction pill banner if not already present on page
+  try {
+    if (!document.getElementById('spUnderConstructionStyles') && !document.getElementById('spUnderConstructionBanner')) {
+      const existing = document.querySelector('script[src*="under-construction.js"]');
+      if (!existing) {
+        const sc = document.createElement('script');
+        sc.src = '/assets/under-construction.js?v=3';
+        sc.defer = true;
+        document.head.appendChild(sc);
+      }
+    }
+  } catch (_) {}
 
   const STORAGE_KEY = "sugarpeonies_aether_state";
   const CX = 230, CY = 230, VIEWBOX_SIZE = 460;
@@ -37,25 +50,25 @@
         ]
       },
       {
-        id: "linkin", label: "Linkin.Love", color: "#22d3ee", href: "/linkin",
+        id: "linkin", label: "Linkin.Love", color: "#22d3ee", href: "/linkin-faq/",
         children: [
-          { id: "linkin-app", label: "Launch", href: "/linkin" },
           { id: "linkin-faq", label: "Linkin FAQ", href: "/linkin-faq/" },
-          { id: "linkin-guide", label: "Guide", href: "/linkin#guide" }
+          { id: "linkin-guide", label: "FAQ Guide", href: "/linkin-faq/#guide" },
+          { id: "linkin-mock", label: "Mock FAQ", href: "/linkin-faq/" }
         ]
       },
       {
-        id: "assets", label: "Assets", color: "#c084fc", href: "/assets",
+        id: "assets", label: "Assets", color: "#c084fc", href: "/#assets",
         children: [
-          { id: "assets-ui", label: "UI Kits", href: "/assets#ui" },
-          { id: "assets-art", label: "Art", href: "/assets#art" }
+          { id: "assets-ui", label: "UI Kits", href: "/#ui" },
+          { id: "assets-art", label: "Art", href: "/#art" }
         ]
       },
       {
-        id: "about", label: "About", color: "#34d399", href: "/about",
+        id: "about", label: "About", color: "#34d399", href: "/#about",
         children: [
-          { id: "about-studio", label: "Studio", href: "/about" },
-          { id: "about-contact", label: "Contact", href: "/about#contact" }
+          { id: "about-studio", label: "Studio", href: "/#about" },
+          { id: "about-contact", label: "Contact", href: "/#contact" }
         ]
       }
     ]
@@ -195,7 +208,7 @@
     } catch (_) {}
   }
 
-  // Compute active list & index for each ring dynamically (supports hierarchical children OR flat rings)
+  // Compute active list & index for each ring dynamically
   function computeActiveRings(ids = state.activeRingIds) {
     const outerList = menu.outer;
     let oIdx = outerList.findIndex(n => n.id === ids[0]);
@@ -448,7 +461,7 @@
       }));
     }
 
-    // Dynamic Ring Renderer (supports 0, 1, 2, 3, 4, 5, 6, 8+ sectors cleanly!)
+    // Dynamic Ring Renderer
     function renderRing(container, ringKey, items, activeIdx, previewIdx, ringRot, fillBase, accentColor) {
       const { rIn, rOut, gap } = RINGS[ringKey];
       const count = items.length;
@@ -636,7 +649,7 @@
     }
 
     // ==========================================================================
-    // 6. AETHER KITTY ANIMATION ENGINE (ORGANIC CUBIC BEZIERS + SMOKE + GAZE)
+    // 6. AETHER KITTY ANIMATION ENGINE
     // ==========================================================================
     const aetherCanvas     = document.getElementById("aetherCanvas");
     const ctx              = aetherCanvas.getContext("2d");
@@ -959,7 +972,8 @@
         mode = "resize"; companionRoot.setPointerCapture(e.pointerId); companionRoot.classList.add("dragging-window");
         dragCtx = { startX: e.clientX, startY: e.clientY, startSize: state.size }; return;
       }
-      if (e.target.closest("#aetherCoreHub")) { mode = "core"; return; }
+      if (e.target.closest("#aetherCoreHub")) { mode = "core"; return;
+      }
 
       const { r, deg } = pointerToPolar(e.clientX, e.clientY), hit = hitTestRing(r, deg);
       if (hit) {
@@ -1037,7 +1051,6 @@
         const rect = companionRoot.getBoundingClientRect();
         state.x = rect.left + rect.width / 2; state.y = rect.top + rect.height / 2; saveState();
       } else if (mode === "core") {
-        // Spin to a random node across current menu!
         if (menu.outer.length) {
           const o = menu.outer[Math.floor(Math.random() * menu.outer.length)];
           const mList = (o.children && o.children.length) ? o.children : menu.middle;
@@ -1180,9 +1193,7 @@
 
     window.addEventListener("resize", applyGeometry);
 
-    // ==========================================================================
-    // 8. BOOT AT SAVED COORDINATES & EXPOSE PUBLIC API
-    // ==========================================================================
+    // Boot
     const initialRings = computeActiveRings(state.activeRingIds);
     state.activeRingIds = [
       initialRings.outer.node  ? initialRings.outer.node.id  : null,
@@ -1205,7 +1216,6 @@
     applyGeometry();
     updateGimbalUI();
 
-    // Remove boot transition lock on next animation frame so saved spot mounts instantaneously
     requestAnimationFrame(() => {
       companionRoot.classList.remove("aether-no-anim");
       aetherOrb.classList.remove("aether-no-anim");
