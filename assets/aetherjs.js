@@ -23,9 +23,9 @@
   const lerp  = (a, b, t) => a + (b - a) * t;
   const slug  = (s, i) => String(s || `item-${i}`).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || `item-${i}`;
 
-  // =========================================================================
+  // ==========================================================================
   // 1. MENU RESOLUTION (window.AETHER_MENU -> DOM Auto-Discovery -> Fallback)
-  // =========================================================================
+  // ==========================================================================
   const FALLBACK_MENU = {
     outer: [
       {
@@ -40,7 +40,7 @@
         id: "linkin", label: "Linkin.Love", color: "#22d3ee", href: "/linkin",
         children: [
           { id: "linkin-app", label: "Launch", href: "/linkin" },
-          { id: "linkin-faq", label: "Linkin FAQ", href: "/linkin/faq" },
+          { id: "linkin-faq", label: "Linkin FAQ", href: "/linkin-faq/" },
           { id: "linkin-guide", label: "Guide", href: "/linkin#guide" }
         ]
       },
@@ -146,9 +146,9 @@
     };
   }
 
-  // =========================================================================
+  // ==========================================================================
   // 2. PERSISTENT STATE (sugarpeonies_aether_state)
-  // =========================================================================
+  // ==========================================================================
   function defaultState() {
     return {
       x: Math.max(180, window.innerWidth - 180),
@@ -219,9 +219,9 @@
     };
   }
 
-  // =========================================================================
+  // ==========================================================================
   // 3. DOM INJECTION (ZERO HOST HTML REQUIRED)
-  // =========================================================================
+  // ==========================================================================
   function mountDOM() {
     const html = `
       <div class="aether-magnet-rail left"   id="aetherRailLeft"></div>
@@ -259,13 +259,13 @@
               </g>
             </svg>
           </div>
-          <button class="aether-nub-btn aether-nub-collapse" id="aetherCollapseBtn" type="button" title="Collapse to Aether (Right-Click / Pinch-In)">—</button>
-          <div class="aether-nub-btn aether-nub-resize" id="aetherResizeNub" title="Drag to resize (or Pinch)">⤢</div>
-          <div class="aether-whisper" id="aetherWhisper">Drag rim to move · Right-click or pinch to tuck</div>
+          <button class="aether-nub-btn aether-nub-collapse" id="aetherCollapseBtn" type="button" title="Collapse to Aether (Right-Click / Pinch-In)">&mdash;</button>
+          <div class="aether-nub-btn aether-nub-resize" id="aetherResizeNub" title="Drag to resize (or Pinch)">&#x2924;</div>
+          <div class="aether-whisper" id="aetherWhisper">Drag rim to move &middot; Right-click or pinch to tuck</div>
         </div>
       </div>
 
-      <div class="aether-orb aether-no-anim" id="aetherOrb" data-stage="awake" role="button" tabindex="0" aria-label="Aether the Neon Gimbal Kitty — Click to open navigation">
+      <div class="aether-orb aether-no-anim" id="aetherOrb" data-stage="awake" role="button" tabindex="0" aria-label="Aether the Neon Gimbal Kitty &mdash; Click to open navigation">
         <div class="aether-frosted-lens"></div>
         <div class="aether-stage-wrap">
           <canvas class="aether-canvas" id="aetherCanvas" width="230" height="230"></canvas>
@@ -381,9 +381,9 @@
     document.body.appendChild(host);
   }
 
-  // =========================================================================
+  // ==========================================================================
   // 4. FLEXIBLE N-SECTOR SVG GIMBAL RENDERER
-  // =========================================================================
+  // ==========================================================================
   function svgEl(tag, attrs = {}) {
     const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
     for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
@@ -519,7 +519,7 @@
       renderRing(ringInnerEl,  "inner",  rings.inner.list,  rings.inner.idx,  previewIds ? rings.inner.idx  : -1, rot.inner,  "rgba(13,8,28,0.38)",  accent);
 
       const trail = [rings.outer.node, rings.middle.node, rings.inner.node].filter(Boolean).map(n => n.label);
-      const trailText = trail.join(" › ") || "Menu";
+      const trailText = trail.join(" ➔ ") || "Menu";
       coreLabelEl.textContent = activeNode ? shortLabel(activeNode.label, 8) : "SPIN";
       whisperEl.textContent = trailText;
       aetherTipEl.textContent = `Aether · ${trailText}`;
@@ -578,9 +578,9 @@
       }
     }
 
-    // =========================================================================
+    // ==========================================================================
     // 5. GEOMETRY & DOCKING
-    // =========================================================================
+    // ==========================================================================
     function applyGeometry() {
       const margin = 12;
       if (!state.minimized) {
@@ -635,9 +635,9 @@
       saveState();
     }
 
-    // =========================================================================
+    // ==========================================================================
     // 6. AETHER KITTY ANIMATION ENGINE (ORGANIC CUBIC BEZIERS + SMOKE + GAZE)
-    // =========================================================================
+    // ==========================================================================
     const aetherCanvas     = document.getElementById("aetherCanvas");
     const ctx              = aetherCanvas.getContext("2d");
     const aetherHeadGroup  = document.getElementById("aetherHeadGroup");
@@ -894,9 +894,9 @@
       }
     }, 3000);
 
-    // =========================================================================
+    // ==========================================================================
     // 7. INTERACTIONS: SCRUB, MOVE, RESIZE, PINCH, FLICK-DOCK, GAZE
-    // =========================================================================
+    // ==========================================================================
     const activePointers = new Map();
     let pinchState = null, dragCtx = {};
 
@@ -1180,9 +1180,9 @@
 
     window.addEventListener("resize", applyGeometry);
 
-    // =========================================================================
+    // ==========================================================================
     // 8. BOOT AT SAVED COORDINATES & EXPOSE PUBLIC API
-    // =========================================================================
+    // ==========================================================================
     const initialRings = computeActiveRings(state.activeRingIds);
     state.activeRingIds = [
       initialRings.outer.node  ? initialRings.outer.node.id  : null,
