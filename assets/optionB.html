@@ -1,0 +1,24 @@
+<script>
+  window.AETHER_MENU = {
+    outer: [
+      {
+        id: "cards",
+        label: "CARDS",
+        color: "#22d3ee",
+        children: [
+          {
+            id: "pos-law",
+            label: "T1 POS-LAW",
+            children: [
+              { id: "q1", label: "Instincts", sublabel: "Q1", onSelect: () => loadFaq("q1") },
+              { id: "q2", label: "Checklist", sublabel: "Q2", onSelect: () => loadFaq("q2") },
+              { id: "q3", label: "Boundaries", sublabel: "Q3", onSelect: () => loadFaq("q3") }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+</script>
+<link rel="stylesheet" href="/assets/aether.css" />
+<script src="/assets/aether.js" defer></script>
